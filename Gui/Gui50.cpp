@@ -790,11 +790,6 @@ Gui::addShortcut(BoundAction* action)
     }
 }
 
-class casa{
-    public:
-
-};  
-
 void
 Gui::getNodesEntitledForOverlays(NodesList & nodes) const
 {
