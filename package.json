@@ -15,7 +15,7 @@
         "w": "npx webpack -d --watch",
         "b": "sh scripts/build.sh",
         "clean": "git clean -fdx",
-        "push": "git push gh stylesheet"
+        "push": "git push gh dev"
     },
     "keywords": [],
     "author": "Francisco José Contreras Cuevas",
