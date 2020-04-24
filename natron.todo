@@ -4,13 +4,20 @@ Gui:
     DocablePanel:
         ☐ corregir scroll cuando se usa la funcion "disableUpdate"
         ☐ agregar estilo a los separadores
-        Expression Dialog:
-            ☐ permitir copiar texto en el output de la consola
-            ☐ estilo para el dialogo de help
+        ☐ Dejar el scroll fijo, ya que molesta mucho que este desapareciendo
+        ☐ que los botone queden alineados con los QLineEdit
+        ☐ los Paneles flotantes parpadean al minimizar
+        Expresiones:
+            ☐ las expresiones no actualizan, cuando el panel esta cerrado
+            ☐ las expresiones en parametros con 2 dimensiónes no los guarda en el proyecto si la expresion tiene condicionales, solo guarda el primero
+            Expression Dialog:
+                ☐ permitir copiar texto en el output de la consola
+                ☐ estilo para el dialogo de help
     KnobUndoCommand:
         ✔ Natron: KnobUndoCommand.cpp:296: error cuando presiono la tecla "restore default" en el panel "project settings" @done (4/15/2020, 7:43:53 PM)
     PreferencesPanel:
         ✔ dejar siempre en foco las preferencias, ahora cuando hacemos click al natron, las preferencias quedan detras. @done (4/19/2020, 9:18:23 PM)
+        ☐ estilo para los qtreewidget de plugin y ofx
     PropertiesBinWrapper:
         ☐ despues de agregar muchos nodos, y se hace split, se expande o se cierra, PropertiesBinWrapper funciona muy lento
     ComboBox:
