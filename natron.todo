@@ -24,3 +24,7 @@ Gui:
         ☐ Agregarle padding izquierdo y derecho
     AboutNatron:
         ☐ No tiene diseño
+    Nodes:
+        ☐ Estilizar nodo de Roto
+    Plugins:
+        ☐ Se cae natron al importar un plugin que contiene alguna roto
