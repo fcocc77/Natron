@@ -2768,10 +2768,10 @@ exportGroupInternal(int indentLevel,
             WRITE_STATIC_LINE("");
         }
 
-        NodeGroup* isGrp = (*it)->isEffectGroup();
-        if (isGrp) {
+        if (nodeName == "fr.inria.built-in.Group") {
+            NodeGroup* grp = (*it)->isEffectGroup();
             WRITE_INDENT(indentLevel); WRITE_STRING(groupName + QString::fromUtf8("group = ") + nodeNameInScript);
-            exportGroupInternal(indentLevel, isGrp, groupNode, groupName, ts);
+            exportGroupInternal(indentLevel, grp, groupNode, groupName, ts);
             WRITE_STATIC_LINE("");
         }
     }
