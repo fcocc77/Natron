@@ -28,3 +28,5 @@ Gui:
         ☐ Estilizar nodo de Roto
     Plugins:
         ☐ Se cae natron al importar un plugin que contiene alguna roto
+    NodeGraph:
+        ☐ Que el scroll con la tableta, funcione como el scroll del mouse, dependiendo de donde esta el puntero se hacerca a ese lugar
