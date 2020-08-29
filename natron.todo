@@ -31,3 +31,7 @@ Gui:
         ☐ Se cae natron al importar un plugin que contiene alguna roto
     NodeGraph:
         ☐ Que el scroll con la tableta, funcione como el scroll del mouse, dependiendo de donde esta el puntero se hacerca a ese lugar
+        ☐ si dentro de un grupo precionamos el '1' para visualizarlo, el tab del viewer no se cambia al grupo correspondiente
+        ☐ el snap de los nodos solo funciona cuando seleccionamos 1 nodo, con muchos nodos seleccionados el snap no funciona
+        ☐ el backdrop, no deja escribir muchas palabras seguidas, solo un par y luego se quebra el texto hacia la siguiente linea
+        ☐ el nodo de viewer se que seleccionado algunas veces
