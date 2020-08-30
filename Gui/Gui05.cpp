@@ -138,8 +138,6 @@ void Gui::setupUi()
 
     initProjectGuiKnobs();
 
-    setVisibleProjectSettingsPanel();
-
     _imp->_aboutWindow = new AboutWindow(this);
     _imp->_aboutWindow->hide();
 

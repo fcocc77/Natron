@@ -7,7 +7,7 @@ Gui:
         ☐ Dejar el scroll fijo, ya que molesta mucho que este desapareciendo
         ☐ que los botone queden alineados con los QLineEdit
         ☐ los Paneles flotantes parpadean al minimizar
-        ☐ que Project Setting no aparesca al iniciar Natron @high
+        ✔ que Project Setting no aparesca al iniciar Natron @high @done (8/29/2020, 10:04:45 PM)
         Expresiones:
             ☐ las expresiones no actualizan, cuando el panel esta cerrado
             ☐ las expresiones en parametros con 2 dimensiónes no los guarda en el proyecto si la expresion tiene condicionales, solo guarda el primero
