@@ -1,6 +1,7 @@
 Gui:
     General:
         ☐ Los botones de "save changes", cuando presionamos Control-Q, no cambian con Tab, corregir estilo
+        ☐ separar los archivos .cpp y .h en carpetas que identifiquen que parte de la interface es; main, viewer, nodegrapth y components ( combobox, line edit, etc)
     DocablePanel:
         ☐ corregir scroll cuando se usa la funcion "disableUpdate"
         ☐ agregar estilo a los separadores
