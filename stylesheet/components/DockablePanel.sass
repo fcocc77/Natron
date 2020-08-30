@@ -72,21 +72,25 @@ DockablePanel
                     margin-right: 5px
                 LineEdit
                     background: $b22
-                    &[animation="0"] 
-                        &[altered="false"]
-                            color: $c2
+                    @mixin read_only()
                         &:read-only
                             background-color: mix($link_color, $b22, 3%)
                             border-color: mix($link_color, $b22, 30%)
                             color: $link_color
+                    &[animation="0"] 
+                        &[altered="false"]
+                            color: $c2
+                        @include read_only
                     &[animation="1"] 
                         background-color: mix($key_color_2, $b22, 5%)
                         border-color: mix($key_color_2, $b22, 40%)
                         color: $key_color_2
+                        @include read_only
                     &[animation="2"] 
                         background-color: mix($key_color, $b22, 10%)
                         border-color: mix($key_color, $b22, 80%)
                         color: mix($key_color, white, 60%)
+                        @include read_only
                     &[animation="3"] 
                         background-color: mix($expresion_color, $b22, 3%)
                         border-color: mix($expresion_color, $b22, 30%)
