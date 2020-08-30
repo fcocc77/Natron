@@ -98,17 +98,15 @@ struct EditScriptDialogPrivate
 {
     Gui *gui;
     QVBoxLayout *mainLayout;
-    Label *expressionLabel;
     InputScriptTextEdit *expressionEdit;
     QWidget *midButtonsContainer;
     QHBoxLayout *midButtonsLayout;
     Button *useRetButton;
-    Button *helpButton;
     OutputScriptTextEdit *resultEdit;
     DialogButtonBox *buttons;
 
     EditScriptDialogPrivate(Gui *gui)
-        : gui(gui), mainLayout(0), expressionLabel(0), expressionEdit(0), midButtonsContainer(0), midButtonsLayout(0), useRetButton(0), helpButton(0), resultEdit(0), buttons(0)
+        : gui(gui), mainLayout(0), expressionEdit(0), midButtonsContainer(0), midButtonsLayout(0), useRetButton(0), resultEdit(0), buttons(0)
     {
     }
 };
@@ -117,6 +115,11 @@ EditScriptDialog::EditScriptDialog(Gui *gui,
                                    QWidget *parent)
     : QDialog(parent), _imp(new EditScriptDialogPrivate(gui))
 {
+    // cambia el tamanio del 'widget' y lo centra en el 'gui'
+    setGeometry(0, 0, 1000, 500);
+    QRect rec = gui->geometry();
+    move(QPoint((rec.width() - 1000) / 2, (rec.height() - 500) / 2));
+
     setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 }
 
@@ -131,31 +134,6 @@ void EditScriptDialog::create(const QString &initialScript,
     getImportedModules(modules);
     std::list<std::pair<QString, QString>> variables;
     getDeclaredVariables(variables);
-    QString labelHtml(tr("%1 script:").arg(QString::fromUtf8("<b>Python</b>")) + QString::fromUtf8("<br />"));
-    if (!modules.empty())
-    {
-        labelHtml.append(tr("For convenience, the following module(s) have been imported:") + QString::fromUtf8("<br />"));
-        for (int i = 0; i < modules.size(); ++i)
-        {
-            QString toAppend = QString::fromUtf8("<i><font color=orange>from %1 import *</font></i><br />").arg(modules[i]);
-            labelHtml.append(toAppend);
-        }
-        labelHtml.append(QString::fromUtf8("<br />"));
-    }
-    if (!variables.empty())
-    {
-        labelHtml.append(tr("Also the following variables have been declared:") + QString::fromUtf8("<br />"));
-        for (std::list<std::pair<QString, QString>>::iterator it = variables.begin(); it != variables.end(); ++it)
-        {
-            QString toAppend = QString::fromUtf8("<b>%1</b>: %2<br />").arg(it->first).arg(it->second);
-            labelHtml.append(toAppend);
-        }
-        QKeySequence s(Qt::CTRL);
-        labelHtml.append(QString::fromUtf8("<p>") + tr("Note that parameters can be referenced by drag'n'dropping while holding %1 on their widget").arg(s.toString(QKeySequence::NativeText)) + QString::fromUtf8("</p>"));
-    }
-
-    _imp->expressionLabel = new Label(labelHtml, this);
-    _imp->mainLayout->addWidget(_imp->expressionLabel);
 
     _imp->midButtonsContainer = new QWidget(this);
     _imp->midButtonsContainer->setObjectName("midButtonsContainer");
@@ -180,15 +158,12 @@ void EditScriptDialog::create(const QString &initialScript,
         _imp->midButtonsLayout->addWidget(_imp->useRetButton);
     }
 
-    _imp->helpButton = new Button(tr("Help"), _imp->midButtonsContainer);
-    QObject::connect(_imp->helpButton, SIGNAL(clicked(bool)), this, SLOT(onHelpRequested()));
-    _imp->midButtonsLayout->addWidget(_imp->helpButton);
     _imp->midButtonsLayout->addStretch();
 
     _imp->mainLayout->addWidget(_imp->midButtonsContainer);
 
     _imp->resultEdit = new OutputScriptTextEdit(this);
-    _imp->resultEdit->setFixedHeight(TO_DPIY(80));
+    _imp->resultEdit->setFixedHeight(100);
     _imp->resultEdit->setFocusPolicy(Qt::NoFocus);
     _imp->resultEdit->setReadOnly(true);
     _imp->mainLayout->addWidget(_imp->resultEdit);
