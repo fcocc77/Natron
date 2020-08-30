@@ -496,9 +496,9 @@ DockablePanel #horizContainer {
           margin: 0;
           background: #333333; }
         DockablePanel #horizContainer #rightContainer QTabWidget ComboBox[animation="0"][_enabled="false"] {
-          background-color: #393e3c;
-          border-color: #45725d;
-          color: #63fab3; }
+          background-color: #3b3b3b;
+          border-color: #515151;
+          color: #8b8b8b; }
         DockablePanel #horizContainer #rightContainer QTabWidget ComboBox[animation="3"] {
           background-color: #3e3d38;
           border-color: #74673b;
@@ -549,25 +549,25 @@ DockablePanel #horizContainer {
         DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="0"][altered="false"] {
           color: #e6e6e6; }
         DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="0"]:read-only {
-          background-color: #393e3c;
-          border-color: #45725d;
-          color: #63fab3; }
+          background-color: #3b3b3b;
+          border-color: #515151;
+          color: #8b8b8b; }
         DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="1"] {
           background-color: #3d4042;
           border-color: #5d7488;
           color: #95cfff; }
           DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="1"]:read-only {
-            background-color: #393e3c;
-            border-color: #45725d;
-            color: #63fab3; }
+            background-color: #3b3b3b;
+            border-color: #515151;
+            color: #8b8b8b; }
         DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="2"] {
           background-color: #32404c;
           border-color: #0b7bd7;
           color: #66baff; }
           DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="2"]:read-only {
-            background-color: #393e3c;
-            border-color: #45725d;
-            color: #63fab3; }
+            background-color: #3b3b3b;
+            border-color: #515151;
+            color: #8b8b8b; }
         DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="3"] {
           background-color: #3e3d38;
           border-color: #74673b;
