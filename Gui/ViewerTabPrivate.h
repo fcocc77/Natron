@@ -47,7 +47,6 @@ CLANG_DIAG_ON(uninitialized)
 #include "Gui/GuiFwd.h"
 #include "Gui/NodeViewerContext.h"
 
-
 #define NATRON_TRANSFORM_AFFECTS_OVERLAYS
 
 NATRON_NAMESPACE_ENTER
@@ -62,102 +61,104 @@ struct ViewerTabPrivate
 
     typedef std::map<int, InputName> InputNamesMap;
 
-    ViewerTab* publicInterface;
+    ViewerTab *publicInterface;
 
     /*OpenGL viewer*/
-    ViewerGL* viewer;
-    QWidget* viewerContainer;
-    QHBoxLayout* viewerLayout;
-    QWidget* viewerSubContainer;
-    QVBoxLayout* viewerSubContainerLayout;
-    QVBoxLayout* mainLayout;
+    ViewerGL *viewer;
+    QWidget *viewerContainer;
+    QHBoxLayout *viewerLayout;
+    QWidget *viewerSubContainer;
+    QVBoxLayout *viewerSubContainerLayout;
+    QVBoxLayout *mainLayout;
 
     /*Viewer Settings*/
-    QWidget* firstSettingsRow, *secondSettingsRow;
-    QHBoxLayout* firstRowLayout, *secondRowLayout;
+    QWidget *firstSettingsRow, *secondSettingsRow;
+    QHBoxLayout *firstRowLayout, *secondRowLayout;
 
     /*1st row*/
     //ComboBox* viewerLayers;
-    ComboBox* layerChoice;
-    ComboBox* alphaChannelChoice;
+    ComboBox *layerChoice;
+    ComboBox *alphaChannelChoice;
     mutable QMutex currentLayerMutex;
     QString currentLayerChoice, currentAlphaLayerChoice;
-    ChannelsComboBox* viewerChannels;
+    ChannelsComboBox *viewerChannels;
     bool viewerChannelsAutoswitchedToAlpha;
-    ComboBox* zoomCombobox;
-    Button* syncViewerButton;
-    Button* centerViewerButton;
-    Button* clipToProjectFormatButton;
-    Button* fullFrameProcessingButton;
-    Button* enableViewerRoI;
-    Button* refreshButton;
-    Button* pauseButton;
+    ComboBox *zoomCombobox;
+    Button *syncViewerButton;
+    Button *centerViewerButton;
+    Button *clipToProjectFormatButton;
+    Button *fullFrameProcessingButton;
+    Button *enableViewerRoI;
+    Button *refreshButton;
+    Button *pauseButton;
     QIcon iconRefreshOff, iconRefreshOn;
-    Button* activateRenderScale;
+    Button *activateRenderScale;
     bool renderScaleActive;
-    ComboBox* renderScaleCombo;
-    Label* firstInputLabel;
-    ComboBox* firstInputImage;
-    Label* compositingOperatorLabel;
-    ComboBox* compositingOperator;
-    Label* secondInputLabel;
-    ComboBox* secondInputImage;
+    ComboBox *renderScaleCombo;
+    Label *firstInputLabel;
+    ComboBox *firstInputImage;
+    Label *compositingOperatorLabel;
+    ComboBox *compositingOperator;
+    Label *secondInputLabel;
+    ComboBox *secondInputImage;
+    QWidget *channels_widget;
+    QWidget *buttons_widget;
+    QWidget *comparison_widget;
 
     /*2nd row*/
-    Button* toggleGainButton;
-    SpinBox* gainBox;
-    ScaleSliderQWidget* gainSlider;
+    Button *toggleGainButton;
+    SpinBox *gainBox;
+    ScaleSliderQWidget *gainSlider;
     double lastFstopValue;
-    Button* autoContrast;
-    SpinBox* gammaBox;
+    Button *autoContrast;
+    SpinBox *gammaBox;
     double lastGammaValue;
-    Button* toggleGammaButton;
-    ScaleSliderQWidget* gammaSlider;
-    ComboBox* viewerColorSpace;
-    Button* checkerboardButton;
-    Button* pickerButton;
-    ComboBox* viewsComboBox;
+    Button *toggleGammaButton;
+    ScaleSliderQWidget *gammaSlider;
+    ComboBox *viewerColorSpace;
+    Button *checkerboardButton;
+    Button *pickerButton;
+    ComboBox *viewsComboBox;
     ViewIdx currentViewIndex;
     QMutex currentViewMutex;
     /*Info*/
-    InfoViewerWidget* infoWidget[2];
-
+    InfoViewerWidget *infoWidget[2];
 
     /*TimeLine buttons*/
-    QWidget* playerButtonsContainer;
-    QHBoxLayout* playerLayout;
-    SpinBox* currentFrameBox;
-    Button* firstFrame_Button;
-    Button* previousKeyFrame_Button;
-    Button* play_Backward_Button;
-    Button* previousFrame_Button;
-    Button* nextFrame_Button;
-    Button* play_Forward_Button;
-    Button* nextKeyFrame_Button;
-    Button* lastFrame_Button;
-    Button* previousIncrement_Button;
-    SpinBox* incrementSpinBox;
-    Button* nextIncrement_Button;
-    Button* playbackMode_Button;
-    Button* playBackInputButton;
-    SpinBox* playBackInputSpinbox;
-    Button* playBackOutputButton;
-    SpinBox* playBackOutputSpinbox;
+    QWidget *playerButtonsContainer;
+    QHBoxLayout *playerLayout;
+    SpinBox *currentFrameBox;
+    Button *firstFrame_Button;
+    Button *previousKeyFrame_Button;
+    Button *play_Backward_Button;
+    Button *previousFrame_Button;
+    Button *nextFrame_Button;
+    Button *play_Forward_Button;
+    Button *nextKeyFrame_Button;
+    Button *lastFrame_Button;
+    Button *previousIncrement_Button;
+    SpinBox *incrementSpinBox;
+    Button *nextIncrement_Button;
+    Button *playbackMode_Button;
+    Button *playBackInputButton;
+    SpinBox *playBackInputSpinbox;
+    Button *playBackOutputButton;
+    SpinBox *playBackOutputSpinbox;
     mutable QMutex playbackModeMutex;
     PlaybackModeEnum playbackMode;
-    Button* tripleSyncButton;
-    QCheckBox* canEditFpsBox;
-    ClickableLabel* canEditFpsLabel;
+    Button *tripleSyncButton;
+    QCheckBox *canEditFpsBox;
+    ClickableLabel *canEditFpsLabel;
     mutable QMutex fpsLockedMutex;
     bool fpsLocked;
-    SpinBox* fpsBox;
+    SpinBox *fpsBox;
     double userFps;
-    ComboBox* timeFormat;
-    Button* turboButton;
+    ComboBox *timeFormat;
+    Button *turboButton;
     QTimer mustSetUpPlaybackButtonsTimer;
 
     /*frame seeker*/
-    TimeLineGui* timeLineGui;
+    TimeLineGui *timeLineGui;
 
     // This is all nodes that have a viewer context
     std::map<NodeGuiWPtr, NodeViewerContextPtr> nodesContext;
@@ -172,7 +173,6 @@ struct ViewerTabPrivate
         NodeViewerContextPtr currentContext;
     };
 
-
     // This is the current active context for each plug-in
     // We don't use a map because we need to retain the insertion order for each plug-in
     std::list<PluginViewerContext> currentNodeContext;
@@ -180,7 +180,7 @@ struct ViewerTabPrivate
     mutable QMutex compOperatorMutex;
     ViewerCompositingOperatorEnum compOperator;
     ViewerCompositingOperatorEnum compOperatorPrevious;
-    ViewerInstance* viewerNode; // < pointer to the internal node
+    ViewerInstance *viewerNode;          // < pointer to the internal node
     mutable QMutex visibleToolbarsMutex; //< protects the 4 bool below
     bool infobarVisible;
     bool playerVisible;
@@ -199,31 +199,31 @@ struct ViewerTabPrivate
     bool hasPenDown;
     bool hasCaughtPenMotionWhileDragging;
 
-    ViewerTabPrivate(ViewerTab* publicInterface,
-                     ViewerInstance* node);
+    ViewerTabPrivate(ViewerTab *publicInterface,
+                     ViewerInstance *node);
 
 #ifdef NATRON_TRANSFORM_AFFECTS_OVERLAYS
     // return the tronsform to apply to the overlay as a 3x3 homography in canonical coordinates
     bool getOverlayTransform(double time,
                              ViewIdx view,
-                             const NodePtr& target,
-                             EffectInstance* currentNode,
-                             Transform::Matrix3x3* transform) const;
+                             const NodePtr &target,
+                             EffectInstance *currentNode,
+                             Transform::Matrix3x3 *transform) const;
 
     bool getTimeTransform(double time,
                           ViewIdx view,
-                          const NodePtr& target,
-                          EffectInstance* currentNode,
+                          const NodePtr &target,
+                          EffectInstance *currentNode,
                           double *newTime) const;
 
 #endif
 
-    void getComponentsAvailabel(std::set<ImagePlaneDesc>* comps) const;
+    void getComponentsAvailabel(std::set<ImagePlaneDesc> *comps) const;
 
-    std::list<PluginViewerContext>::iterator findActiveNodeContextForPlugin(const std::string& pluginID);
+    std::list<PluginViewerContext>::iterator findActiveNodeContextForPlugin(const std::string &pluginID);
 
     // Returns true if this node has a viewer context but it is not active
-    bool hasInactiveNodeViewerContext(const NodePtr& node);
+    bool hasInactiveNodeViewerContext(const NodePtr &node);
 };
 
 NATRON_NAMESPACE_EXIT

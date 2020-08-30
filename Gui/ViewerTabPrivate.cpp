@@ -153,6 +153,10 @@ ViewerTabPrivate::ViewerTabPrivate(ViewerTab* publicInterface,
     , lastOverlayNode()
     , hasPenDown(false)
     , hasCaughtPenMotionWhileDragging(false)
+    , channels_widget(NULL)
+    , buttons_widget(NULL)
+    , comparison_widget(NULL)
+
 {
     infoWidget[0] = infoWidget[1] = NULL;
 }

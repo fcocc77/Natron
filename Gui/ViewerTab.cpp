@@ -141,274 +141,21 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     _imp->firstSettingsRow->setObjectName(QString::fromUtf8("firstSettingsRow"));
     _imp->firstRowLayout = new QHBoxLayout(_imp->firstSettingsRow);
     _imp->firstSettingsRow->setLayout(_imp->firstRowLayout);
+    _imp->firstRowLayout->setAlignment(Qt::AlignHCenter);
     _imp->firstRowLayout->setContentsMargins(4, 4, 4, 4);
-    _imp->firstRowLayout->setSpacing(2);
     _imp->mainLayout->addWidget(_imp->firstSettingsRow);
 
-    _imp->layerChoice = new ComboBox(_imp->firstSettingsRow);
-    _imp->layerChoice->setToolTip(QString::fromUtf8("<p><b>") + tr("Layer:") + QString::fromUtf8("</b></p><p>") + tr("The layer that the Viewer node will fetch upstream in the tree. "
-                                                                                                                     "The channels of the layer will be mapped to the RGBA channels of the viewer according to "
-                                                                                                                     "its number of channels. (e.g: UV would be mapped to RG)") +
-                                  QString::fromUtf8("</p>"));
-    QObject::connect(_imp->layerChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(onLayerComboChanged(int)));
-    _imp->layerChoice->setFixedWidth(fm.width(QString::fromUtf8("Color.Toto.RGBA")) + 3 * TO_DPIX(DROP_DOWN_ICON_SIZE));
-    _imp->layerChoice->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    _imp->firstRowLayout->addWidget(_imp->layerChoice);
+    _imp->firstRowLayout->addWidget(channels_setup_ui());
+    _imp->firstRowLayout->addStretch();
+    _imp->comparison_widget = comparison_setup_ui();
+    _imp->firstRowLayout->addWidget(_imp->comparison_widget);
+    _imp->firstRowLayout->addStretch();
+    _imp->buttons_widget = buttons_setup_ui();
+    _imp->firstRowLayout->addWidget(_imp->buttons_widget);
 
-    _imp->alphaChannelChoice = new ComboBox(_imp->firstSettingsRow);
-    _imp->alphaChannelChoice->setToolTip(QString::fromUtf8("<p><b>") + tr("Alpha channel:") + QString::fromUtf8("</b></p><p>") + tr("Select here a channel of any layer that will be used when displaying the "
-                                                                                                                                    "alpha channel with the <b>Channels</b> choice on the right.") +
-                                         QString::fromUtf8("</p>"));
-    _imp->alphaChannelChoice->setFixedWidth(fm.width(QString::fromUtf8("Color.alpha")) + 3 * TO_DPIX(DROP_DOWN_ICON_SIZE));
-    _imp->alphaChannelChoice->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    QObject::connect(_imp->alphaChannelChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(onAlphaChannelComboChanged(int)));
-    _imp->firstRowLayout->addWidget(_imp->alphaChannelChoice);
-
-    _imp->viewerChannels = new ChannelsComboBox(_imp->firstSettingsRow);
-    _imp->viewerChannels->setToolTip(QString::fromUtf8("<p><b>") + tr("Display Channels:") + QString::fromUtf8("</b></p><p>") + tr("The channels to display on the viewer.") + QString::fromUtf8("</p>"));
-    _imp->firstRowLayout->addWidget(_imp->viewerChannels);
-    _imp->viewerChannels->setFixedWidth(fm.width(QString::fromUtf8("Luminance")) + 3 * TO_DPIX(DROP_DOWN_ICON_SIZE));
-    _imp->viewerChannels->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-
-    addSpacer(_imp->firstRowLayout);
-
-    QAction *lumiAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionLuminance, tr("Luminance").toStdString(), _imp->viewerChannels);
-    QAction *rgbAction = new QAction(QIcon(), QString::fromUtf8("RGB"), _imp->viewerChannels);
-    QAction *rAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionRed, "Red", _imp->viewerChannels);
-    QAction *gAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionGreen, "Green", _imp->viewerChannels);
-    QAction *bAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionBlue, "Blue", _imp->viewerChannels);
-    QAction *aAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionAlpha, "Alpha", _imp->viewerChannels);
-    QAction *matteAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionMatteOverlay, "Matte", _imp->viewerChannels);
-
-    _imp->viewerChannels->addAction(lumiAction);
-    _imp->viewerChannels->addAction(rgbAction);
-    _imp->viewerChannels->addAction(rAction);
-    _imp->viewerChannels->addAction(gAction);
-    _imp->viewerChannels->addAction(bAction);
-    _imp->viewerChannels->addAction(aAction);
-    _imp->viewerChannels->addAction(matteAction);
-    _imp->viewerChannels->setCurrentIndex(1);
-    QObject::connect(_imp->viewerChannels, SIGNAL(currentIndexChanged(int)), this, SLOT(onViewerChannelsChanged(int)));
-
-    _imp->zoomCombobox = new ComboBox(_imp->firstSettingsRow);
-    _imp->zoomCombobox->setToolTip(QString::fromUtf8("<p><b>") + tr("Zoom:") + QString::fromUtf8("</b></p>") + tr("The zoom applied to the image on the viewer.") + QString::fromUtf8("</p>"));
-
-    // Keyboard shortcuts should be made visible to the user, not only in the shortcut editor, but also at logical places in the GUI.
-
-    ActionWithShortcut *fitAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionFitViewer, "Fit", this);
-    ActionWithShortcut *zoomInAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomIn, "+", this);
-    ActionWithShortcut *zoomOutAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomOut, "-", this);
-    ActionWithShortcut *level100Action = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomLevel100, "100%", this);
-    _imp->zoomCombobox->addAction(fitAction);
-    _imp->zoomCombobox->addAction(zoomInAction);
-    _imp->zoomCombobox->addAction(zoomOutAction);
-    _imp->zoomCombobox->addSeparator();
-    _imp->zoomCombobox->addItem(QString::fromUtf8("10%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("25%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("50%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("75%"));
-    _imp->zoomCombobox->addAction(level100Action);
-    _imp->zoomCombobox->addItem(QString::fromUtf8("125%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("150%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("200%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("400%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("800%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("1600%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("2400%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("3200%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("6400%"));
-    _imp->zoomCombobox->setMaximumWidthFromText(QString::fromUtf8("100000%"));
-
-    _imp->firstRowLayout->addWidget(_imp->zoomCombobox);
-
-    const int pixmapIconSize = TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE);
     const QSize buttonSize(TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
     const QSize buttonIconSize(TO_DPIX(NATRON_MEDIUM_BUTTON_ICON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_ICON_SIZE));
-    QPixmap lockEnabled, lockDisabled;
-    appPTR->getIcon(NATRON_PIXMAP_LOCKED, pixmapIconSize, &lockEnabled);
-    appPTR->getIcon(NATRON_PIXMAP_UNLOCKED, pixmapIconSize, &lockDisabled);
-
-    QIcon lockIcon;
-    lockIcon.addPixmap(lockEnabled, QIcon::Normal, QIcon::On);
-    lockIcon.addPixmap(lockDisabled, QIcon::Normal, QIcon::Off);
-
-    _imp->syncViewerButton = new Button(lockIcon, QString(), _imp->firstSettingsRow);
-    _imp->syncViewerButton->setCheckable(true);
-    _imp->syncViewerButton->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When enabled, all viewers will be synchronized to the same portion of the image in the viewport."), NATRON_NAMESPACE::WhiteSpaceNormal));
-    _imp->syncViewerButton->setFixedSize(buttonSize);
-    _imp->syncViewerButton->setIconSize(buttonIconSize);
-    _imp->syncViewerButton->setFocusPolicy(Qt::NoFocus);
-    QObject::connect(_imp->syncViewerButton, SIGNAL(clicked(bool)), this, SLOT(onSyncViewersButtonPressed(bool)));
-    _imp->firstRowLayout->addWidget(_imp->syncViewerButton);
-
-    _imp->centerViewerButton = new Button(_imp->firstSettingsRow);
-    _imp->centerViewerButton->setFocusPolicy(Qt::NoFocus);
-    _imp->centerViewerButton->setFixedSize(buttonSize);
-    _imp->centerViewerButton->setIconSize(buttonIconSize);
-    _imp->firstRowLayout->addWidget(_imp->centerViewerButton);
-
-    addSpacer(_imp->firstRowLayout);
-
-    _imp->clipToProjectFormatButton = new Button(_imp->firstSettingsRow);
-    _imp->clipToProjectFormatButton->setFocusPolicy(Qt::NoFocus);
-    _imp->clipToProjectFormatButton->setFixedSize(buttonSize);
-    _imp->clipToProjectFormatButton->setIconSize(buttonIconSize);
-    _imp->clipToProjectFormatButton->setCheckable(true);
-    _imp->clipToProjectFormatButton->setChecked(true);
-    _imp->clipToProjectFormatButton->setDown(true);
-    _imp->firstRowLayout->addWidget(_imp->clipToProjectFormatButton);
-
-    _imp->fullFrameProcessingButton = new Button(_imp->firstSettingsRow);
-    _imp->fullFrameProcessingButton->setFocusPolicy(Qt::NoFocus);
-    _imp->fullFrameProcessingButton->setFixedSize(buttonSize);
-    _imp->fullFrameProcessingButton->setIconSize(buttonIconSize);
-    _imp->fullFrameProcessingButton->setCheckable(true);
-    _imp->fullFrameProcessingButton->setChecked(false);
-    _imp->fullFrameProcessingButton->setDown(false);
-    _imp->firstRowLayout->addWidget(_imp->fullFrameProcessingButton);
-
-    _imp->enableViewerRoI = new Button(_imp->firstSettingsRow);
-    _imp->enableViewerRoI->setFocusPolicy(Qt::NoFocus);
-    _imp->enableViewerRoI->setFixedSize(buttonSize);
-    _imp->enableViewerRoI->setIconSize(buttonIconSize);
-    _imp->enableViewerRoI->setCheckable(true);
-    _imp->enableViewerRoI->setChecked(false);
-    _imp->enableViewerRoI->setDown(false);
-    _imp->firstRowLayout->addWidget(_imp->enableViewerRoI);
-
-    _imp->activateRenderScale = new Button(_imp->firstSettingsRow);
-    _imp->activateRenderScale->setFocusPolicy(Qt::NoFocus);
-    _imp->activateRenderScale->setFixedSize(buttonSize);
-    _imp->activateRenderScale->setIconSize(buttonIconSize);
-    setToolTipWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyEnabled,
-                           "<p><b>" + tr("Proxy mode:").toStdString() + "</b></p><p>" +
-                               tr("Activates the downscaling by the amount indicated by the value on the right. "
-                                  "The rendered images are degraded and as a result of this the whole rendering pipeline "
-                                  "is much faster.")
-                                   .toStdString() +
-                               "</p>" +
-                               "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>",
-                           _imp->activateRenderScale);
-
-    _imp->activateRenderScale->setCheckable(true);
-    _imp->activateRenderScale->setChecked(false);
-    _imp->activateRenderScale->setDown(false);
-    _imp->firstRowLayout->addWidget(_imp->activateRenderScale);
-
-    _imp->renderScaleCombo = new ComboBox(_imp->firstSettingsRow);
-    _imp->renderScaleCombo->setFocusPolicy(Qt::NoFocus);
-    _imp->renderScaleCombo->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When proxy mode is activated, it scales down the rendered image by this factor "
-                                                                                 "to accelerate the rendering."),
-                                                                              NATRON_NAMESPACE::WhiteSpaceNormal));
-
-    QAction *proxy2 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel2, "2", _imp->renderScaleCombo);
-    QAction *proxy4 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel4, "4", _imp->renderScaleCombo);
-    QAction *proxy8 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel8, "8", _imp->renderScaleCombo);
-    QAction *proxy16 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel16, "16", _imp->renderScaleCombo);
-    QAction *proxy32 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel32, "32", _imp->renderScaleCombo);
-    _imp->renderScaleCombo->addAction(proxy2);
-    _imp->renderScaleCombo->addAction(proxy4);
-    _imp->renderScaleCombo->addAction(proxy8);
-    _imp->renderScaleCombo->addAction(proxy16);
-    _imp->renderScaleCombo->addAction(proxy32);
-    _imp->firstRowLayout->addWidget(_imp->renderScaleCombo);
-
-    addSpacer(_imp->firstRowLayout);
-
-    _imp->refreshButton = new Button(_imp->firstSettingsRow);
-    _imp->refreshButton->setFocusPolicy(Qt::NoFocus);
-    _imp->refreshButton->setFixedSize(buttonSize);
-    _imp->refreshButton->setIconSize(buttonIconSize);
-    {
-        QKeySequence seq(Qt::CTRL + Qt::SHIFT);
-        std::list<std::string> refreshActions;
-        refreshActions.push_back(kShortcutIDActionRefresh);
-        refreshActions.push_back(kShortcutIDActionRefreshWithStats);
-        setToolTipWithShortcut2(kShortcutGroupViewer, refreshActions, "<p>" + tr("Forces a new render of the current frame.").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p><p>" + tr("Press %2 to activate in-depth render statistics useful "
-                                                                                                                                                                                                                                 "for debugging the composition.")
-                                                                                                                                                                                                                                  .toStdString() +
-                                                                          "</p>",
-                                _imp->refreshButton);
-    }
-    _imp->firstRowLayout->addWidget(_imp->refreshButton);
-
-    _imp->pauseButton = new Button(_imp->firstSettingsRow);
-    _imp->pauseButton->setFocusPolicy(Qt::NoFocus);
-    _imp->pauseButton->setFixedSize(buttonSize);
-    _imp->pauseButton->setIconSize(buttonIconSize);
-    _imp->pauseButton->setCheckable(true);
-    _imp->pauseButton->setChecked(false);
-    _imp->pauseButton->setDown(false);
-    {
-        QKeySequence seq(Qt::CTRL + Qt::SHIFT);
-        std::list<std::string> actions;
-        actions.push_back(kShortcutIDActionPauseViewerInputA);
-        actions.push_back(kShortcutIDActionPauseViewer);
-        setToolTipWithShortcut2(kShortcutGroupViewer, actions,
-                                "<p><b>" + tr("Pause Updates:").toStdString() + "</b></p><p>" +
-                                    tr("When activated the viewer will not update after any change that would modify the image "
-                                       "displayed in the viewport.")
-                                        .toStdString() +
-                                    "</p>" +
-                                    "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>" +
-                                    tr("Use %2 to pause both input A and B").toStdString() + "</b></p>",
-                                _imp->pauseButton);
-    }
-    _imp->firstRowLayout->addWidget(_imp->pauseButton);
-
-    addSpacer(_imp->firstRowLayout);
-
-    _imp->firstInputLabel = new Label(QString::fromUtf8("A:"), _imp->firstSettingsRow);
-    _imp->firstInputLabel->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Viewer input A."), NATRON_NAMESPACE::WhiteSpaceNormal));
-    _imp->firstRowLayout->addWidget(_imp->firstInputLabel);
-
-    _imp->firstInputImage = new ComboBox(_imp->firstSettingsRow);
-    _imp->firstInputImage->setToolTip(_imp->firstInputLabel->toolTip());
-    _imp->firstInputImage->setFixedWidth(fm.width(QString::fromUtf8("ColorCorrect1")) + 3 * DROP_DOWN_ICON_SIZE);
-    _imp->firstInputImage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    _imp->firstInputImage->addItem(QString::fromUtf8(" - "));
-    QObject::connect(_imp->firstInputImage, SIGNAL(currentIndexChanged(QString)), this, SLOT(onFirstInputNameChanged(QString)));
-    _imp->firstRowLayout->addWidget(_imp->firstInputImage);
-
-    QPixmap pixMerge;
-    appPTR->getIcon(NATRON_PIXMAP_MERGE_GROUPING, pixmapIconSize, &pixMerge);
-    _imp->compositingOperatorLabel = new Label(QString(), _imp->firstSettingsRow);
-    _imp->compositingOperatorLabel->setPixmap(pixMerge);
-    _imp->compositingOperatorLabel->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Operation applied between viewer inputs A and B. a and b are the alpha components of each input. d is the wipe dissolve factor, controlled by the arc handle."), NATRON_NAMESPACE::WhiteSpaceNormal));
-    _imp->firstRowLayout->addWidget(_imp->compositingOperatorLabel);
-
-    _imp->compositingOperator = new ComboBox(_imp->firstSettingsRow);
-    QObject::connect(_imp->compositingOperator, SIGNAL(currentIndexChanged(int)), this, SLOT(onCompositingOperatorIndexChanged(int)));
-    _imp->compositingOperator->setFixedWidth(fm.width(QString::fromUtf8("W-OnionSkin")) + 3 * DROP_DOWN_ICON_SIZE);
-    _imp->compositingOperator->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    _imp->compositingOperator->setToolTip(_imp->compositingOperatorLabel->toolTip());
-    _imp->compositingOperator->addItem(tr(" - "), QIcon(), QKeySequence(), tr("No wipe or composite: A"));
-    ActionWithShortcut *actionWipe = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDToggleWipe, "W-Under", _imp->compositingOperator);
-    actionWipe->setToolTip(tr("Wipe under: A(1 - d) + Bd"));
-    _imp->compositingOperator->addAction(actionWipe);
-    _imp->compositingOperator->addItem(tr("W-Over"), QIcon(), QKeySequence(), tr("Wipe over: A + B(1 - a)d"));
-    _imp->compositingOperator->addItem(tr("W-Minus"), QIcon(), QKeySequence(), tr("Wipe minus: A - B"));
-    _imp->compositingOperator->addItem(tr("W-OnionSkin"), QIcon(), QKeySequence(), tr("Wipe onion skin: A + B"));
-    _imp->compositingOperator->addItem(tr("S-Under"), QIcon(), QKeySequence(), tr("Stack under: B"));
-    _imp->compositingOperator->addItem(tr("S-Over"), QIcon(), QKeySequence(), tr("Stack over: A + B(1 - a)"));
-    _imp->compositingOperator->addItem(tr("S-Minus"), QIcon(), QKeySequence(), tr("Stack minus: A - B"));
-    _imp->compositingOperator->addItem(tr("S-OnionSkin"), QIcon(), QKeySequence(), tr("Stack onion skin: A + B"));
-
-    _imp->firstRowLayout->addWidget(_imp->compositingOperator);
-
-    _imp->secondInputLabel = new Label(QString::fromUtf8("B:"), _imp->firstSettingsRow);
-    _imp->secondInputLabel->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Viewer input B."), NATRON_NAMESPACE::WhiteSpaceNormal));
-    _imp->firstRowLayout->addWidget(_imp->secondInputLabel);
-
-    _imp->secondInputImage = new ComboBox(_imp->firstSettingsRow);
-    _imp->secondInputImage->setToolTip(_imp->secondInputLabel->toolTip());
-    _imp->secondInputImage->setFixedWidth(fm.width(QString::fromUtf8("ColorCorrect1")) + 3 * DROP_DOWN_ICON_SIZE);
-    _imp->secondInputImage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    _imp->secondInputImage->addItem(QString::fromUtf8(" - "));
-    QObject::connect(_imp->secondInputImage, SIGNAL(currentIndexChanged(QString)), this, SLOT(onSecondInputNameChanged(QString)));
-    _imp->firstRowLayout->addWidget(_imp->secondInputImage);
-
-    _imp->firstRowLayout->addStretch();
+    const int pixmapIconSize = TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE);
 
     /*2nd row of buttons*/
     _imp->secondSettingsRow = new QWidget(this);
@@ -1085,6 +832,321 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
             _imp->syncViewerButton->setChecked(true);
         }
     }
+}
+
+void ViewerTab::resizeEvent(QResizeEvent *e)
+{
+    // oculta los widget cuando sea necesario para que no queden aplastados.
+    int width = e->size().width();
+
+    if (width > 1100)
+        _imp->comparison_widget->setVisible(true);
+    else
+        _imp->comparison_widget->setVisible(false);
+
+    if (width > 750)
+        _imp->buttons_widget->setVisible(true);
+    else
+        _imp->buttons_widget->setVisible(false);
+}
+
+QWidget *ViewerTab::channels_setup_ui()
+{
+    QWidget *widget = new QWidget(this);
+    widget->setObjectName("channels_widget");
+    QHBoxLayout *layout = new QHBoxLayout(widget);
+    layout->setContentsMargins(0, 0, 0, 0);
+    widget->setLayout(layout);
+
+    int combobox_width = 90;
+
+    _imp->layerChoice = new ComboBox(_imp->firstSettingsRow);
+    _imp->layerChoice->setToolTip(QString::fromUtf8("<p><b>") + tr("Layer:") + QString::fromUtf8("</b></p><p>") + tr("The layer that the Viewer node will fetch upstream in the tree. "
+                                                                                                                     "The channels of the layer will be mapped to the RGBA channels of the viewer according to "
+                                                                                                                     "its number of channels. (e.g: UV would be mapped to RG)") +
+                                  QString::fromUtf8("</p>"));
+    QObject::connect(_imp->layerChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(onLayerComboChanged(int)));
+    _imp->layerChoice->setFixedWidth(combobox_width);
+    _imp->layerChoice->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    layout->addWidget(_imp->layerChoice);
+
+    _imp->alphaChannelChoice = new ComboBox(_imp->firstSettingsRow);
+    _imp->alphaChannelChoice->setToolTip(QString::fromUtf8("<p><b>") + tr("Alpha channel:") + QString::fromUtf8("</b></p><p>") + tr("Select here a channel of any layer that will be used when displaying the "
+                                                                                                                                    "alpha channel with the <b>Channels</b> choice on the right.") +
+                                         QString::fromUtf8("</p>"));
+    _imp->alphaChannelChoice->setFixedWidth(combobox_width);
+    _imp->alphaChannelChoice->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    QObject::connect(_imp->alphaChannelChoice, SIGNAL(currentIndexChanged(int)), this, SLOT(onAlphaChannelComboChanged(int)));
+    layout->addWidget(_imp->alphaChannelChoice);
+
+    _imp->viewerChannels = new ChannelsComboBox(_imp->firstSettingsRow);
+    _imp->viewerChannels->setToolTip(QString::fromUtf8("<p><b>") + tr("Display Channels:") + QString::fromUtf8("</b></p><p>") + tr("The channels to display on the viewer.") + QString::fromUtf8("</p>"));
+    layout->addWidget(_imp->viewerChannels);
+    _imp->viewerChannels->setFixedWidth(combobox_width);
+    _imp->viewerChannels->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    QAction *lumiAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionLuminance, tr("Luminance").toStdString(), _imp->viewerChannels);
+    QAction *rgbAction = new QAction(QIcon(), QString::fromUtf8("RGB"), _imp->viewerChannels);
+    QAction *rAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionRed, "Red", _imp->viewerChannels);
+    QAction *gAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionGreen, "Green", _imp->viewerChannels);
+    QAction *bAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionBlue, "Blue", _imp->viewerChannels);
+    QAction *aAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionAlpha, "Alpha", _imp->viewerChannels);
+    QAction *matteAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionMatteOverlay, "Matte", _imp->viewerChannels);
+
+    _imp->viewerChannels->addAction(lumiAction);
+    _imp->viewerChannels->addAction(rgbAction);
+    _imp->viewerChannels->addAction(rAction);
+    _imp->viewerChannels->addAction(gAction);
+    _imp->viewerChannels->addAction(bAction);
+    _imp->viewerChannels->addAction(aAction);
+    _imp->viewerChannels->addAction(matteAction);
+    _imp->viewerChannels->setCurrentIndex(1);
+    QObject::connect(_imp->viewerChannels, SIGNAL(currentIndexChanged(int)), this, SLOT(onViewerChannelsChanged(int)));
+
+    return widget;
+}
+
+QWidget *ViewerTab::comparison_setup_ui()
+{
+
+    QWidget *widget = new QWidget(this);
+    widget->setObjectName("comparison_widget");
+    QHBoxLayout *layout = new QHBoxLayout(widget);
+    layout->setContentsMargins(0, 0, 0, 0);
+    widget->setLayout(layout);
+
+    const int pixmapIconSize = TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE);
+
+    int combobox_width = 90;
+
+    _imp->firstInputLabel = new Label(QString::fromUtf8("A:"), _imp->firstSettingsRow);
+    _imp->firstInputLabel->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Viewer input A."), NATRON_NAMESPACE::WhiteSpaceNormal));
+    layout->addWidget(_imp->firstInputLabel);
+
+    _imp->firstInputImage = new ComboBox(_imp->firstSettingsRow);
+    _imp->firstInputImage->setToolTip(_imp->firstInputLabel->toolTip());
+    _imp->firstInputImage->setFixedWidth(combobox_width);
+    _imp->firstInputImage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    _imp->firstInputImage->addItem(QString::fromUtf8(" - "));
+    QObject::connect(_imp->firstInputImage, SIGNAL(currentIndexChanged(QString)), this, SLOT(onFirstInputNameChanged(QString)));
+    layout->addWidget(_imp->firstInputImage);
+
+    QPixmap pixMerge;
+    appPTR->getIcon(NATRON_PIXMAP_MERGE_GROUPING, pixmapIconSize, &pixMerge);
+    _imp->compositingOperatorLabel = new Label(QString(), _imp->firstSettingsRow);
+    _imp->compositingOperatorLabel->setPixmap(pixMerge);
+    _imp->compositingOperatorLabel->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Operation applied between viewer inputs A and B. a and b are the alpha components of each input. d is the wipe dissolve factor, controlled by the arc handle."), NATRON_NAMESPACE::WhiteSpaceNormal));
+    layout->addWidget(_imp->compositingOperatorLabel);
+
+    _imp->compositingOperator = new ComboBox(_imp->firstSettingsRow);
+    QObject::connect(_imp->compositingOperator, SIGNAL(currentIndexChanged(int)), this, SLOT(onCompositingOperatorIndexChanged(int)));
+    _imp->compositingOperator->setFixedWidth(combobox_width);
+    _imp->compositingOperator->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    _imp->compositingOperator->setToolTip(_imp->compositingOperatorLabel->toolTip());
+    _imp->compositingOperator->addItem(tr(" - "), QIcon(), QKeySequence(), tr("No wipe or composite: A"));
+    ActionWithShortcut *actionWipe = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDToggleWipe, "W-Under", _imp->compositingOperator);
+    actionWipe->setToolTip(tr("Wipe under: A(1 - d) + Bd"));
+    _imp->compositingOperator->addAction(actionWipe);
+    _imp->compositingOperator->addItem(tr("W-Over"), QIcon(), QKeySequence(), tr("Wipe over: A + B(1 - a)d"));
+    _imp->compositingOperator->addItem(tr("W-Minus"), QIcon(), QKeySequence(), tr("Wipe minus: A - B"));
+    _imp->compositingOperator->addItem(tr("W-OnionSkin"), QIcon(), QKeySequence(), tr("Wipe onion skin: A + B"));
+    _imp->compositingOperator->addItem(tr("S-Under"), QIcon(), QKeySequence(), tr("Stack under: B"));
+    _imp->compositingOperator->addItem(tr("S-Over"), QIcon(), QKeySequence(), tr("Stack over: A + B(1 - a)"));
+    _imp->compositingOperator->addItem(tr("S-Minus"), QIcon(), QKeySequence(), tr("Stack minus: A - B"));
+    _imp->compositingOperator->addItem(tr("S-OnionSkin"), QIcon(), QKeySequence(), tr("Stack onion skin: A + B"));
+
+    layout->addWidget(_imp->compositingOperator);
+
+    _imp->secondInputLabel = new Label(QString::fromUtf8("B:"), _imp->firstSettingsRow);
+    _imp->secondInputLabel->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Viewer input B."), NATRON_NAMESPACE::WhiteSpaceNormal));
+    layout->addWidget(_imp->secondInputLabel);
+
+    _imp->secondInputImage = new ComboBox(_imp->firstSettingsRow);
+    _imp->secondInputImage->setToolTip(_imp->secondInputLabel->toolTip());
+    _imp->secondInputImage->setFixedWidth(combobox_width);
+    _imp->secondInputImage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    _imp->secondInputImage->addItem(QString::fromUtf8(" - "));
+    QObject::connect(_imp->secondInputImage, SIGNAL(currentIndexChanged(QString)), this, SLOT(onSecondInputNameChanged(QString)));
+    layout->addWidget(_imp->secondInputImage);
+
+    return widget;
+}
+
+QWidget *ViewerTab::buttons_setup_ui()
+{
+    QWidget *widget = new QWidget(this);
+    widget->setObjectName("buttons_widget");
+    QHBoxLayout *layout = new QHBoxLayout(widget);
+    layout->setContentsMargins(0, 0, 0, 0);
+    widget->setLayout(layout);
+
+    _imp->zoomCombobox = new ComboBox(_imp->firstSettingsRow);
+    _imp->zoomCombobox->setToolTip(QString::fromUtf8("<p><b>") + tr("Zoom:") + QString::fromUtf8("</b></p>") + tr("The zoom applied to the image on the viewer.") + QString::fromUtf8("</p>"));
+
+    // Keyboard shortcuts should be made visible to the user, not only in the shortcut editor, but also at logical places in the GUI.
+
+    ActionWithShortcut *fitAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionFitViewer, "Fit", this);
+    ActionWithShortcut *zoomInAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomIn, "+", this);
+    ActionWithShortcut *zoomOutAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomOut, "-", this);
+    ActionWithShortcut *level100Action = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomLevel100, "100%", this);
+    _imp->zoomCombobox->addAction(fitAction);
+    _imp->zoomCombobox->addAction(zoomInAction);
+    _imp->zoomCombobox->addAction(zoomOutAction);
+    _imp->zoomCombobox->addSeparator();
+    _imp->zoomCombobox->addItem(QString::fromUtf8("10%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("25%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("50%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("75%"));
+    _imp->zoomCombobox->addAction(level100Action);
+    _imp->zoomCombobox->addItem(QString::fromUtf8("125%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("150%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("200%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("400%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("800%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("1600%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("2400%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("3200%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("6400%"));
+    _imp->zoomCombobox->setMaximumWidthFromText(QString::fromUtf8("100000%"));
+
+    layout->addWidget(_imp->zoomCombobox);
+
+    const int pixmapIconSize = TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE);
+    const QSize buttonSize(TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
+    const QSize buttonIconSize(TO_DPIX(NATRON_MEDIUM_BUTTON_ICON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_ICON_SIZE));
+    QPixmap lockEnabled, lockDisabled;
+    appPTR->getIcon(NATRON_PIXMAP_LOCKED, pixmapIconSize, &lockEnabled);
+    appPTR->getIcon(NATRON_PIXMAP_UNLOCKED, pixmapIconSize, &lockDisabled);
+
+    QIcon lockIcon;
+    lockIcon.addPixmap(lockEnabled, QIcon::Normal, QIcon::On);
+    lockIcon.addPixmap(lockDisabled, QIcon::Normal, QIcon::Off);
+
+    _imp->syncViewerButton = new Button(lockIcon, QString(), _imp->firstSettingsRow);
+    _imp->syncViewerButton->setCheckable(true);
+    _imp->syncViewerButton->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When enabled, all viewers will be synchronized to the same portion of the image in the viewport."), NATRON_NAMESPACE::WhiteSpaceNormal));
+    _imp->syncViewerButton->setFixedSize(buttonSize);
+    _imp->syncViewerButton->setIconSize(buttonIconSize);
+    _imp->syncViewerButton->setFocusPolicy(Qt::NoFocus);
+    QObject::connect(_imp->syncViewerButton, SIGNAL(clicked(bool)), this, SLOT(onSyncViewersButtonPressed(bool)));
+    layout->addWidget(_imp->syncViewerButton);
+
+    _imp->centerViewerButton = new Button(_imp->firstSettingsRow);
+    _imp->centerViewerButton->setFocusPolicy(Qt::NoFocus);
+    _imp->centerViewerButton->setFixedSize(buttonSize);
+    _imp->centerViewerButton->setIconSize(buttonIconSize);
+    layout->addWidget(_imp->centerViewerButton);
+
+    addSpacer(layout);
+
+    _imp->clipToProjectFormatButton = new Button(_imp->firstSettingsRow);
+    _imp->clipToProjectFormatButton->setFocusPolicy(Qt::NoFocus);
+    _imp->clipToProjectFormatButton->setFixedSize(buttonSize);
+    _imp->clipToProjectFormatButton->setIconSize(buttonIconSize);
+    _imp->clipToProjectFormatButton->setCheckable(true);
+    _imp->clipToProjectFormatButton->setChecked(true);
+    _imp->clipToProjectFormatButton->setDown(true);
+    layout->addWidget(_imp->clipToProjectFormatButton);
+
+    _imp->fullFrameProcessingButton = new Button(_imp->firstSettingsRow);
+    _imp->fullFrameProcessingButton->setFocusPolicy(Qt::NoFocus);
+    _imp->fullFrameProcessingButton->setFixedSize(buttonSize);
+    _imp->fullFrameProcessingButton->setIconSize(buttonIconSize);
+    _imp->fullFrameProcessingButton->setCheckable(true);
+    _imp->fullFrameProcessingButton->setChecked(false);
+    _imp->fullFrameProcessingButton->setDown(false);
+    layout->addWidget(_imp->fullFrameProcessingButton);
+
+    _imp->enableViewerRoI = new Button(_imp->firstSettingsRow);
+    _imp->enableViewerRoI->setFocusPolicy(Qt::NoFocus);
+    _imp->enableViewerRoI->setFixedSize(buttonSize);
+    _imp->enableViewerRoI->setIconSize(buttonIconSize);
+    _imp->enableViewerRoI->setCheckable(true);
+    _imp->enableViewerRoI->setChecked(false);
+    _imp->enableViewerRoI->setDown(false);
+    layout->addWidget(_imp->enableViewerRoI);
+
+    _imp->activateRenderScale = new Button(_imp->firstSettingsRow);
+    _imp->activateRenderScale->setFocusPolicy(Qt::NoFocus);
+    _imp->activateRenderScale->setFixedSize(buttonSize);
+    _imp->activateRenderScale->setIconSize(buttonIconSize);
+    setToolTipWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyEnabled,
+                           "<p><b>" + tr("Proxy mode:").toStdString() + "</b></p><p>" +
+                               tr("Activates the downscaling by the amount indicated by the value on the right. "
+                                  "The rendered images are degraded and as a result of this the whole rendering pipeline "
+                                  "is much faster.")
+                                   .toStdString() +
+                               "</p>" +
+                               "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>",
+                           _imp->activateRenderScale);
+
+    _imp->activateRenderScale->setCheckable(true);
+    _imp->activateRenderScale->setChecked(false);
+    _imp->activateRenderScale->setDown(false);
+    layout->addWidget(_imp->activateRenderScale);
+
+    _imp->renderScaleCombo = new ComboBox(_imp->firstSettingsRow);
+    _imp->renderScaleCombo->setFocusPolicy(Qt::NoFocus);
+    _imp->renderScaleCombo->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When proxy mode is activated, it scales down the rendered image by this factor "
+                                                                                 "to accelerate the rendering."),
+                                                                              NATRON_NAMESPACE::WhiteSpaceNormal));
+
+    QAction *proxy2 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel2, "2", _imp->renderScaleCombo);
+    QAction *proxy4 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel4, "4", _imp->renderScaleCombo);
+    QAction *proxy8 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel8, "8", _imp->renderScaleCombo);
+    QAction *proxy16 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel16, "16", _imp->renderScaleCombo);
+    QAction *proxy32 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel32, "32", _imp->renderScaleCombo);
+    _imp->renderScaleCombo->addAction(proxy2);
+    _imp->renderScaleCombo->addAction(proxy4);
+    _imp->renderScaleCombo->addAction(proxy8);
+    _imp->renderScaleCombo->addAction(proxy16);
+    _imp->renderScaleCombo->addAction(proxy32);
+    layout->addWidget(_imp->renderScaleCombo);
+
+    addSpacer(layout);
+
+    _imp->refreshButton = new Button(_imp->firstSettingsRow);
+    _imp->refreshButton->setFocusPolicy(Qt::NoFocus);
+    _imp->refreshButton->setFixedSize(buttonSize);
+    _imp->refreshButton->setIconSize(buttonIconSize);
+    {
+        QKeySequence seq(Qt::CTRL + Qt::SHIFT);
+        std::list<std::string> refreshActions;
+        refreshActions.push_back(kShortcutIDActionRefresh);
+        refreshActions.push_back(kShortcutIDActionRefreshWithStats);
+        setToolTipWithShortcut2(kShortcutGroupViewer, refreshActions, "<p>" + tr("Forces a new render of the current frame.").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p><p>" + tr("Press %2 to activate in-depth render statistics useful "
+                                                                                                                                                                                                                                 "for debugging the composition.")
+                                                                                                                                                                                                                                  .toStdString() +
+                                                                          "</p>",
+                                _imp->refreshButton);
+    }
+    layout->addWidget(_imp->refreshButton);
+
+    _imp->pauseButton = new Button(_imp->firstSettingsRow);
+    _imp->pauseButton->setFocusPolicy(Qt::NoFocus);
+    _imp->pauseButton->setFixedSize(buttonSize);
+    _imp->pauseButton->setIconSize(buttonIconSize);
+    _imp->pauseButton->setCheckable(true);
+    _imp->pauseButton->setChecked(false);
+    _imp->pauseButton->setDown(false);
+    {
+        QKeySequence seq(Qt::CTRL + Qt::SHIFT);
+        std::list<std::string> actions;
+        actions.push_back(kShortcutIDActionPauseViewerInputA);
+        actions.push_back(kShortcutIDActionPauseViewer);
+        setToolTipWithShortcut2(kShortcutGroupViewer, actions,
+                                "<p><b>" + tr("Pause Updates:").toStdString() + "</b></p><p>" +
+                                    tr("When activated the viewer will not update after any change that would modify the image "
+                                       "displayed in the viewport.")
+                                        .toStdString() +
+                                    "</p>" +
+                                    "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>" +
+                                    tr("Use %2 to pause both input A and B").toStdString() + "</b></p>",
+                                _imp->pauseButton);
+    }
+    layout->addWidget(_imp->pauseButton);
+
+    return widget;
 }
 
 NATRON_NAMESPACE_EXIT

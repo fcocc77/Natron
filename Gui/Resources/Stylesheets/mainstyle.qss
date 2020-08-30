@@ -182,6 +182,8 @@ QAbstractSpinBox {
 #ViewerTab #firstSettingsRow {
   background: #383838;
   border-bottom: 1px solid #212121; }
+  #ViewerTab #firstSettingsRow #buttons_widget, #ViewerTab #firstSettingsRow #channels_widget, #ViewerTab #firstSettingsRow #comparison_widget {
+    background: #383838; }
   #ViewerTab #firstSettingsRow #ChannelsComboBox[color='1'] {
     border-color: #262626; }
   #ViewerTab #firstSettingsRow #ChannelsComboBox[color='2'] {
