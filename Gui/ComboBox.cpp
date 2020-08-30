@@ -1068,7 +1068,9 @@ bool ComboBox::getEnabled_natron() const
 
 void ComboBox::setEnabled_natron(bool enabled)
 {
+    setProperty("_enabled", enabled);
     _enabled = enabled;
+    updateStyle();
     update();
 }
 

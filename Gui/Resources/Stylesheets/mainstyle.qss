@@ -499,6 +499,10 @@ DockablePanel #horizContainer {
           background-color: #3e3d38;
           border-color: #74673b;
           color: #ffd342; }
+        DockablePanel #horizContainer #rightContainer QTabWidget ComboBox[_enabled="false"] {
+          background-color: #393e3c;
+          border-color: #45725d;
+          color: #63fab3; }
       DockablePanel #horizContainer #rightContainer QTabWidget ScaleSliderQWidget {
         background: none; }
       DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob {
@@ -544,6 +548,10 @@ DockablePanel #horizContainer {
         background: #383838; }
         DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="0"][altered="false"] {
           color: #e6e6e6; }
+        DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="0"]:read-only {
+          background-color: #393e3c;
+          border-color: #45725d;
+          color: #63fab3; }
         DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="1"] {
           background-color: #3d4042;
           border-color: #5d7488;

@@ -3,6 +3,7 @@
 $expresion_color: #ffd342
 $key_color: #008cff
 $key_color_2: #95cfff
+$link_color: #63fab3
 
 DockablePanel
     #headerWidget
@@ -59,6 +60,10 @@ DockablePanel
                         background-color: mix($expresion_color, $b22, 3%)
                         border-color: mix($expresion_color, $b22, 30%)
                         color: $expresion_color
+                    &[_enabled="false"]
+                        background-color: mix($link_color, $b22, 3%)
+                        border-color: mix($link_color, $b22, 30%)
+                        color: $link_color
                 ScaleSliderQWidget
                     background: none
                 #treeKnob
@@ -69,6 +74,10 @@ DockablePanel
                     &[animation="0"] 
                         &[altered="false"]
                             color: $c2
+                        &:read-only
+                            background-color: mix($link_color, $b22, 3%)
+                            border-color: mix($link_color, $b22, 30%)
+                            color: $link_color
                     &[animation="1"] 
                         background-color: mix($key_color_2, $b22, 5%)
                         border-color: mix($key_color_2, $b22, 40%)
@@ -81,7 +90,6 @@ DockablePanel
                         background-color: mix($expresion_color, $b22, 3%)
                         border-color: mix($expresion_color, $b22, 30%)
                         color: $expresion_color
-                    &[dirty="true"] 
                 ClickableLabel
                     font-size: 10px
                     &[dirty="false"]
