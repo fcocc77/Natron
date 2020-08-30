@@ -56,14 +56,15 @@ DockablePanel
                 ComboBox 
                     @include combobox
                     background: $b25
+                    &[animation="0"] 
+                        &[_enabled="false"]
+                            background-color: mix($link_color, $b22, 3%)
+                            border-color: mix($link_color, $b22, 30%)
+                            color: $link_color
                     &[animation="3"] 
                         background-color: mix($expresion_color, $b22, 3%)
                         border-color: mix($expresion_color, $b22, 30%)
                         color: $expresion_color
-                    &[_enabled="false"]
-                        background-color: mix($link_color, $b22, 3%)
-                        border-color: mix($link_color, $b22, 30%)
-                        color: $link_color
                 ScaleSliderQWidget
                     background: none
                 #treeKnob
