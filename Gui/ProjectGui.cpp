@@ -94,6 +94,7 @@ void ProjectGui::initializeKnobsGui()
 {
     assert(_panel);
     _panel->initializeKnobs();
+    _panel->setClosed(true);
 }
 
 void ProjectGui::create(ProjectPtr projectInternal,
