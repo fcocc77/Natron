@@ -32,7 +32,6 @@
 
 #include <boost/weak_ptr.hpp>
 
-
 #include <QtCore/QString>
 #include <QHBoxLayout>
 #include <QPushButton>
@@ -95,46 +94,34 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 
 NATRON_NAMESPACE_ENTER
 
-
 struct EditScriptDialogPrivate
 {
-    Gui* gui;
-    QVBoxLayout* mainLayout;
-    Label* expressionLabel;
-    InputScriptTextEdit* expressionEdit;
-    QWidget* midButtonsContainer;
-    QHBoxLayout* midButtonsLayout;
-    Button* useRetButton;
-    Button* helpButton;
-    OutputScriptTextEdit* resultEdit;
-    DialogButtonBox* buttons;
+    Gui *gui;
+    QVBoxLayout *mainLayout;
+    Label *expressionLabel;
+    InputScriptTextEdit *expressionEdit;
+    QWidget *midButtonsContainer;
+    QHBoxLayout *midButtonsLayout;
+    Button *useRetButton;
+    Button *helpButton;
+    OutputScriptTextEdit *resultEdit;
+    DialogButtonBox *buttons;
 
-    EditScriptDialogPrivate(Gui* gui)
-        : gui(gui)
-        , mainLayout(0)
-        , expressionLabel(0)
-        , expressionEdit(0)
-        , midButtonsContainer(0)
-        , midButtonsLayout(0)
-        , useRetButton(0)
-        , helpButton(0)
-        , resultEdit(0)
-        , buttons(0)
+    EditScriptDialogPrivate(Gui *gui)
+        : gui(gui), mainLayout(0), expressionLabel(0), expressionEdit(0), midButtonsContainer(0), midButtonsLayout(0), useRetButton(0), helpButton(0), resultEdit(0), buttons(0)
     {
     }
 };
 
-EditScriptDialog::EditScriptDialog(Gui* gui,
-                                   QWidget* parent)
-    : QDialog(parent)
-    , _imp( new EditScriptDialogPrivate(gui) )
+EditScriptDialog::EditScriptDialog(Gui *gui,
+                                   QWidget *parent)
+    : QDialog(parent), _imp(new EditScriptDialogPrivate(gui))
 {
     setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 }
 
-void
-EditScriptDialog::create(const QString& initialScript,
-                         bool makeUseRetButton)
+void EditScriptDialog::create(const QString &initialScript,
+                              bool makeUseRetButton)
 {
     setTitle();
 
@@ -142,63 +129,66 @@ EditScriptDialog::create(const QString& initialScript,
 
     QStringList modules;
     getImportedModules(modules);
-    std::list<std::pair<QString, QString> > variables;
+    std::list<std::pair<QString, QString>> variables;
     getDeclaredVariables(variables);
-    QString labelHtml( tr("%1 script:").arg( QString::fromUtf8("<b>Python</b>") ) + QString::fromUtf8("<br />") );
-    if ( !modules.empty() ) {
-        labelHtml.append( tr("For convenience, the following module(s) have been imported:") + QString::fromUtf8("<br />") );
-        for (int i = 0; i < modules.size(); ++i) {
+    QString labelHtml(tr("%1 script:").arg(QString::fromUtf8("<b>Python</b>")) + QString::fromUtf8("<br />"));
+    if (!modules.empty())
+    {
+        labelHtml.append(tr("For convenience, the following module(s) have been imported:") + QString::fromUtf8("<br />"));
+        for (int i = 0; i < modules.size(); ++i)
+        {
             QString toAppend = QString::fromUtf8("<i><font color=orange>from %1 import *</font></i><br />").arg(modules[i]);
             labelHtml.append(toAppend);
         }
-        labelHtml.append( QString::fromUtf8("<br />") );
+        labelHtml.append(QString::fromUtf8("<br />"));
     }
-    if ( !variables.empty() ) {
-        labelHtml.append( tr("Also the following variables have been declared:") + QString::fromUtf8("<br />") );
-        for (std::list<std::pair<QString, QString> > ::iterator it = variables.begin(); it != variables.end(); ++it) {
+    if (!variables.empty())
+    {
+        labelHtml.append(tr("Also the following variables have been declared:") + QString::fromUtf8("<br />"));
+        for (std::list<std::pair<QString, QString>>::iterator it = variables.begin(); it != variables.end(); ++it)
+        {
             QString toAppend = QString::fromUtf8("<b>%1</b>: %2<br />").arg(it->first).arg(it->second);
             labelHtml.append(toAppend);
         }
         QKeySequence s(Qt::CTRL);
-        labelHtml.append( QString::fromUtf8("<p>") + tr("Note that parameters can be referenced by drag'n'dropping while holding %1 on their widget").arg( s.toString(QKeySequence::NativeText) ) + QString::fromUtf8("</p>") );
+        labelHtml.append(QString::fromUtf8("<p>") + tr("Note that parameters can be referenced by drag'n'dropping while holding %1 on their widget").arg(s.toString(QKeySequence::NativeText)) + QString::fromUtf8("</p>"));
     }
 
     _imp->expressionLabel = new Label(labelHtml, this);
     _imp->mainLayout->addWidget(_imp->expressionLabel);
 
-
-
     _imp->midButtonsContainer = new QWidget(this);
     _imp->midButtonsContainer->setObjectName("midButtonsContainer");
     _imp->midButtonsLayout = new QHBoxLayout(_imp->midButtonsContainer);
-    _imp->midButtonsLayout->setContentsMargins(0,0,0,0);
+    _imp->midButtonsLayout->setContentsMargins(0, 0, 0, 0);
 
-    if (makeUseRetButton) {
+    if (makeUseRetButton)
+    {
         bool retVariable = hasRetVariable();
         _imp->useRetButton = new Button(tr("Multi-line"), _imp->midButtonsContainer);
-        _imp->useRetButton->setToolTip( NATRON_NAMESPACE::convertFromPlainText(tr("When checked the Python expression will be interpreted "
-                                                                          "as series of statement. The return value should be then assigned to the "
-                                                                          "\"ret\" variable. When unchecked the expression must not contain "
-                                                                          "any new line character and the result will be interpreted from the "
-                                                                          "interpretation of the single line."), NATRON_NAMESPACE::WhiteSpaceNormal) );
+        _imp->useRetButton->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When checked the Python expression will be interpreted "
+                                                                                 "as series of statement. The return value should be then assigned to the "
+                                                                                 "\"ret\" variable. When unchecked the expression must not contain "
+                                                                                 "any new line character and the result will be interpreted from the "
+                                                                                 "interpretation of the single line."),
+                                                                              NATRON_NAMESPACE::WhiteSpaceNormal));
         _imp->useRetButton->setCheckable(true);
         bool checked = !initialScript.isEmpty() && retVariable;
         _imp->useRetButton->setChecked(checked);
         _imp->useRetButton->setDown(checked);
-        QObject::connect( _imp->useRetButton, SIGNAL(clicked(bool)), this, SLOT(onUseRetButtonClicked(bool)) );
+        QObject::connect(_imp->useRetButton, SIGNAL(clicked(bool)), this, SLOT(onUseRetButtonClicked(bool)));
         _imp->midButtonsLayout->addWidget(_imp->useRetButton);
     }
 
-
     _imp->helpButton = new Button(tr("Help"), _imp->midButtonsContainer);
-    QObject::connect( _imp->helpButton, SIGNAL(clicked(bool)), this, SLOT(onHelpRequested()) );
+    QObject::connect(_imp->helpButton, SIGNAL(clicked(bool)), this, SLOT(onHelpRequested()));
     _imp->midButtonsLayout->addWidget(_imp->helpButton);
     _imp->midButtonsLayout->addStretch();
 
     _imp->mainLayout->addWidget(_imp->midButtonsContainer);
 
     _imp->resultEdit = new OutputScriptTextEdit(this);
-    _imp->resultEdit->setFixedHeight( TO_DPIY(80) );
+    _imp->resultEdit->setFixedHeight(TO_DPIY(80));
     _imp->resultEdit->setFocusPolicy(Qt::NoFocus);
     _imp->resultEdit->setReadOnly(true);
     _imp->mainLayout->addWidget(_imp->resultEdit);
@@ -211,28 +201,29 @@ EditScriptDialog::create(const QString& initialScript,
 
     _imp->buttons = new DialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
     _imp->mainLayout->addWidget(_imp->buttons);
-    QObject::connect( _imp->buttons, SIGNAL(accepted()), this, SLOT(accept()) );
-    QObject::connect( _imp->buttons, SIGNAL(rejected()), this, SLOT(reject()) );
+    QObject::connect(_imp->buttons, SIGNAL(accepted()), this, SLOT(accept()));
+    QObject::connect(_imp->buttons, SIGNAL(rejected()), this, SLOT(reject()));
 
-    if ( !initialScript.isEmpty() ) {
+    if (!initialScript.isEmpty())
+    {
         compileAndSetResult(initialScript);
     }
-    QObject::connect( _imp->expressionEdit, SIGNAL(textChanged()), this, SLOT(onTextEditChanged()) );
+    QObject::connect(_imp->expressionEdit, SIGNAL(textChanged()), this, SLOT(onTextEditChanged()));
     _imp->expressionEdit->setFocus();
 
-    QString fontFamily = QString::fromUtf8( appPTR->getCurrentSettings()->getSEFontFamily().c_str() );
+    QString fontFamily = QString::fromUtf8(appPTR->getCurrentSettings()->getSEFontFamily().c_str());
     int fontSize = appPTR->getCurrentSettings()->getSEFontSize();
     QFont font(fontFamily, fontSize);
-    if ( font.exactMatch() ) {
+    if (font.exactMatch())
+    {
         _imp->expressionEdit->setFont(font);
         _imp->resultEdit->setFont(font);
     }
     QFontMetrics fm = _imp->expressionEdit->fontMetrics();
-    _imp->expressionEdit->setTabStopWidth( 4 * fm.width( QLatin1Char(' ') ) );
+    _imp->expressionEdit->setTabStopWidth(4 * fm.width(QLatin1Char(' ')));
 } // EditScriptDialog::create
 
-void
-EditScriptDialog::compileAndSetResult(const QString& script)
+void EditScriptDialog::compileAndSetResult(const QString &script)
 {
     QString ret = compileExpression(script);
 
@@ -294,39 +285,36 @@ EditScriptDialog::getHelpPart2()
               "with the current interpolation filter, or the exact keyframe at that time if one exists.</p>");
 }
 
-void
-EditScriptDialog::onHelpRequested()
+void EditScriptDialog::onHelpRequested()
 {
     QString help = getCustomHelp();
     Dialogs::informationDialog(tr("Help").toStdString(), help.toStdString(), true);
 }
 
 QString
-EditScriptDialog::getExpression(bool* hasRetVariable) const
+EditScriptDialog::getExpression(bool *hasRetVariable) const
 {
-    if (hasRetVariable) {
+    if (hasRetVariable)
+    {
         *hasRetVariable = _imp->useRetButton ? _imp->useRetButton->isChecked() : false;
     }
 
     return _imp->expressionEdit->toPlainText();
 }
 
-bool
-EditScriptDialog::isUseRetButtonChecked() const
+bool EditScriptDialog::isUseRetButtonChecked() const
 {
     return _imp->useRetButton->isChecked();
 }
 
-void
-EditScriptDialog::onTextEditChanged()
+void EditScriptDialog::onTextEditChanged()
 {
-    compileAndSetResult( _imp->expressionEdit->toPlainText() );
+    compileAndSetResult(_imp->expressionEdit->toPlainText());
 }
 
-void
-EditScriptDialog::onUseRetButtonClicked(bool useRet)
+void EditScriptDialog::onUseRetButtonClicked(bool useRet)
 {
-    compileAndSetResult( _imp->expressionEdit->toPlainText() );
+    compileAndSetResult(_imp->expressionEdit->toPlainText());
     _imp->useRetButton->setDown(useRet);
 }
 
@@ -334,14 +322,18 @@ EditScriptDialog::~EditScriptDialog()
 {
 }
 
-void
-EditScriptDialog::keyPressEvent(QKeyEvent* e)
+void EditScriptDialog::keyPressEvent(QKeyEvent *e)
 {
-    if ( (e->key() == Qt::Key_Return) || (e->key() == Qt::Key_Enter) ) {
+    if ((e->key() == Qt::Key_Return) || (e->key() == Qt::Key_Enter))
+    {
         accept();
-    } else if (e->key() == Qt::Key_Escape) {
+    }
+    else if (e->key() == Qt::Key_Escape)
+    {
         reject();
-    } else {
+    }
+    else
+    {
         QDialog::keyPressEvent(e);
     }
 }
