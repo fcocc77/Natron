@@ -67,24 +67,21 @@
 
 NATRON_NAMESPACE_ENTER
 
-
-void
-Gui::setupUi()
+void Gui::setupUi()
 {
     onProjectNameChanged(QString(), false);
 
     setMouseTracking(true);
     installEventFilter(this);
-    assert( !isFullScreen() );
+    assert(!isFullScreen());
 
     //Gui::loadStyleSheet();
 
     ///Restores position, size of the main window as well as whether it was fullscreen or not.
     _imp->restoreGuiGeometry();
 
-
     _imp->_undoStacksGroup = new QUndoGroup;
-    QObject::connect( _imp->_undoStacksGroup, SIGNAL(activeStackChanged(QUndoStack*)), this, SLOT(onCurrentUndoStackChanged(QUndoStack*)) );
+    QObject::connect(_imp->_undoStacksGroup, SIGNAL(activeStackChanged(QUndoStack *)), this, SLOT(onCurrentUndoStackChanged(QUndoStack *)));
 
     createMenuActions();
 
@@ -99,20 +96,20 @@ Gui::setupUi()
 
     _imp->_leftRightSplitter = new Splitter(_imp->_centralWidget);
     _imp->_leftRightSplitter->setChildrenCollapsible(false);
-    _imp->_leftRightSplitter->setObjectName( QString::fromUtf8(kMainSplitterObjectName) );
+    _imp->_leftRightSplitter->setObjectName(QString::fromUtf8(kMainSplitterObjectName));
     _imp->_splitters.push_back(_imp->_leftRightSplitter);
     _imp->_leftRightSplitter->setOrientation(Qt::Horizontal);
     _imp->_leftRightSplitter->setContentsMargins(0, 0, 0, 0);
-
 
     _imp->_toolBox = new AutoHideToolBar(this, _imp->_leftRightSplitter);
     _imp->_toolBox->setObjectName(qs("toolBox"));
     _imp->_toolBox->setToolButtonStyle(Qt::ToolButtonIconOnly);
     _imp->_toolBox->setOrientation(Qt::Vertical);
-    _imp->_toolBox->setMaximumWidth( TO_DPIX(NATRON_TOOL_BUTTON_SIZE) );
+    _imp->_toolBox->setMaximumWidth(TO_DPIX(NATRON_TOOL_BUTTON_SIZE));
 
-    if (_imp->leftToolBarDisplayedOnHoverOnly) {
-        _imp->refreshLeftToolBarVisibility( mapFromGlobal( QCursor::pos() ) );
+    if (_imp->leftToolBarDisplayedOnHoverOnly)
+    {
+        _imp->refreshLeftToolBarVisibility(mapFromGlobal(QCursor::pos()));
     }
 
     _imp->_leftRightSplitter->addWidget(_imp->_toolBox);
@@ -139,22 +136,19 @@ Gui::setupUi()
 
     createDefaultLayoutInternal(false);
 
-
     initProjectGuiKnobs();
-
 
     setVisibleProjectSettingsPanel();
 
     _imp->_aboutWindow = new AboutWindow(this);
     _imp->_aboutWindow->hide();
 
-
     //the same action also clears the ofx plugins caches, they are not the same cache but are used to the same end
 
-    QObject::connect( project.get(), SIGNAL(projectNameChanged(QString,bool)), this, SLOT(onProjectNameChanged(QString,bool)) );
+    QObject::connect(project.get(), SIGNAL(projectNameChanged(QString, bool)), this, SLOT(onProjectNameChanged(QString, bool)));
     TimeLinePtr timeline = project->getTimeLine();
-    QObject::connect( timeline.get(), SIGNAL(frameChanged(SequenceTime,int)), this, SLOT(renderViewersAndRefreshKnobsAfterTimelineTimeChange(SequenceTime,int)) );
-    QObject::connect( timeline.get(), SIGNAL(frameAboutToChange()), this, SLOT(onTimelineTimeAboutToChange()) );
+    QObject::connect(timeline.get(), SIGNAL(frameChanged(SequenceTime, int)), this, SLOT(renderViewersAndRefreshKnobsAfterTimelineTimeChange(SequenceTime, int)));
+    QObject::connect(timeline.get(), SIGNAL(frameAboutToChange()), this, SLOT(onTimelineTimeAboutToChange()));
 
     /*Searches recursively for all child objects of the given object,
        and connects matching signals from them to slots of object that follow the following form:
@@ -174,12 +168,11 @@ Gui::setupUi()
 #ifdef DEBUG
         boost_adaptbx::floating_point::exception_trapping trap(0);
 #endif
-        appPTR->setOFXHostHandle( getApp()->getOfxHostOSHandle() );
+        appPTR->setOFXHostHandle(getApp()->getOfxHostOSHandle());
     }
 } // setupUi
 
-void
-Gui::onPropertiesScrolled()
+void Gui::onPropertiesScrolled()
 {
 #ifdef __NATRON_WIN32__
     //On Windows Qt 4.8.6 has a bug where the viewport of the scrollarea gets scrolled outside the bounding rect of the QScrollArea and overlaps all widgets inheriting QGLWidget.
@@ -187,99 +180,110 @@ Gui::onPropertiesScrolled()
 
     {
         QMutexLocker k(&_imp->_viewerTabsMutex);
-        for (std::list<ViewerTab*>::iterator it = _imp->_viewerTabs.begin(); it != _imp->_viewerTabs.end(); ++it) {
+        for (std::list<ViewerTab *>::iterator it = _imp->_viewerTabs.begin(); it != _imp->_viewerTabs.end(); ++it)
+        {
             (*it)->redrawGLWidgets();
         }
     }
     _imp->_curveEditor->getCurveWidget()->update();
 
     {
-        QMutexLocker k (&_imp->_histogramsMutex);
-        for (std::list<Histogram*>::iterator it = _imp->_histograms.begin(); it != _imp->_histograms.end(); ++it) {
+        QMutexLocker k(&_imp->_histogramsMutex);
+        for (std::list<Histogram *>::iterator it = _imp->_histograms.begin(); it != _imp->_histograms.end(); ++it)
+        {
             (*it)->update();
         }
     }
 #endif
 }
 
-void
-Gui::updateAboutWindowLibrariesVersion()
+void Gui::updateAboutWindowLibrariesVersion()
 {
-    if (_imp->_aboutWindow) {
+    if (_imp->_aboutWindow)
+    {
         _imp->_aboutWindow->updateLibrariesVersions();
     }
 }
 
-void
-Gui::createGroupGui(const NodePtr & group,
-                    const CreateNodeArgs& args)
+void Gui::createGroupGui(const NodePtr &group,
+                         const CreateNodeArgs &args)
 {
-    NodeGroupPtr isGrp = boost::dynamic_pointer_cast<NodeGroup>( group->getEffectInstance()->shared_from_this() );
+    NodeGroupPtr isGrp = boost::dynamic_pointer_cast<NodeGroup>(group->getEffectInstance()->shared_from_this());
 
     assert(isGrp);
     NodeCollectionPtr collection = boost::dynamic_pointer_cast<NodeCollection>(isGrp);
     assert(collection);
 
-    TabWidget* where = 0;
-    if (_imp->_lastFocusedGraph) {
-        TabWidget* isTab = dynamic_cast<TabWidget*>( _imp->_lastFocusedGraph->parentWidget() );
-        if (isTab) {
+    TabWidget *where = 0;
+    if (_imp->_lastFocusedGraph)
+    {
+        TabWidget *isTab = dynamic_cast<TabWidget *>(_imp->_lastFocusedGraph->parentWidget());
+        if (isTab)
+        {
             where = isTab;
-        } else {
+        }
+        else
+        {
             QMutexLocker k(&_imp->_panesMutex);
-            assert( !_imp->_panes.empty() );
+            assert(!_imp->_panes.empty());
             where = _imp->_panes.front();
         }
     }
 
-    QGraphicsScene* scene = new QGraphicsScene(this);
+    QGraphicsScene *scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    NodeGraph* nodeGraph = new NodeGraph(this, collection, scene, this);
-    nodeGraph->setObjectName( QString::fromUtf8( group->getLabel().c_str() ) );
+    NodeGraph *nodeGraph = new NodeGraph(this, collection, scene, this);
+    nodeGraph->setObjectName(QString::fromUtf8(group->getLabel().c_str()));
     _imp->_groups.push_back(nodeGraph);
-    
+
     NodeSerializationPtr serialization = args.getProperty<NodeSerializationPtr>(kCreateNodeArgsPropNodeSerialization);
 
-    if ( where && !serialization && !getApp()->isCreatingPythonGroup() ) {
+    if (where && !serialization && !getApp()->isCreatingPythonGroup())
+    {
         where->appendTab(nodeGraph, nodeGraph);
-        QTimer::singleShot( 25, nodeGraph, SLOT(centerOnAllNodes()) );
-    } else {
+        QTimer::singleShot(25, nodeGraph, SLOT(centerOnAllNodes()));
+    }
+    else
+    {
         nodeGraph->setVisible(false);
     }
 }
 
-void
-Gui::addGroupGui(NodeGraph* tab,
-                 TabWidget* where)
+void Gui::addGroupGui(NodeGraph *tab,
+                      TabWidget *where)
 {
     assert(tab);
     assert(where);
     {
-        std::list<NodeGraph*>::iterator it = std::find(_imp->_groups.begin(), _imp->_groups.end(), tab);
-        if ( it == _imp->_groups.end() ) {
+        std::list<NodeGraph *>::iterator it = std::find(_imp->_groups.begin(), _imp->_groups.end(), tab);
+        if (it == _imp->_groups.end())
+        {
             _imp->_groups.push_back(tab);
         }
     }
     where->appendTab(tab, tab);
 }
 
-void
-Gui::removeGroupGui(NodeGraph* tab,
-                    bool deleteData)
+void Gui::removeGroupGui(NodeGraph *tab,
+                         bool deleteData)
 {
     tab->hide();
 
-    if (_imp->_lastFocusedGraph == tab) {
+    if (_imp->_lastFocusedGraph == tab)
+    {
         _imp->_lastFocusedGraph = 0;
     }
-    TabWidget* container = dynamic_cast<TabWidget*>( tab->parentWidget() );
-    if (container) {
+    TabWidget *container = dynamic_cast<TabWidget *>(tab->parentWidget());
+    if (container)
+    {
         container->removeTab(tab, true);
     }
 
-    if (deleteData) {
-        std::list<NodeGraph*>::iterator it = std::find(_imp->_groups.begin(), _imp->_groups.end(), tab);
-        if ( it != _imp->_groups.end() ) {
+    if (deleteData)
+    {
+        std::list<NodeGraph *>::iterator it = std::find(_imp->_groups.begin(), _imp->_groups.end(), tab);
+        if (it != _imp->_groups.end())
+        {
             _imp->_groups.erase(it);
         }
 
@@ -288,32 +292,30 @@ Gui::removeGroupGui(NodeGraph* tab,
     }
 }
 
-void
-Gui::setLastSelectedGraph(NodeGraph* graph)
+void Gui::setLastSelectedGraph(NodeGraph *graph)
 {
-    assert( QThread::currentThread() == qApp->thread() );
+    assert(QThread::currentThread() == qApp->thread());
     _imp->_lastFocusedGraph = graph;
 }
 
-NodeGraph*
+NodeGraph *
 Gui::getLastSelectedGraph() const
 {
-    assert( QThread::currentThread() == qApp->thread() );
+    assert(QThread::currentThread() == qApp->thread());
 
     return _imp->_lastFocusedGraph;
 }
 
-void
-Gui::setActiveViewer(ViewerTab* viewer)
+void Gui::setActiveViewer(ViewerTab *viewer)
 {
-    assert( QThread::currentThread() == qApp->thread() );
+    assert(QThread::currentThread() == qApp->thread());
     _imp->_activeViewer = viewer;
 }
 
-ViewerTab*
+ViewerTab *
 Gui::getActiveViewer() const
 {
-    assert( QThread::currentThread() == qApp->thread() );
+    assert(QThread::currentThread() == qApp->thread());
 
     return _imp->_activeViewer;
 }
@@ -321,11 +323,14 @@ Gui::getActiveViewer() const
 NodeCollectionPtr
 Gui::getLastSelectedNodeCollection() const
 {
-    NodeGraph* graph = 0;
+    NodeGraph *graph = 0;
 
-    if (_imp->_lastFocusedGraph) {
+    if (_imp->_lastFocusedGraph)
+    {
         graph = _imp->_lastFocusedGraph;
-    } else {
+    }
+    else
+    {
         graph = _imp->_nodeGraphArea;
     }
     NodeCollectionPtr group = graph->getGroup();
@@ -334,20 +339,21 @@ Gui::getLastSelectedNodeCollection() const
     return group;
 }
 
-void
-Gui::wipeLayout()
+void Gui::wipeLayout()
 {
-    std::list<TabWidget*> panesCpy;
+    std::list<TabWidget *> panesCpy;
     {
         QMutexLocker l(&_imp->_panesMutex);
         panesCpy = _imp->_panes;
         _imp->_panes.clear();
     }
-    std::list<FloatingWidget*> floatingWidgets = getFloatingWindows();
+    std::list<FloatingWidget *> floatingWidgets = getFloatingWindows();
 
-    FloatingWidget* projectFW = _imp->_projectGui->getPanel()->getFloatingWindow();
-    for (std::list<FloatingWidget*>::const_iterator it = floatingWidgets.begin(); it != floatingWidgets.end(); ++it) {
-        if (!projectFW || (*it) != projectFW) {
+    FloatingWidget *projectFW = _imp->_projectGui->getPanel()->getFloatingWindow();
+    for (std::list<FloatingWidget *>::const_iterator it = floatingWidgets.begin(); it != floatingWidgets.end(); ++it)
+    {
+        if (!projectFW || (*it) != projectFW)
+        {
             (*it)->deleteLater();
         }
     }
@@ -356,30 +362,35 @@ Gui::wipeLayout()
         _imp->_floatingWindows.clear();
 
         // Re-add the project window
-        if (projectFW) {
+        if (projectFW)
+        {
             _imp->_floatingWindows.push_back(projectFW);
         }
     }
 
-
-    for (std::list<TabWidget*>::iterator it = panesCpy.begin(); it != panesCpy.end(); ++it) {
+    for (std::list<TabWidget *>::iterator it = panesCpy.begin(); it != panesCpy.end(); ++it)
+    {
         ///Conserve tabs by removing them from the tab widgets. This way they will not be deleted.
-        while ( (*it)->count() > 0 ) {
+        while ((*it)->count() > 0)
+        {
             (*it)->removeTab(0, false);
         }
         //(*it)->setParent(NULL);
         (*it)->deleteLater();
     }
 
-    std::list<Splitter*> splittersCpy;
+    std::list<Splitter *> splittersCpy;
     {
         QMutexLocker l(&_imp->_splittersMutex);
         splittersCpy = _imp->_splitters;
         _imp->_splitters.clear();
     }
-    for (std::list<Splitter*>::iterator it = splittersCpy.begin(); it != splittersCpy.end(); ++it) {
-        if (_imp->_leftRightSplitter != *it) {
-            while ( (*it)->count() > 0 ) {
+    for (std::list<Splitter *>::iterator it = splittersCpy.begin(); it != splittersCpy.end(); ++it)
+    {
+        if (_imp->_leftRightSplitter != *it)
+        {
+            while ((*it)->count() > 0)
+            {
                 (*it)->widget(0)->setParent(NULL);
             }
             //(*it)->setParent(NULL);
@@ -387,10 +398,9 @@ Gui::wipeLayout()
         }
     }
 
-
     Splitter *newSplitter = new Splitter(_imp->_centralWidget);
     newSplitter->addWidget(_imp->_toolBox);
-    newSplitter->setObjectName_mt_safe( _imp->_leftRightSplitter->objectName_mt_safe() );
+    newSplitter->setObjectName_mt_safe(_imp->_leftRightSplitter->objectName_mt_safe());
     _imp->_mainLayout->removeWidget(_imp->_leftRightSplitter);
     unregisterSplitter(_imp->_leftRightSplitter);
     _imp->_leftRightSplitter->deleteLater();
