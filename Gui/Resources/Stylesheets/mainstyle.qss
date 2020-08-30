@@ -495,6 +495,10 @@ DockablePanel #horizContainer {
           padding: 0;
           margin: 0;
           background: #333333; }
+        DockablePanel #horizContainer #rightContainer QTabWidget ComboBox[animation="3"] {
+          background-color: #3e3d38;
+          border-color: #74673b;
+          color: #ffd342; }
       DockablePanel #horizContainer #rightContainer QTabWidget ScaleSliderQWidget {
         background: none; }
       DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob {

@@ -1,4 +1,9 @@
 @import components/EditScriptDialog
+
+$expresion_color: #ffd342
+$key_color: #008cff
+$key_color_2: #95cfff
+
 DockablePanel
     #headerWidget
         background: $b17
@@ -50,6 +55,10 @@ DockablePanel
                 ComboBox 
                     @include combobox
                     background: $b25
+                    &[animation="3"] 
+                        background-color: mix($expresion_color, $b22, 3%)
+                        border-color: mix($expresion_color, $b22, 30%)
+                        color: $expresion_color
                 ScaleSliderQWidget
                     background: none
                 #treeKnob
@@ -57,9 +66,6 @@ DockablePanel
                     margin-right: 5px
                 LineEdit
                     background: $b22
-                    $expresion_color: #ffd342
-                    $key_color: #008cff
-                    $key_color_2: #95cfff
                     &[animation="0"] 
                         &[altered="false"]
                             color: $c2
