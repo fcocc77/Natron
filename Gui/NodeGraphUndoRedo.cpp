@@ -57,195 +57,195 @@ CLANG_DIAG_ON(uninitialized)
 
 NATRON_NAMESPACE_ENTER
 
-MoveMultipleNodesCommand::MoveMultipleNodesCommand(const NodesGuiList & nodes,
+MoveMultipleNodesCommand::MoveMultipleNodesCommand(const NodesGuiList &nodes,
                                                    double dx,
                                                    double dy,
                                                    QUndoCommand *parent)
-    : QUndoCommand(parent)
-    , _firstRedoCalled(false)
-    , _nodes(nodes)
-    , _dx(dx)
-    , _dy(dy)
+    : QUndoCommand(parent), _firstRedoCalled(false), _nodes(nodes), _dx(dx), _dy(dy)
 {
-    assert( !nodes.empty() );
+    assert(!nodes.empty());
 }
 
-void
-MoveMultipleNodesCommand::move(double dx,
-                               double dy)
+void MoveMultipleNodesCommand::move(double dx,
+                                    double dy)
 {
-    for (NodesGuiList::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    for (NodesGuiList::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
         QPointF pos = (*it)->getPos_mt_safe();
         (*it)->setPosition(pos.x() + dx, pos.y() + dy);
     }
 }
 
-void
-MoveMultipleNodesCommand::undo()
+void MoveMultipleNodesCommand::undo()
 {
     move(-_dx, -_dy);
-    setText( tr("Move nodes") );
+    setText(tr("Move nodes"));
 }
 
-void
-MoveMultipleNodesCommand::redo()
+void MoveMultipleNodesCommand::redo()
 {
-    if (_firstRedoCalled) {
+    if (_firstRedoCalled)
+    {
         move(_dx, _dy);
     }
     _firstRedoCalled = true;
-    setText( tr("Move nodes") );
+    setText(tr("Move nodes"));
 }
 
-AddMultipleNodesCommand::AddMultipleNodesCommand(NodeGraph* graph,
-                                                 const std::list<NodeGuiPtr> & nodes,
+AddMultipleNodesCommand::AddMultipleNodesCommand(NodeGraph *graph,
+                                                 const std::list<NodeGuiPtr> &nodes,
                                                  QUndoCommand *parent)
-    : QUndoCommand(parent)
-    , _nodes()
-    , _graph(graph)
-    , _firstRedoCalled(false)
-    , _isUndone(false)
+    : QUndoCommand(parent), _nodes(), _graph(graph), _firstRedoCalled(false), _isUndone(false)
 {
-    for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
+    for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
         _nodes.push_back(*it);
     }
 }
 
-AddMultipleNodesCommand::AddMultipleNodesCommand(NodeGraph* graph,
-                                                 const NodeGuiPtr & node,
-                                                 QUndoCommand* parent)
-    : QUndoCommand(parent)
-    , _nodes()
-    , _graph(graph)
-    , _firstRedoCalled(false)
-    , _isUndone(false)
+AddMultipleNodesCommand::AddMultipleNodesCommand(NodeGraph *graph,
+                                                 const NodeGuiPtr &node,
+                                                 QUndoCommand *parent)
+    : QUndoCommand(parent), _nodes(), _graph(graph), _firstRedoCalled(false), _isUndone(false)
 {
     _nodes.push_back(node);
 }
 
 AddMultipleNodesCommand::~AddMultipleNodesCommand()
 {
-    if (_isUndone) {
-        for (std::list<NodeGuiWPtr>::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    if (_isUndone)
+    {
+        for (std::list<NodeGuiWPtr>::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+        {
             NodeGuiPtr node = it->lock();
-            if (node) {
+            if (node)
+            {
                 node->getNode()->destroyNode(false, false);
             }
         }
     }
 }
 
-void
-AddMultipleNodesCommand::undo()
+void AddMultipleNodesCommand::undo()
 {
     _isUndone = true;
-    std::list<ViewerInstance*> viewersToRefresh;
+    std::list<ViewerInstance *> viewersToRefresh;
 
-
-    for (std::list<NodeGuiWPtr>::const_iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    for (std::list<NodeGuiWPtr>::const_iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
         NodeGuiPtr node = it->lock();
-        std::list<ViewerInstance* > viewers;
+        std::list<ViewerInstance *> viewers;
         node->getNode()->hasViewersConnected(&viewers);
-        for (std::list<ViewerInstance* >::iterator it2 = viewers.begin(); it2 != viewers.end(); ++it2) {
-            std::list<ViewerInstance*>::iterator foundViewer = std::find(viewersToRefresh.begin(), viewersToRefresh.end(), *it2);
-            if ( foundViewer == viewersToRefresh.end() ) {
+        for (std::list<ViewerInstance *>::iterator it2 = viewers.begin(); it2 != viewers.end(); ++it2)
+        {
+            std::list<ViewerInstance *>::iterator foundViewer = std::find(viewersToRefresh.begin(), viewersToRefresh.end(), *it2);
+            if (foundViewer == viewersToRefresh.end())
+            {
                 viewersToRefresh.push_back(*it2);
             }
         }
         node->getNode()->deactivate(NodesList(), //outputs to disconnect
-                                    true, //disconnect all nodes, disregarding the first parameter.
-                                    true, //reconnect outputs to inputs of this node?
-                                    true, //hide nodeGui?
-                                    false); // triggerRender
+                                    true,        //disconnect all nodes, disregarding the first parameter.
+                                    true,        //reconnect outputs to inputs of this node?
+                                    true,        //hide nodeGui?
+                                    false);      // triggerRender
     }
 
     _graph->clearSelection();
 
     _graph->getGui()->getApp()->triggerAutoSave();
 
-    for (std::list<ViewerInstance* >::iterator it = viewersToRefresh.begin(); it != viewersToRefresh.end(); ++it) {
+    for (std::list<ViewerInstance *>::iterator it = viewersToRefresh.begin(); it != viewersToRefresh.end(); ++it)
+    {
         (*it)->renderCurrentFrame(true);
     }
 
-
-    setText( tr("Add node") );
+    setText(tr("Add node"));
 }
 
-void
-AddMultipleNodesCommand::redo()
+void AddMultipleNodesCommand::redo()
 {
     _isUndone = false;
-    std::list<ViewerInstance*> viewersToRefresh;
+    std::list<ViewerInstance *> viewersToRefresh;
     std::list<NodeGuiPtr> nodes;
-    for (std::list<NodeGuiWPtr>::const_iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
-        nodes.push_back( it->lock() );
+    for (std::list<NodeGuiWPtr>::const_iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
+        nodes.push_back(it->lock());
     }
-    if (_firstRedoCalled) {
-        for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
+    if (_firstRedoCalled)
+    {
+        for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+        {
             (*it)->getNode()->activate(NodesList(), //inputs to restore
-                                       true, //restore all inputs ?
-                                       false); //triggerRender
+                                       true,        //restore all inputs ?
+                                       false);      //triggerRender
         }
     }
 
-
-    if ( (nodes.size() != 1) || !nodes.front()->getNode()->isEffectGroup() ) {
+    if ((nodes.size() != 1) || !nodes.front()->getNode()->isEffectGroup())
+    {
         _graph->setSelection(nodes);
     }
 
     _graph->getGui()->getApp()->recheckInvalidExpressions();
     _graph->getGui()->getApp()->triggerAutoSave();
 
-    for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
-        std::list<ViewerInstance* > viewers;
+    for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
+        std::list<ViewerInstance *> viewers;
         (*it)->getNode()->hasViewersConnected(&viewers);
-        for (std::list<ViewerInstance* >::iterator it2 = viewers.begin(); it2 != viewers.end(); ++it2) {
-            std::list<ViewerInstance*>::iterator foundViewer = std::find(viewersToRefresh.begin(), viewersToRefresh.end(), *it2);
-            if ( foundViewer == viewersToRefresh.end() ) {
+        for (std::list<ViewerInstance *>::iterator it2 = viewers.begin(); it2 != viewers.end(); ++it2)
+        {
+            std::list<ViewerInstance *>::iterator foundViewer = std::find(viewersToRefresh.begin(), viewersToRefresh.end(), *it2);
+            if (foundViewer == viewersToRefresh.end())
+            {
                 viewersToRefresh.push_back(*it2);
             }
         }
     }
 
-
-    for (std::list<ViewerInstance* >::iterator it = viewersToRefresh.begin(); it != viewersToRefresh.end(); ++it) {
-        if ( (*it)->getUiContext() ) {
+    for (std::list<ViewerInstance *>::iterator it = viewersToRefresh.begin(); it != viewersToRefresh.end(); ++it)
+    {
+        if ((*it)->getUiContext())
+        {
             (*it)->renderCurrentFrame(true);
         }
     }
 
-
     _firstRedoCalled = true;
-    setText( tr("Add node") );
+    setText(tr("Add node"));
 }
 
-RemoveMultipleNodesCommand::RemoveMultipleNodesCommand(NodeGraph* graph,
-                                                       const std::list<NodeGuiPtr> & nodes,
+RemoveMultipleNodesCommand::RemoveMultipleNodesCommand(NodeGraph *graph,
+                                                       const std::list<NodeGuiPtr> &nodes,
                                                        QUndoCommand *parent)
-    : QUndoCommand(parent)
-    , _nodes()
-    , _graph(graph)
-    , _isRedone(false)
+    : QUndoCommand(parent), _nodes(), _graph(graph), _isRedone(false)
 {
-    for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
+    for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
         NodeToRemove n;
         n.node = *it;
 
         ///find all outputs to restore
-        const NodesWList & outputs = (*it)->getNode()->getGuiOutputs();
-        for (NodesWList::const_iterator it2 = outputs.begin(); it2 != outputs.end(); ++it2) {
+        const NodesWList &outputs = (*it)->getNode()->getGuiOutputs();
+        for (NodesWList::const_iterator it2 = outputs.begin(); it2 != outputs.end(); ++it2)
+        {
             NodePtr output = it2->lock();
-            if (!output) {
+            if (!output)
+            {
                 continue;
             }
             bool restore = true;
-            for (std::list<NodeGuiPtr> ::const_iterator it3 = nodes.begin(); it3 != nodes.end(); ++it3) {
-                if ( (*it3)->getNode() == output ) {
+            for (std::list<NodeGuiPtr>::const_iterator it3 = nodes.begin(); it3 != nodes.end(); ++it3)
+            {
+                if ((*it3)->getNode() == output)
+                {
                     ///we found the output in the selection, don't restore it
                     restore = false;
                 }
             }
-            if (restore) {
+            if (restore)
+            {
                 n.outputsToRestore.push_back(output);
             }
         }
@@ -255,57 +255,68 @@ RemoveMultipleNodesCommand::RemoveMultipleNodesCommand(NodeGraph* graph,
 
 RemoveMultipleNodesCommand::~RemoveMultipleNodesCommand()
 {
-    if (_isRedone) {
-        for (std::list<NodeToRemove>::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    if (_isRedone)
+    {
+        for (std::list<NodeToRemove>::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+        {
             NodeGuiPtr n = it->node.lock();
-            if (n) {
+            if (n)
+            {
                 n->getNode()->destroyNode(false, false);
             }
         }
     }
 }
 
-void
-RemoveMultipleNodesCommand::undo()
+void RemoveMultipleNodesCommand::undo()
 {
-    std::list<ViewerInstance*> viewersToRefresh;
+    std::list<ViewerInstance *> viewersToRefresh;
     std::list<SequenceTime> allKeysToAdd;
     std::list<NodeToRemove>::iterator next = _nodes.begin();
 
-    if ( next != _nodes.end() ) {
+    if (next != _nodes.end())
+    {
         ++next;
     }
     for (std::list<NodeToRemove>::iterator it = _nodes.begin();
          it != _nodes.end();
-         ++it) {
+         ++it)
+    {
         NodeGuiPtr node = it->node.lock();
         NodesList outputsToRestore;
-        for (NodesWList::const_iterator it2 = it->outputsToRestore.begin(); it2 != it->outputsToRestore.end(); ++it2) {
+        for (NodesWList::const_iterator it2 = it->outputsToRestore.begin(); it2 != it->outputsToRestore.end(); ++it2)
+        {
             NodePtr output = it2->lock();
-            if (output) {
+            if (output)
+            {
                 outputsToRestore.push_back(output);
             }
         }
 
         node->getNode()->activate(outputsToRestore, false, false);
-        if ( node->isSettingsPanelVisible() ) {
-            node->getNode()->showKeyframesOnTimeline( next == _nodes.end() );
+        if (node->isSettingsPanelVisible())
+        {
+            node->getNode()->showKeyframesOnTimeline(next == _nodes.end());
         }
-        std::list<ViewerInstance* > viewers;
+        std::list<ViewerInstance *> viewers;
         node->getNode()->hasViewersConnected(&viewers);
-        for (std::list<ViewerInstance* >::iterator it2 = viewers.begin(); it2 != viewers.end(); ++it2) {
-            std::list<ViewerInstance*>::iterator foundViewer = std::find(viewersToRefresh.begin(), viewersToRefresh.end(), *it2);
-            if ( foundViewer == viewersToRefresh.end() ) {
+        for (std::list<ViewerInstance *>::iterator it2 = viewers.begin(); it2 != viewers.end(); ++it2)
+        {
+            std::list<ViewerInstance *>::iterator foundViewer = std::find(viewersToRefresh.begin(), viewersToRefresh.end(), *it2);
+            if (foundViewer == viewersToRefresh.end())
+            {
                 viewersToRefresh.push_back(*it2);
             }
         }
 
         // increment for next iteration
-        if ( next != _nodes.end() ) {
+        if (next != _nodes.end())
+        {
             ++next;
         }
     } // for(it)
-    for (std::list<ViewerInstance* >::iterator it = viewersToRefresh.begin(); it != viewersToRefresh.end(); ++it) {
+    for (std::list<ViewerInstance *>::iterator it = viewersToRefresh.begin(); it != viewersToRefresh.end(); ++it)
+    {
         (*it)->renderCurrentFrame(true);
     }
     _graph->getGui()->getApp()->triggerAutoSave();
@@ -314,71 +325,83 @@ RemoveMultipleNodesCommand::undo()
 
     _isRedone = false;
     _graph->scene()->update();
-    setText( tr("Remove node") );
+    setText(tr("Remove node"));
 } // RemoveMultipleNodesCommand::undo
 
-void
-RemoveMultipleNodesCommand::redo()
+void RemoveMultipleNodesCommand::redo()
 {
     _isRedone = true;
 
-    std::list<ViewerInstance*> viewersToRefresh;
+    std::list<ViewerInstance *> viewersToRefresh;
     std::list<NodeToRemove>::iterator next = _nodes.begin();
-    if ( next != _nodes.end() ) {
+    if (next != _nodes.end())
+    {
         ++next;
     }
     for (std::list<NodeToRemove>::iterator it = _nodes.begin();
          it != _nodes.end();
-         ++it) {
+         ++it)
+    {
         NodeGuiPtr node = it->node.lock();
         ///Make a copy before calling deactivate which will modify the list
         NodesWList outputs = node->getNode()->getGuiOutputs();
-        std::list<ViewerInstance* > viewers;
+        std::list<ViewerInstance *> viewers;
         node->getNode()->hasViewersConnected(&viewers);
-        for (std::list<ViewerInstance* >::iterator it2 = viewers.begin(); it2 != viewers.end(); ++it2) {
-            std::list<ViewerInstance*>::iterator foundViewer = std::find(viewersToRefresh.begin(), viewersToRefresh.end(), *it2);
-            if ( foundViewer == viewersToRefresh.end() ) {
+        for (std::list<ViewerInstance *>::iterator it2 = viewers.begin(); it2 != viewers.end(); ++it2)
+        {
+            std::list<ViewerInstance *>::iterator foundViewer = std::find(viewersToRefresh.begin(), viewersToRefresh.end(), *it2);
+            if (foundViewer == viewersToRefresh.end())
+            {
                 viewersToRefresh.push_back(*it2);
             }
         }
 
         NodesList outputsToRestore;
-        for (NodesWList::const_iterator it2 = it->outputsToRestore.begin(); it2 != it->outputsToRestore.end(); ++it2) {
+        for (NodesWList::const_iterator it2 = it->outputsToRestore.begin(); it2 != it->outputsToRestore.end(); ++it2)
+        {
             NodePtr output = it2->lock();
-            if (output) {
+            if (output)
+            {
                 outputsToRestore.push_back(output);
             }
         }
 
         node->getNode()->deactivate(outputsToRestore, false, _nodes.size() == 1, true, false);
 
-
-        if (_nodes.size() == 1) {
+        if (_nodes.size() == 1)
+        {
             ///If we're deleting a single node and there's a viewer in output,reconnect the viewer to another connected input it has
-            for (NodesWList::const_iterator it2 = outputs.begin(); it2 != outputs.end(); ++it2) {
+            for (NodesWList::const_iterator it2 = outputs.begin(); it2 != outputs.end(); ++it2)
+            {
                 NodePtr output = it2->lock();
 
-                if (!output) {
+                if (!output)
+                {
                     continue;
                 }
 
                 ///the output must be in the outputs to restore
                 NodesList::const_iterator found = std::find(outputsToRestore.begin(), outputsToRestore.end(), output);
 
-                if ( found != outputsToRestore.end() ) {
-                    InspectorNode* inspector = dynamic_cast<InspectorNode*>( output.get() );
+                if (found != outputsToRestore.end())
+                {
+                    InspectorNode *inspector = dynamic_cast<InspectorNode *>(output.get());
                     ///if the node is an inspector, when disconnecting the active input just activate another input instead
-                    if (inspector) {
-                        const std::vector<NodeWPtr> & inputs = inspector->getGuiInputs();
+                    if (inspector)
+                    {
+                        const std::vector<NodeWPtr> &inputs = inspector->getGuiInputs();
                         ///set as active input the first non null input
-                        for (std::size_t i = 0; i < inputs.size(); ++i) {
+                        for (std::size_t i = 0; i < inputs.size(); ++i)
+                        {
                             NodePtr input = inputs[i].lock();
-                            if (input) {
+                            if (input)
+                            {
                                 inspector->setActiveInputAndRefresh(i, true);
                                 ///make sure we don't refresh it a second time
-                                std::list<ViewerInstance*>::iterator foundViewer =
-                                    std::find( viewersToRefresh.begin(), viewersToRefresh.end(), inspector->isEffectViewer() );
-                                if ( foundViewer != viewersToRefresh.end() ) {
+                                std::list<ViewerInstance *>::iterator foundViewer =
+                                    std::find(viewersToRefresh.begin(), viewersToRefresh.end(), inspector->isEffectViewer());
+                                if (foundViewer != viewersToRefresh.end())
+                                {
                                     viewersToRefresh.erase(foundViewer);
                                 }
                                 break;
@@ -388,17 +411,20 @@ RemoveMultipleNodesCommand::redo()
                 }
             }
         }
-        if ( node->isSettingsPanelVisible() ) {
-            node->getNode()->hideKeyframesFromTimeline( next == _nodes.end() );
+        if (node->isSettingsPanelVisible())
+        {
+            node->getNode()->hideKeyframesFromTimeline(next == _nodes.end());
         }
 
         // increment for next iteration
-        if ( next != _nodes.end() ) {
+        if (next != _nodes.end())
+        {
             ++next;
         }
     } // for(it)
 
-    for (std::list<ViewerInstance* >::iterator it = viewersToRefresh.begin(); it != viewersToRefresh.end(); ++it) {
+    for (std::list<ViewerInstance *>::iterator it = viewersToRefresh.begin(); it != viewersToRefresh.end(); ++it)
+    {
         (*it)->renderCurrentFrame(true);
     }
 
@@ -407,26 +433,25 @@ RemoveMultipleNodesCommand::redo()
     _graph->updateNavigator();
 
     _graph->scene()->update();
-    setText( tr("Remove node") );
+    setText(tr("Remove node"));
 } // redo
 
-ConnectCommand::ConnectCommand(NodeGraph* graph,
-                               Edge* edge,
-                               const NodeGuiPtr & oldSrc,
-                               const NodeGuiPtr & newSrc,
+ConnectCommand::ConnectCommand(NodeGraph *graph,
+                               Edge *edge,
+                               const NodeGuiPtr &oldSrc,
+                               const NodeGuiPtr &newSrc,
                                QUndoCommand *parent)
     : QUndoCommand(parent),
-    _oldSrc(oldSrc),
-    _newSrc(newSrc),
-    _dst( edge->getDest() ),
-    _graph(graph),
-    _inputNb( edge->getInputNumber() )
+      _oldSrc(oldSrc),
+      _newSrc(newSrc),
+      _dst(edge->getDest()),
+      _graph(graph),
+      _inputNb(edge->getInputNumber())
 {
-    assert( _dst.lock() );
+    assert(_dst.lock());
 }
 
-void
-ConnectCommand::undo()
+void ConnectCommand::undo()
 {
     NodeGuiPtr newSrc = _newSrc.lock();
     NodeGuiPtr oldSrc = _oldSrc.lock();
@@ -437,24 +462,27 @@ ConnectCommand::undo()
               dst,
               _inputNb);
 
-    if (newSrc) {
-        setText( tr("Connect %1 to %2")
-                 .arg( QString::fromUtf8( dst->getNode()->getLabel().c_str() ) ).arg( QString::fromUtf8( newSrc->getNode()->getLabel().c_str() ) ) );
-    } else {
-        setText( tr("Disconnect %1")
-                 .arg( QString::fromUtf8( dst->getNode()->getLabel().c_str() ) ) );
+    if (newSrc)
+    {
+        setText(tr("Connect %1 to %2")
+                    .arg(QString::fromUtf8(dst->getNode()->getLabel().c_str()))
+                    .arg(QString::fromUtf8(newSrc->getNode()->getLabel().c_str())));
+    }
+    else
+    {
+        setText(tr("Disconnect %1")
+                    .arg(QString::fromUtf8(dst->getNode()->getLabel().c_str())));
     }
 
-
-    ViewerInstance* isDstAViewer = dst->getNode()->isEffectViewer();
-    if (!isDstAViewer) {
+    ViewerInstance *isDstAViewer = dst->getNode()->isEffectViewer();
+    if (!isDstAViewer)
+    {
         _graph->getGui()->getApp()->triggerAutoSave();
     }
     _graph->update();
 } // undo
 
-void
-ConnectCommand::redo()
+void ConnectCommand::redo()
 {
     NodeGuiPtr newSrc = _newSrc.lock();
     NodeGuiPtr oldSrc = _oldSrc.lock();
@@ -465,66 +493,85 @@ ConnectCommand::redo()
               dst,
               _inputNb);
 
-    if (newSrc) {
-        setText( tr("Connect %1 to %2")
-                 .arg( QString::fromUtf8( dst->getNode()->getLabel().c_str() ) ).arg( QString::fromUtf8( newSrc->getNode()->getLabel().c_str() ) ) );
-    } else {
-        setText( tr("Disconnect %1")
-                 .arg( QString::fromUtf8( dst->getNode()->getLabel().c_str() ) ) );
+    if (newSrc)
+    {
+        setText(tr("Connect %1 to %2")
+                    .arg(QString::fromUtf8(dst->getNode()->getLabel().c_str()))
+                    .arg(QString::fromUtf8(newSrc->getNode()->getLabel().c_str())));
+    }
+    else
+    {
+        setText(tr("Disconnect %1")
+                    .arg(QString::fromUtf8(dst->getNode()->getLabel().c_str())));
     }
 
-
-    ViewerInstance* isDstAViewer = dst->getNode()->isEffectViewer();
-    if (!isDstAViewer) {
+    ViewerInstance *isDstAViewer = dst->getNode()->isEffectViewer();
+    if (!isDstAViewer)
+    {
         _graph->getGui()->getApp()->triggerAutoSave();
     }
     _graph->update();
 } // redo
 
-void
-ConnectCommand::doConnect(const NodeGuiPtr &oldSrc,
-                          const NodeGuiPtr &newSrc,
-                          const NodeGuiPtr& dst,
-                          int inputNb)
+void ConnectCommand::doConnect(const NodeGuiPtr &oldSrc,
+                               const NodeGuiPtr &newSrc,
+                               const NodeGuiPtr &dst,
+                               int inputNb)
 {
-    NodePtr internalDst =  dst->getNode();
+    NodePtr internalDst = dst->getNode();
     NodePtr internalNewSrc = newSrc ? newSrc->getNode() : NodePtr();
     NodePtr internalOldSrc = oldSrc ? oldSrc->getNode() : NodePtr();
-    ViewerInstance* isViewer = internalDst->isEffectViewer();
+    ViewerInstance *isViewer = internalDst->isEffectViewer();
 
-
-    if (isViewer) {
+    if (isViewer)
+    {
         ///if the node is an inspector  disconnect any current connection between the inspector and the _newSrc
-        for (int i = 0; i < internalDst->getNInputs(); ++i) {
-            if ( (i != inputNb) && (internalDst->getInput(i) == internalNewSrc) ) {
+        for (int i = 0; i < internalDst->getNInputs(); ++i)
+        {
+            if ((i != inputNb) && (internalDst->getInput(i) == internalNewSrc))
+            {
                 internalDst->disconnectInput(i);
             }
         }
     }
-    if (internalOldSrc && internalNewSrc) {
+    if (internalOldSrc && internalNewSrc)
+    {
         internalDst->replaceInput(internalNewSrc, inputNb);
-    } else {
-        if (internalOldSrc && internalNewSrc) {
+    }
+    else
+    {
+        if (internalOldSrc && internalNewSrc)
+        {
             Node::CanConnectInputReturnValue ret = internalDst->canConnectInput(internalNewSrc, inputNb);
             bool connectionOk = ret == Node::eCanConnectInput_ok ||
                                 ret == Node::eCanConnectInput_differentFPS ||
                                 ret == Node::eCanConnectInput_differentPars;
-            if (connectionOk) {
+            if (connectionOk)
+            {
                 internalDst->replaceInput(internalNewSrc, inputNb);
-            } else {
-                internalDst->disconnectInput( internalDst->getInputIndex( internalOldSrc.get() ) );
             }
-        } else if (internalOldSrc && !internalNewSrc) {
-            internalDst->disconnectInput( internalDst->getInputIndex( internalOldSrc.get() ) );
-        } else if (!internalOldSrc && internalNewSrc) {
+            else
+            {
+                internalDst->disconnectInput(internalDst->getInputIndex(internalOldSrc.get()));
+            }
+        }
+        else if (internalOldSrc && !internalNewSrc)
+        {
+            internalDst->disconnectInput(internalDst->getInputIndex(internalOldSrc.get()));
+        }
+        else if (!internalOldSrc && internalNewSrc)
+        {
             Node::CanConnectInputReturnValue ret = internalDst->canConnectInput(internalNewSrc, inputNb);
             bool connectionOk = ret == Node::eCanConnectInput_ok ||
                                 ret == Node::eCanConnectInput_differentFPS ||
                                 ret == Node::eCanConnectInput_differentPars;
-            if (connectionOk) {
+            if (connectionOk)
+            {
                 internalDst->connectInput(internalNewSrc, inputNb);
-            } else {
-                internalDst->disconnectInput( internalDst->getInputIndex( internalOldSrc.get() ) );
+            }
+            else
+            {
+                internalDst->disconnectInput(internalDst->getInputIndex(internalOldSrc.get()));
             }
         }
     }
@@ -532,27 +579,27 @@ ConnectCommand::doConnect(const NodeGuiPtr &oldSrc,
     dst->refreshEdges();
     dst->refreshEdgesVisility();
 
-    if (newSrc) {
+    if (newSrc)
+    {
         newSrc->refreshEdgesVisility();
     }
-    if (oldSrc) {
+    if (oldSrc)
+    {
         oldSrc->refreshEdgesVisility();
     }
 } // ConnectCommand::doConnect
 
-InsertNodeCommand::InsertNodeCommand(NodeGraph* graph,
-                                     Edge* edge,
-                                     const NodeGuiPtr & newSrc,
+InsertNodeCommand::InsertNodeCommand(NodeGraph *graph,
+                                     Edge *edge,
+                                     const NodeGuiPtr &newSrc,
                                      QUndoCommand *parent)
-    : ConnectCommand(graph, edge, edge->getSource(), newSrc, parent)
-    , _inputEdge(0)
+    : ConnectCommand(graph, edge, edge->getSource(), newSrc, parent), _inputEdge(0)
 {
     assert(newSrc);
-    setText( tr("Insert node") );
+    setText(tr("Insert node"));
 }
 
-void
-InsertNodeCommand::undo()
+void InsertNodeCommand::undo()
 {
     NodeGuiPtr oldSrc = _oldSrc.lock();
     NodeGuiPtr newSrc = _newSrc.lock();
@@ -567,19 +614,20 @@ InsertNodeCommand::undo()
 
     doConnect(newSrc, oldSrc, dst, _inputNb);
 
-    if (_inputEdge) {
-        doConnect( _inputEdge->getSource(), NodeGuiPtr(), _inputEdge->getDest(), _inputEdge->getInputNumber() );
+    if (_inputEdge)
+    {
+        doConnect(_inputEdge->getSource(), NodeGuiPtr(), _inputEdge->getDest(), _inputEdge->getInputNumber());
     }
 
-    ViewerInstance* isDstAViewer = dst->getNode()->isEffectViewer();
-    if (!isDstAViewer) {
+    ViewerInstance *isDstAViewer = dst->getNode()->isEffectViewer();
+    if (!isDstAViewer)
+    {
         _graph->getGui()->getApp()->triggerAutoSave();
     }
     _graph->update();
 }
 
-void
-InsertNodeCommand::redo()
+void InsertNodeCommand::redo()
 {
     NodeGuiPtr oldSrc = _oldSrc.lock();
     NodeGuiPtr newSrc = _newSrc.lock();
@@ -597,13 +645,15 @@ InsertNodeCommand::redo()
 
     doConnect(oldSrc, newSrc, dst, _inputNb);
 
-
     ///find out if the node is already connected to what the edge is connected
     bool alreadyConnected = false;
-    const std::vector<NodeWPtr> & inpNodes = newSrcInternal->getGuiInputs();
-    if (oldSrcInternal) {
-        for (std::size_t i = 0; i < inpNodes.size(); ++i) {
-            if (inpNodes[i].lock() == oldSrcInternal) {
+    const std::vector<NodeWPtr> &inpNodes = newSrcInternal->getGuiInputs();
+    if (oldSrcInternal)
+    {
+        for (std::size_t i = 0; i < inpNodes.size(); ++i)
+        {
+            if (inpNodes[i].lock() == oldSrcInternal)
+            {
                 alreadyConnected = true;
                 break;
             }
@@ -611,43 +661,42 @@ InsertNodeCommand::redo()
     }
 
     _inputEdge = 0;
-    if (oldSrcInternal && !alreadyConnected) {
+    if (oldSrcInternal && !alreadyConnected)
+    {
         ///push a second command... this is a bit dirty but I don't have time to add a whole new command just for this
         int prefInput = newSrcInternal->getPreferredInputForConnection();
-        if (prefInput != -1) {
+        if (prefInput != -1)
+        {
             _inputEdge = newSrc->getInputArrow(prefInput);
             assert(_inputEdge);
-            doConnect( _inputEdge->getSource(), oldSrc, _inputEdge->getDest(), _inputEdge->getInputNumber() );
+            doConnect(_inputEdge->getSource(), oldSrc, _inputEdge->getDest(), _inputEdge->getInputNumber());
         }
     }
 
-    ViewerInstance* isDstAViewer = dst->getNode()->isEffectViewer();
-    if (!isDstAViewer) {
+    ViewerInstance *isDstAViewer = dst->getNode()->isEffectViewer();
+    if (!isDstAViewer)
+    {
         _graph->getGui()->getApp()->triggerAutoSave();
     }
 
     newSrcInternal->endInputEdition(false);
     dstInternal->endInputEdition(false);
 
-    std::list<ViewerInstance* > viewers;
+    std::list<ViewerInstance *> viewers;
     dstInternal->hasViewersConnected(&viewers);
-    for (std::list<ViewerInstance* >::iterator it2 = viewers.begin(); it2 != viewers.end(); ++it2) {
+    for (std::list<ViewerInstance *>::iterator it2 = viewers.begin(); it2 != viewers.end(); ++it2)
+    {
         (*it2)->renderCurrentFrame(true);
     }
 
     _graph->update();
 } // InsertNodeCommand::redo
 
-ResizeBackdropCommand::ResizeBackdropCommand(const NodeGuiPtr& bd,
+ResizeBackdropCommand::ResizeBackdropCommand(const NodeGuiPtr &bd,
                                              int w,
                                              int h,
                                              QUndoCommand *parent)
-    : QUndoCommand(parent)
-    , _bd(bd)
-    , _w(w)
-    , _h(h)
-    , _oldW(0)
-    , _oldH(0)
+    : QUndoCommand(parent), _bd(bd), _w(w), _h(h), _oldW(0), _oldH(0)
 {
     QRectF bbox = bd->boundingRect();
 
@@ -659,29 +708,28 @@ ResizeBackdropCommand::~ResizeBackdropCommand()
 {
 }
 
-void
-ResizeBackdropCommand::undo()
+void ResizeBackdropCommand::undo()
 {
     _bd->resize(_oldW, _oldH);
-    setText( tr("Resize %1").arg( QString::fromUtf8( _bd->getNode()->getLabel().c_str() ) ) );
+    setText(tr("Resize %1").arg(QString::fromUtf8(_bd->getNode()->getLabel().c_str())));
 }
 
-void
-ResizeBackdropCommand::redo()
+void ResizeBackdropCommand::redo()
 {
     _bd->resize(_w, _h);
-    setText( tr("Resize %1").arg( QString::fromUtf8( _bd->getNode()->getLabel().c_str() ) ) );
+    setText(tr("Resize %1").arg(QString::fromUtf8(_bd->getNode()->getLabel().c_str())));
 }
 
-bool
-ResizeBackdropCommand::mergeWith(const QUndoCommand *command)
+bool ResizeBackdropCommand::mergeWith(const QUndoCommand *command)
 {
-    const ResizeBackdropCommand* rCmd = dynamic_cast<const ResizeBackdropCommand*>(command);
+    const ResizeBackdropCommand *rCmd = dynamic_cast<const ResizeBackdropCommand *>(command);
 
-    if (!rCmd) {
+    if (!rCmd)
+    {
         return false;
     }
-    if (rCmd->_bd != _bd) {
+    if (rCmd->_bd != _bd)
+    {
         return false;
     }
     _w = rCmd->_w;
@@ -690,18 +738,17 @@ ResizeBackdropCommand::mergeWith(const QUndoCommand *command)
     return true;
 }
 
-DecloneMultipleNodesCommand::DecloneMultipleNodesCommand(NodeGraph* graph,
-                                                         const std::list<NodeGuiPtr> & nodes,
+DecloneMultipleNodesCommand::DecloneMultipleNodesCommand(NodeGraph *graph,
+                                                         const std::list<NodeGuiPtr> &nodes,
                                                          QUndoCommand *parent)
-    : QUndoCommand(parent)
-    , _nodes()
-    , _graph(graph)
+    : QUndoCommand(parent), _nodes(), _graph(graph)
 {
-    for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
+    for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
         NodeToDeclone n;
         n.node = *it;
         n.master = (*it)->getNode()->getMasterNode();
-        assert( n.master.lock() );
+        assert(n.master.lock());
         _nodes.push_back(n);
     }
 }
@@ -710,26 +757,26 @@ DecloneMultipleNodesCommand::~DecloneMultipleNodesCommand()
 {
 }
 
-void
-DecloneMultipleNodesCommand::undo()
+void DecloneMultipleNodesCommand::undo()
 {
-    for (std::list<NodeToDeclone>::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
-        it->node.lock()->getNode()->getEffectInstance()->slaveAllKnobs( it->master.lock()->getEffectInstance().get(), false );
+    for (std::list<NodeToDeclone>::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
+        it->node.lock()->getNode()->getEffectInstance()->slaveAllKnobs(it->master.lock()->getEffectInstance().get(), false);
     }
 
     _graph->getGui()->getApp()->triggerAutoSave();
-    setText( tr("Declone node") );
+    setText(tr("Declone node"));
 }
 
-void
-DecloneMultipleNodesCommand::redo()
+void DecloneMultipleNodesCommand::redo()
 {
-    for (std::list<NodeToDeclone>::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    for (std::list<NodeToDeclone>::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
         it->node.lock()->getNode()->getEffectInstance()->unslaveAllKnobs();
     }
 
     _graph->getGui()->getApp()->triggerAutoSave();
-    setText( tr("Declone node") );
+    setText(tr("Declone node"));
 }
 
 NATRON_NAMESPACE_ANONYMOUS_ENTER
@@ -742,16 +789,14 @@ class Tree
     QPointF topLevelNodeCenter; //< in scene coords
 
 public:
-
     Tree()
-        : nodes()
-        , topLevelNodeCenter(0, INT_MAX)
+        : nodes(), topLevelNodeCenter(0, INT_MAX)
     {
     }
 
-    void buildTree(const NodeGuiPtr & output,
-                   const NodesGuiList& selectedNodes,
-                   std::list<NodeGui*> & usedNodes)
+    void buildTree(const NodeGuiPtr &output,
+                   const NodesGuiList &selectedNodes,
+                   std::list<NodeGui *> &usedNodes)
     {
         QPointF outputPos = output->pos();
         QSize nodeSize = output->getSize();
@@ -759,198 +804,226 @@ public:
         outputPos += QPointF(nodeSize.width() / 2., nodeSize.height() / 2.);
         addNode(output, outputPos);
 
-        buildTreeInternal(selectedNodes, output.get(), output->mapToScene( output->mapFromParent(outputPos) ), usedNodes);
+        buildTreeInternal(selectedNodes, output.get(), output->mapToScene(output->mapFromParent(outputPos)), usedNodes);
     }
 
-    const std::list<TreeNode> & getNodes() const
+    const std::list<TreeNode> &getNodes() const
     {
         return nodes;
     }
 
-    const QPointF & getTopLevelNodeCenter() const
+    const QPointF &getTopLevelNodeCenter() const
     {
         return topLevelNodeCenter;
     }
 
-    void moveAllTree(const QPointF & delta)
+    void moveAllTree(const QPointF &delta)
     {
-        for (std::list<TreeNode>::iterator it = nodes.begin(); it != nodes.end(); ++it) {
+        for (std::list<TreeNode>::iterator it = nodes.begin(); it != nodes.end(); ++it)
+        {
             it->second += delta;
         }
     }
 
 private:
-
-    void addNode(const NodeGuiPtr & node,
-                 const QPointF & point)
+    void addNode(const NodeGuiPtr &node,
+                 const QPointF &point)
     {
-        nodes.push_back( std::make_pair(node, point) );
+        nodes.push_back(std::make_pair(node, point));
     }
 
-    void buildTreeInternal(const NodesGuiList& selectedNodes,
-                           NodeGui* currentNode, const QPointF & currentNodeScenePos, std::list<NodeGui*> & usedNodes);
+    void buildTreeInternal(const NodesGuiList &selectedNodes,
+                           NodeGui *currentNode, const QPointF &currentNodeScenePos, std::list<NodeGui *> &usedNodes);
 };
 
 typedef boost::shared_ptr<Tree> TreePtr;
 typedef std::list<TreePtr> TreePtrList;
 
-void
-Tree::buildTreeInternal(const NodesGuiList& selectedNodes,
-                        NodeGui* currentNode,
-                        const QPointF & currentNodeScenePos,
-                        std::list<NodeGui*> & usedNodes)
+void Tree::buildTreeInternal(const NodesGuiList &selectedNodes,
+                             NodeGui *currentNode,
+                             const QPointF &currentNodeScenePos,
+                             std::list<NodeGui *> &usedNodes)
 {
     QSize nodeSize = currentNode->getSize();
     NodePtr internalNode = currentNode->getNode();
-    const std::vector<Edge*> & inputs = currentNode->getInputsArrows();
+    const std::vector<Edge *> &inputs = currentNode->getInputsArrows();
     NodeGuiPtr firstNonMaskInput;
     NodesGuiList otherNonMaskInputs;
     NodesGuiList maskInputs;
 
-    for (U32 i = 0; i < inputs.size(); ++i) {
+    for (U32 i = 0; i < inputs.size(); ++i)
+    {
         NodeGuiPtr source = inputs[i]->getSource();
 
         ///Check if the source is selected
         NodesGuiList::const_iterator foundSelected = std::find(selectedNodes.begin(), selectedNodes.end(), source);
-        if ( foundSelected == selectedNodes.end() ) {
+        if (foundSelected == selectedNodes.end())
+        {
             continue;
         }
 
-        if (source) {
+        if (source)
+        {
             bool isMask = internalNode->getEffectInstance()->isInputMask(i);
-            if (!firstNonMaskInput && !isMask) {
+            if (!firstNonMaskInput && !isMask)
+            {
                 firstNonMaskInput = source;
-                for (std::list<TreeNode>::iterator it2 = nodes.begin(); it2 != nodes.end(); ++it2) {
-                    if (it2->first == firstNonMaskInput) {
+                for (std::list<TreeNode>::iterator it2 = nodes.begin(); it2 != nodes.end(); ++it2)
+                {
+                    if (it2->first == firstNonMaskInput)
+                    {
                         firstNonMaskInput.reset();
                         break;
                     }
                 }
-            } else if (!isMask) {
+            }
+            else if (!isMask)
+            {
                 bool found = false;
-                for (std::list<TreeNode>::iterator it2 = nodes.begin(); it2 != nodes.end(); ++it2) {
-                    if (it2->first == source) {
+                for (std::list<TreeNode>::iterator it2 = nodes.begin(); it2 != nodes.end(); ++it2)
+                {
+                    if (it2->first == source)
+                    {
                         found = true;
                         break;
                     }
                 }
-                if (!found) {
+                if (!found)
+                {
                     otherNonMaskInputs.push_back(source);
                 }
-            } else if (isMask) {
+            }
+            else if (isMask)
+            {
                 bool found = false;
-                for (std::list<TreeNode>::iterator it2 = nodes.begin(); it2 != nodes.end(); ++it2) {
-                    if (it2->first == source) {
+                for (std::list<TreeNode>::iterator it2 = nodes.begin(); it2 != nodes.end(); ++it2)
+                {
+                    if (it2->first == source)
+                    {
                         found = true;
                         break;
                     }
                 }
-                if (!found) {
+                if (!found)
+                {
                     maskInputs.push_back(source);
                 }
-            } else {
+            }
+            else
+            {
                 ///this can't be happening
                 assert(false);
             }
         }
     }
 
-
     ///The node has already been processed in another tree, skip it.
-    if ( std::find(usedNodes.begin(), usedNodes.end(), currentNode) == usedNodes.end() ) {
+    if (std::find(usedNodes.begin(), usedNodes.end(), currentNode) == usedNodes.end())
+    {
         ///mark it
         usedNodes.push_back(currentNode);
-
 
         QPointF firstNonMaskInputPos;
         std::list<QPointF> otherNonMaskInputsPos;
         std::list<QPointF> maskInputsPos;
 
         ///Position the first non mask input
-        if (firstNonMaskInput) {
-            firstNonMaskInputPos = firstNonMaskInput->mapToParent( firstNonMaskInput->mapFromScene(currentNodeScenePos) );
-            firstNonMaskInputPos.ry() -= ( (nodeSize.height() / 2.) +
-                                           MINIMUM_VERTICAL_SPACE_BETWEEN_NODES +
-                                           (firstNonMaskInput->getSize().height() / 2.) );
+        if (firstNonMaskInput)
+        {
+            firstNonMaskInputPos = firstNonMaskInput->mapToParent(firstNonMaskInput->mapFromScene(currentNodeScenePos));
+            firstNonMaskInputPos.ry() -= ((nodeSize.height() / 2.) +
+                                          MINIMUM_VERTICAL_SPACE_BETWEEN_NODES +
+                                          (firstNonMaskInput->getSize().height() / 2.));
 
             ///and add it to the tree, with parent relative coordinates
             addNode(firstNonMaskInput, firstNonMaskInputPos);
 
-            firstNonMaskInputPos = firstNonMaskInput->mapToScene( firstNonMaskInput->mapFromParent(firstNonMaskInputPos) );
+            firstNonMaskInputPos = firstNonMaskInput->mapToScene(firstNonMaskInput->mapFromParent(firstNonMaskInputPos));
         }
 
         ///Position all other non mask inputs
         int index = 0;
-        for (NodesGuiList::iterator it = otherNonMaskInputs.begin(); it != otherNonMaskInputs.end(); ++it, ++index) {
-            QPointF p = (*it)->mapToParent( (*it)->mapFromScene(currentNodeScenePos) );
+        for (NodesGuiList::iterator it = otherNonMaskInputs.begin(); it != otherNonMaskInputs.end(); ++it, ++index)
+        {
+            QPointF p = (*it)->mapToParent((*it)->mapFromScene(currentNodeScenePos));
 
-            p.rx() -= ( (nodeSize.width() + (*it)->getSize().width() / 2.) ) * (index + 1);
+            p.rx() -= ((nodeSize.width() + (*it)->getSize().width() / 2.)) * (index + 1);
 
             ///and add it to the tree
             addNode(*it, p);
 
-
-            p = (*it)->mapToScene( (*it)->mapFromParent(p) );
+            p = (*it)->mapToScene((*it)->mapFromParent(p));
             otherNonMaskInputsPos.push_back(p);
         }
 
         ///Position all mask inputs
         index = 0;
-        for (NodesGuiList::iterator it = maskInputs.begin(); it != maskInputs.end(); ++it, ++index) {
-            QPointF p = (*it)->mapToParent( (*it)->mapFromScene(currentNodeScenePos) );
+        for (NodesGuiList::iterator it = maskInputs.begin(); it != maskInputs.end(); ++it, ++index)
+        {
+            QPointF p = (*it)->mapToParent((*it)->mapFromScene(currentNodeScenePos));
             ///Note that here we subsctract nodeSize.width(): Actually we subtract twice nodeSize.width() / 2: once to get to the left of the node
             ///and another time to add the space of half a node
-            p.rx() += ( (nodeSize.width() + (*it)->getSize().width() / 2.) ) * (index + 1);
+            p.rx() += ((nodeSize.width() + (*it)->getSize().width() / 2.)) * (index + 1);
 
             ///and add it to the tree
             addNode(*it, p);
 
-            p = (*it)->mapToScene( (*it)->mapFromParent(p) );
+            p = (*it)->mapToScene((*it)->mapFromParent(p));
             maskInputsPos.push_back(p);
         }
 
         ///Now that we built the tree at this level, call this function again on the inputs that we just processed
-        if (firstNonMaskInput) {
+        if (firstNonMaskInput)
+        {
             buildTreeInternal(selectedNodes, firstNonMaskInput.get(), firstNonMaskInputPos, usedNodes);
         }
 
         std::list<QPointF>::iterator pointsIt = otherNonMaskInputsPos.begin();
-        for (NodesGuiList::iterator it = otherNonMaskInputs.begin(); it != otherNonMaskInputs.end(); ++it, ++pointsIt) {
+        for (NodesGuiList::iterator it = otherNonMaskInputs.begin(); it != otherNonMaskInputs.end(); ++it, ++pointsIt)
+        {
             buildTreeInternal(selectedNodes, it->get(), *pointsIt, usedNodes);
         }
 
         pointsIt = maskInputsPos.begin();
-        for (NodesGuiList::iterator it = maskInputs.begin(); it != maskInputs.end(); ++it, ++pointsIt) {
+        for (NodesGuiList::iterator it = maskInputs.begin(); it != maskInputs.end(); ++it, ++pointsIt)
+        {
             buildTreeInternal(selectedNodes, it->get(), *pointsIt, usedNodes);
         }
     }
     ///update the top level node center if the node doesn't have any input
-    if ( !firstNonMaskInput && otherNonMaskInputs.empty() && maskInputs.empty() ) {
+    if (!firstNonMaskInput && otherNonMaskInputs.empty() && maskInputs.empty())
+    {
         ///QGraphicsView Y axis is top-->down oriented
-        if ( currentNodeScenePos.y() < topLevelNodeCenter.y() ) {
+        if (currentNodeScenePos.y() < topLevelNodeCenter.y())
+        {
             topLevelNodeCenter = currentNodeScenePos;
         }
     }
 } // buildTreeInternal
 
 static bool
-hasNodeOutputsInList(const std::list<NodeGuiPtr> & nodes,
-                     const NodeGuiPtr& node)
+hasNodeOutputsInList(const std::list<NodeGuiPtr> &nodes,
+                     const NodeGuiPtr &node)
 {
-    const NodesWList& outputs = node->getNode()->getGuiOutputs();
+    const NodesWList &outputs = node->getNode()->getGuiOutputs();
     bool foundOutput = false;
 
-    for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
-        if (*it != node) {
+    for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
+        if (*it != node)
+        {
             NodePtr n = (*it)->getNode();
 
-            for (NodesWList::const_iterator it2 = outputs.begin(); it2 != outputs.end(); ++it2) {
-                if (it2->lock() == n) {
+            for (NodesWList::const_iterator it2 = outputs.begin(); it2 != outputs.end(); ++it2)
+            {
+                if (it2->lock() == n)
+                {
                     foundOutput = true;
                     break;
                 }
             }
-            if (foundOutput) {
+            if (foundOutput)
+            {
                 break;
             }
         }
@@ -960,23 +1033,28 @@ hasNodeOutputsInList(const std::list<NodeGuiPtr> & nodes,
 }
 
 static bool
-hasNodeInputsInList(const std::list<NodeGuiPtr> & nodes,
-                    const NodeGuiPtr& node)
+hasNodeInputsInList(const std::list<NodeGuiPtr> &nodes,
+                    const NodeGuiPtr &node)
 {
-    const std::vector<NodeWPtr>& inputs = node->getNode()->getGuiInputs();
+    const std::vector<NodeWPtr> &inputs = node->getNode()->getGuiInputs();
     bool foundInput = false;
 
-    for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
-        if (*it != node) {
+    for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
+        if (*it != node)
+        {
             NodePtr n = (*it)->getNode();
 
-            for (std::size_t i = 0; i < inputs.size(); ++i) {
-                if (inputs[i].lock() == n) {
+            for (std::size_t i = 0; i < inputs.size(); ++i)
+            {
+                if (inputs[i].lock() == n)
+                {
                     foundInput = true;
                     break;
                 }
             }
-            if (foundInput) {
+            if (foundInput)
+            {
                 break;
             }
         }
@@ -987,11 +1065,9 @@ hasNodeInputsInList(const std::list<NodeGuiPtr> & nodes,
 
 NATRON_NAMESPACE_ANONYMOUS_EXIT
 
-
-RearrangeNodesCommand::RearrangeNodesCommand(const std::list<NodeGuiPtr> & nodes,
+RearrangeNodesCommand::RearrangeNodesCommand(const std::list<NodeGuiPtr> &nodes,
                                              QUndoCommand *parent)
-    : QUndoCommand(parent)
-    , _nodes()
+    : QUndoCommand(parent), _nodes()
 {
     ///1) Separate the nodes in trees they belong to, once a node has been "used" by a tree, mark it
     ///and don't try to reposition it for another tree
@@ -1003,7 +1079,7 @@ RearrangeNodesCommand::RearrangeNodesCommand(const std::list<NodeGuiPtr> & nodes
     ///(the input that is at the highest position in the Y coordinate) is at the same
     ///Y level (node centers have the same Y)
 
-    std::list<NodeGui*> usedNodes;
+    std::list<NodeGui *> usedNodes;
 
     ///A list of Tree
     ///Each tree is a lit of nodes with a boolean indicating if it was already positioned( "used" ) by another tree, if set to
@@ -1011,8 +1087,10 @@ RearrangeNodesCommand::RearrangeNodesCommand(const std::list<NodeGuiPtr> & nodes
     /// Each node that doesn't have any output is a potential tree.
     TreePtrList trees;
 
-    for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
-        if ( !hasNodeOutputsInList( nodes, (*it) ) ) {
+    for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
+        if (!hasNodeOutputsInList(nodes, (*it)))
+        {
             TreePtr newTree = boost::make_shared<Tree>();
             newTree->buildTree(*it, nodes, usedNodes);
             trees.push_back(newTree);
@@ -1021,27 +1099,33 @@ RearrangeNodesCommand::RearrangeNodesCommand(const std::list<NodeGuiPtr> & nodes
 
     ///For all trees find out which one has the top most level node
     QPointF topLevelPos(0, INT_MAX);
-    for (TreePtrList::iterator it = trees.begin(); it != trees.end(); ++it) {
-        const QPointF & treeTop = (*it)->getTopLevelNodeCenter();
-        if ( treeTop.y() < topLevelPos.y() ) {
+    for (TreePtrList::iterator it = trees.begin(); it != trees.end(); ++it)
+    {
+        const QPointF &treeTop = (*it)->getTopLevelNodeCenter();
+        if (treeTop.y() < topLevelPos.y())
+        {
             topLevelPos = treeTop;
         }
     }
 
     ///now offset all trees to be top aligned at the same level
-    for (TreePtrList::iterator it = trees.begin(); it != trees.end(); ++it) {
+    for (TreePtrList::iterator it = trees.begin(); it != trees.end(); ++it)
+    {
         QPointF treeTop = (*it)->getTopLevelNodeCenter();
-        if (treeTop.y() == INT_MAX) {
-            treeTop.setY( topLevelPos.y() );
+        if (treeTop.y() == INT_MAX)
+        {
+            treeTop.setY(topLevelPos.y());
         }
-        QPointF delta( 0, topLevelPos.y() - treeTop.y() );
-        if ( (delta.x() != 0) || (delta.y() != 0) ) {
+        QPointF delta(0, topLevelPos.y() - treeTop.y());
+        if ((delta.x() != 0) || (delta.y() != 0))
+        {
             (*it)->moveAllTree(delta);
         }
 
         ///and insert the final result into the _nodes list
-        const std::list<TreeNode> & treeNodes = (*it)->getNodes();
-        for (std::list<TreeNode>::const_iterator it2 = treeNodes.begin(); it2 != treeNodes.end(); ++it2) {
+        const std::list<TreeNode> &treeNodes = (*it)->getNodes();
+        for (std::list<TreeNode>::const_iterator it2 = treeNodes.begin(); it2 != treeNodes.end(); ++it2)
+        {
             NodeToRearrange n;
             n.node = it2->first;
             QSize size = n.node->getSize();
@@ -1052,97 +1136,93 @@ RearrangeNodesCommand::RearrangeNodesCommand(const std::list<NodeGuiPtr> & nodes
     }
 }
 
-void
-RearrangeNodesCommand::undo()
+void RearrangeNodesCommand::undo()
 {
-    for (std::list<NodeToRearrange>::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    for (std::list<NodeToRearrange>::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
         it->node->refreshPosition(it->oldPos.x(), it->oldPos.y(), true);
     }
-    setText( tr("Rearrange nodes") );
+    setText(tr("Rearrange nodes"));
 }
 
-void
-RearrangeNodesCommand::redo()
+void RearrangeNodesCommand::redo()
 {
-    for (std::list<NodeToRearrange>::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    for (std::list<NodeToRearrange>::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
         it->node->refreshPosition(it->newPos.x(), it->newPos.y(), true);
     }
-    setText( tr("Rearrange nodes") );
+    setText(tr("Rearrange nodes"));
 }
 
-DisableNodesCommand::DisableNodesCommand(const std::list<NodeGuiPtr> & nodes,
+DisableNodesCommand::DisableNodesCommand(const std::list<NodeGuiPtr> &nodes,
                                          QUndoCommand *parent)
-    : QUndoCommand(parent)
-    , _nodes()
+    : QUndoCommand(parent), _nodes()
 {
-    for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
+    for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
         _nodes.push_back(*it);
     }
 }
 
-void
-DisableNodesCommand::undo()
+void DisableNodesCommand::undo()
 {
-    for (std::list<NodeGuiWPtr>::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    for (std::list<NodeGuiWPtr>::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
         it->lock()->getNode()->setNodeDisabled(false);
     }
-    setText( tr("Disable nodes") );
+    setText(tr("Disable nodes"));
 }
 
-void
-DisableNodesCommand::redo()
+void DisableNodesCommand::redo()
 {
-    for (std::list<NodeGuiWPtr>::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    for (std::list<NodeGuiWPtr>::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
         it->lock()->getNode()->setNodeDisabled(true);
     }
-    setText( tr("Disable nodes") );
+    setText(tr("Disable nodes"));
 }
 
-EnableNodesCommand::EnableNodesCommand(const std::list<NodeGuiPtr> & nodes,
+EnableNodesCommand::EnableNodesCommand(const std::list<NodeGuiPtr> &nodes,
                                        QUndoCommand *parent)
-    : QUndoCommand(parent)
-    , _nodes()
+    : QUndoCommand(parent), _nodes()
 {
-    for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
+    for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
         _nodes.push_back(*it);
     }
 }
 
-void
-EnableNodesCommand::undo()
+void EnableNodesCommand::undo()
 {
-    for (std::list<NodeGuiWPtr>::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    for (std::list<NodeGuiWPtr>::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
         it->lock()->getNode()->setNodeDisabled(true);
     }
-    setText( tr("Enable nodes") );
+    setText(tr("Enable nodes"));
 }
 
-void
-EnableNodesCommand::redo()
+void EnableNodesCommand::redo()
 {
-    for (std::list<NodeGuiWPtr>::iterator it = _nodes.begin(); it != _nodes.end(); ++it) {
+    for (std::list<NodeGuiWPtr>::iterator it = _nodes.begin(); it != _nodes.end(); ++it)
+    {
         it->lock()->getNode()->setNodeDisabled(false);
     }
-    setText( tr("Enable nodes") );
+    setText(tr("Enable nodes"));
 }
 
-LoadNodePresetsCommand::LoadNodePresetsCommand(const NodeGuiPtr & node,
-                                               const std::list<NodeSerializationPtr>& serialization,
+LoadNodePresetsCommand::LoadNodePresetsCommand(const NodeGuiPtr &node,
+                                               const std::list<NodeSerializationPtr> &serialization,
                                                QUndoCommand *parent)
-    : QUndoCommand(parent)
-    , _firstRedoCalled(false)
-    , _isUndone(false)
-    , _node(node)
-    , _newSerializations(serialization)
+    : QUndoCommand(parent), _firstRedoCalled(false), _isUndone(false), _node(node), _newSerializations(serialization)
 {
 }
 
-void
-LoadNodePresetsCommand::getListAsShared(const std::list<NodeWPtr>& original,
-                                        std::list<NodePtr>& shared) const
+void LoadNodePresetsCommand::getListAsShared(const std::list<NodeWPtr> &original,
+                                             std::list<NodePtr> &shared) const
 {
-    for (std::list<NodeWPtr>::const_iterator it = original.begin(); it != original.end(); ++it) {
-        shared.push_back( it->lock() );
+    for (std::list<NodeWPtr>::const_iterator it = original.begin(); it != original.end(); ++it)
+    {
+        shared.push_back(it->lock());
     }
 }
 
@@ -1150,8 +1230,7 @@ LoadNodePresetsCommand::~LoadNodePresetsCommand()
 {
 }
 
-void
-LoadNodePresetsCommand::undo()
+void LoadNodePresetsCommand::undo()
 {
     _isUndone = true;
 
@@ -1159,7 +1238,8 @@ LoadNodePresetsCommand::undo()
     NodePtr internalNode = node->getNode();
     MultiInstancePanelPtr panel = node->getMultiInstancePanel();
     internalNode->loadKnobs(*_oldSerialization.front(), true);
-    if (panel) {
+    if (panel)
+    {
         std::list<NodePtr> newChildren, oldChildren;
         getListAsShared(_newChildren, newChildren);
         getListAsShared(_oldChildren, oldChildren);
@@ -1168,33 +1248,37 @@ LoadNodePresetsCommand::undo()
     }
     internalNode->getEffectInstance()->incrHashAndEvaluate(true, true);
     internalNode->getApp()->triggerAutoSave();
-    setText( tr("Load presets") );
+    setText(tr("Load presets"));
 }
 
-void
-LoadNodePresetsCommand::redo()
+void LoadNodePresetsCommand::redo()
 {
     NodeGuiPtr node = _node.lock();
     NodePtr internalNode = node->getNode();
     MultiInstancePanelPtr panel = node->getMultiInstancePanel();
 
-    if (!_firstRedoCalled) {
+    if (!_firstRedoCalled)
+    {
         ///Serialize the current state of the node
         node->serializeInternal(_oldSerialization);
 
-        if (panel) {
-            const std::list<std::pair<NodeWPtr, bool> >& children = panel->getInstances();
-            for (std::list<std::pair<NodeWPtr, bool> >::const_iterator it = children.begin();
-                 it != children.end(); ++it) {
-                _oldChildren.push_back( it->first.lock() );
+        if (panel)
+        {
+            const std::list<std::pair<NodeWPtr, bool>> &children = panel->getInstances();
+            for (std::list<std::pair<NodeWPtr, bool>>::const_iterator it = children.begin();
+                 it != children.end(); ++it)
+            {
+                _oldChildren.push_back(it->first.lock());
             }
         }
 
         int k = 0;
 
         for (std::list<NodeSerializationPtr>::const_iterator it = _newSerializations.begin();
-             it != _newSerializations.end(); ++it, ++k) {
-            if (k > 0) {  /// this is a multi-instance child, create it
+             it != _newSerializations.end(); ++it, ++k)
+        {
+            if (k > 0)
+            { /// this is a multi-instance child, create it
                 NodePtr newNode = panel->createNewInstance(false);
                 newNode->loadKnobs(**it);
                 std::list<SequenceTime> keys;
@@ -1206,20 +1290,23 @@ LoadNodePresetsCommand::redo()
     }
 
     internalNode->loadKnobs(*_newSerializations.front(), true);
-    if (panel) {
+    if (panel)
+    {
         std::list<NodePtr> oldChildren, newChildren;
         getListAsShared(_oldChildren, oldChildren);
         getListAsShared(_newChildren, newChildren);
         panel->removeInstances(oldChildren);
-        if (_firstRedoCalled) {
+        if (_firstRedoCalled)
+        {
             panel->addInstances(newChildren);
         }
     }
 
     NodesList allNodes;
     internalNode->getGroup()->getActiveNodes(&allNodes);
-    NodeGroup* isGroup = internalNode->isEffectGroup();
-    if (isGroup) {
+    NodeGroup *isGroup = internalNode->isEffectGroup();
+    if (isGroup)
+    {
         isGroup->getActiveNodes(&allNodes);
     }
     std::map<std::string, std::string> oldNewScriptNames;
@@ -1228,35 +1315,30 @@ LoadNodePresetsCommand::redo()
     internalNode->getApp()->triggerAutoSave();
     _firstRedoCalled = true;
 
-    setText( tr("Load presets") );
+    setText(tr("Load presets"));
 } // LoadNodePresetsCommand::redo
 
-RenameNodeUndoRedoCommand::RenameNodeUndoRedoCommand(const NodeGuiPtr & node,
-                                                     const QString& oldName,
-                                                     const QString& newName)
-    : QUndoCommand()
-    , _node(node)
-    , _oldName(oldName)
-    , _newName(newName)
+RenameNodeUndoRedoCommand::RenameNodeUndoRedoCommand(const NodeGuiPtr &node,
+                                                     const QString &oldName,
+                                                     const QString &newName)
+    : QUndoCommand(), _node(node), _oldName(oldName), _newName(newName)
 {
     assert(node);
-    setText( tr("Rename node") );
+    setText(tr("Rename node"));
 }
 
 RenameNodeUndoRedoCommand::~RenameNodeUndoRedoCommand()
 {
 }
 
-void
-RenameNodeUndoRedoCommand::undo()
+void RenameNodeUndoRedoCommand::undo()
 {
     NodeGuiPtr node = _node.lock();
 
     node->setName(_oldName);
 }
 
-void
-RenameNodeUndoRedoCommand::redo()
+void RenameNodeUndoRedoCommand::redo()
 {
     NodeGuiPtr node = _node.lock();
 
@@ -1264,32 +1346,39 @@ RenameNodeUndoRedoCommand::redo()
 }
 
 static void
-addTreeInputs(const std::list<NodeGuiPtr> & nodes,
-              const NodeGuiPtr& node,
-              ExtractedTree& tree,
-              std::list<NodeGuiPtr> & markedNodes)
+addTreeInputs(const std::list<NodeGuiPtr> &nodes,
+              const NodeGuiPtr &node,
+              ExtractedTree &tree,
+              std::list<NodeGuiPtr> &markedNodes)
 {
-    if ( std::find(markedNodes.begin(), markedNodes.end(), node) != markedNodes.end() ) {
+    if (std::find(markedNodes.begin(), markedNodes.end(), node) != markedNodes.end())
+    {
         return;
     }
 
-    if ( std::find(nodes.begin(), nodes.end(), node) == nodes.end() ) {
+    if (std::find(nodes.begin(), nodes.end(), node) == nodes.end())
+    {
         return;
     }
 
-    if ( !hasNodeInputsInList(nodes, node) ) {
+    if (!hasNodeInputsInList(nodes, node))
+    {
         ExtractedInput input;
         input.node = node;
         input.inputs = node->getNode()->getGuiInputs();
         tree.inputs.push_back(input);
         markedNodes.push_back(node);
-    } else {
+    }
+    else
+    {
         tree.inbetweenNodes.push_back(node);
         markedNodes.push_back(node);
-        const std::vector<Edge*>& inputs = node->getInputsArrows();
-        for (std::vector<Edge*>::const_iterator it2 = inputs.begin(); it2 != inputs.end(); ++it2) {
+        const std::vector<Edge *> &inputs = node->getInputsArrows();
+        for (std::vector<Edge *>::const_iterator it2 = inputs.begin(); it2 != inputs.end(); ++it2)
+        {
             NodeGuiPtr input = (*it2)->getSource();
-            if (input) {
+            if (input)
+            {
                 addTreeInputs(nodes, input, tree, markedNodes);
             }
         }
@@ -1297,36 +1386,43 @@ addTreeInputs(const std::list<NodeGuiPtr> & nodes,
 }
 
 static void
-extractTreesFromNodes(const std::list<NodeGuiPtr> & nodes,
-                      std::list<ExtractedTree>& trees)
+extractTreesFromNodes(const std::list<NodeGuiPtr> &nodes,
+                      std::list<ExtractedTree> &trees)
 {
     std::list<NodeGuiPtr> markedNodes;
 
-    for (std::list<NodeGuiPtr> ::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
+    for (std::list<NodeGuiPtr>::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
         bool isOutput = !hasNodeOutputsInList(nodes, *it);
-        if (isOutput) {
+        if (isOutput)
+        {
             ExtractedTree tree;
             tree.output.node = *it;
             NodePtr n = (*it)->getNode();
-            const NodesWList& outputs = n->getGuiOutputs();
-            for (NodesWList::const_iterator it2 = outputs.begin(); it2 != outputs.end(); ++it2) {
+            const NodesWList &outputs = n->getGuiOutputs();
+            for (NodesWList::const_iterator it2 = outputs.begin(); it2 != outputs.end(); ++it2)
+            {
                 NodePtr output = it2->lock();
-                if (!output) {
+                if (!output)
+                {
                     continue;
                 }
                 int idx = output->inputIndex(n);
-                tree.output.outputs.push_back( std::make_pair(idx, output) );
+                tree.output.outputs.push_back(std::make_pair(idx, output));
             }
 
-            const std::vector<Edge*>& inputs = (*it)->getInputsArrows();
-            for (U32 i = 0; i < inputs.size(); ++i) {
+            const std::vector<Edge *> &inputs = (*it)->getInputsArrows();
+            for (U32 i = 0; i < inputs.size(); ++i)
+            {
                 NodeGuiPtr input = inputs[i]->getSource();
-                if (input) {
+                if (input)
+                {
                     addTreeInputs(nodes, input, tree, markedNodes);
                 }
             }
 
-            if ( tree.inputs.empty() ) {
+            if (tree.inputs.empty())
+            {
                 ExtractedInput input;
                 input.node = *it;
                 input.inputs = n->getGuiInputs();
@@ -1340,11 +1436,9 @@ extractTreesFromNodes(const std::list<NodeGuiPtr> & nodes,
 
 ///////////////
 
-ExtractNodeUndoRedoCommand::ExtractNodeUndoRedoCommand(NodeGraph* graph,
-                                                       const std::list<NodeGuiPtr> & nodes)
-    : QUndoCommand()
-    , _graph(graph)
-    , _trees()
+ExtractNodeUndoRedoCommand::ExtractNodeUndoRedoCommand(NodeGraph *graph,
+                                                       const std::list<NodeGuiPtr> &nodes)
+    : QUndoCommand(), _graph(graph), _trees()
 {
     extractTreesFromNodes(nodes, _trees);
 }
@@ -1353,17 +1447,19 @@ ExtractNodeUndoRedoCommand::~ExtractNodeUndoRedoCommand()
 {
 }
 
-void
-ExtractNodeUndoRedoCommand::undo()
+void ExtractNodeUndoRedoCommand::undo()
 {
-    std::set<ViewerInstance* > viewers;
+    std::set<ViewerInstance *> viewers;
 
-    for (std::list<ExtractedTree>::iterator it = _trees.begin(); it != _trees.end(); ++it) {
+    for (std::list<ExtractedTree>::iterator it = _trees.begin(); it != _trees.end(); ++it)
+    {
         NodeGuiPtr output = it->output.node.lock();
         ///Connect and move output
-        for (std::list<std::pair<int, NodeWPtr> >::iterator it2 = it->output.outputs.begin(); it2 != it->output.outputs.end(); ++it2) {
+        for (std::list<std::pair<int, NodeWPtr>>::iterator it2 = it->output.outputs.begin(); it2 != it->output.outputs.end(); ++it2)
+        {
             NodePtr node = it2->second.lock();
-            if (!node) {
+            if (!node)
+            {
                 continue;
             }
             node->disconnectInput(it2->first);
@@ -1374,15 +1470,19 @@ ExtractNodeUndoRedoCommand::undo()
         output->refreshPosition(curPos.x() - 200, curPos.y(), true);
 
         ///Connect and move inputs
-        for (std::list<ExtractedInput>::iterator it2 = it->inputs.begin(); it2 != it->inputs.end(); ++it2) {
+        for (std::list<ExtractedInput>::iterator it2 = it->inputs.begin(); it2 != it->inputs.end(); ++it2)
+        {
             NodeGuiPtr input = it2->node.lock();
-            for (U32 i  =  0; i < it2->inputs.size(); ++i) {
-                if ( it2->inputs[i].lock() ) {
+            for (U32 i = 0; i < it2->inputs.size(); ++i)
+            {
+                if (it2->inputs[i].lock())
+                {
                     input->getNode()->connectInput(it2->inputs[i].lock(), i);
                 }
             }
 
-            if (input != output) {
+            if (input != output)
+            {
                 QPointF curPos = input->getPos_mt_safe();
                 input->refreshPosition(curPos.x() - 200, curPos.y(), true);
             }
@@ -1390,62 +1490,72 @@ ExtractNodeUndoRedoCommand::undo()
 
         ///Move all other nodes
 
-        for (std::list<NodeGuiWPtr>::iterator it2 = it->inbetweenNodes.begin(); it2 != it->inbetweenNodes.end(); ++it2) {
+        for (std::list<NodeGuiWPtr>::iterator it2 = it->inbetweenNodes.begin(); it2 != it->inbetweenNodes.end(); ++it2)
+        {
             NodeGuiPtr node = it2->lock();
             QPointF curPos = node->getPos_mt_safe();
             node->refreshPosition(curPos.x() - 200, curPos.y(), true);
         }
 
-        std::list<ViewerInstance* > tmp;
+        std::list<ViewerInstance *> tmp;
         output->getNode()->hasViewersConnected(&tmp);
 
-        for (std::list<ViewerInstance* >::iterator it2 = tmp.begin(); it2 != tmp.end(); ++it2) {
+        for (std::list<ViewerInstance *>::iterator it2 = tmp.begin(); it2 != tmp.end(); ++it2)
+        {
             viewers.insert(*it2);
         }
     }
 
-    for (std::set<ViewerInstance* >::iterator it = viewers.begin(); it != viewers.end(); ++it) {
+    for (std::set<ViewerInstance *>::iterator it = viewers.begin(); it != viewers.end(); ++it)
+    {
         (*it)->renderCurrentFrame(true);
     }
 
     _graph->getGui()->getApp()->triggerAutoSave();
-    setText( tr("Extract node") );
+    setText(tr("Extract node"));
 } // ExtractNodeUndoRedoCommand::undo
 
-void
-ExtractNodeUndoRedoCommand::redo()
+void ExtractNodeUndoRedoCommand::redo()
 {
-    std::set<ViewerInstance* > viewers;
+    std::set<ViewerInstance *> viewers;
 
-    for (std::list<ExtractedTree>::iterator it = _trees.begin(); it != _trees.end(); ++it) {
-        std::list<ViewerInstance* > tmp;
+    for (std::list<ExtractedTree>::iterator it = _trees.begin(); it != _trees.end(); ++it)
+    {
+        std::list<ViewerInstance *> tmp;
         NodeGuiPtr output = it->output.node.lock();
         output->getNode()->hasViewersConnected(&tmp);
 
-        for (std::list<ViewerInstance* >::iterator it2 = tmp.begin(); it2 != tmp.end(); ++it2) {
+        for (std::list<ViewerInstance *>::iterator it2 = tmp.begin(); it2 != tmp.end(); ++it2)
+        {
             viewers.insert(*it2);
         }
 
         bool outputsAlreadyDisconnected = false;
 
         ///Reconnect outputs to the input of the input of the ExtractedInputs if inputs.size() == 1
-        if ( (it->output.outputs.size() == 1) && (it->inputs.size() == 1) ) {
-            const ExtractedInput& selectedInput = it->inputs.front();
+        if ((it->output.outputs.size() == 1) && (it->inputs.size() == 1))
+        {
+            const ExtractedInput &selectedInput = it->inputs.front();
             const std::vector<NodeWPtr> &inputs = selectedInput.inputs;
             NodeGuiPtr selectedInputNode = selectedInput.node.lock();
             NodePtr inputToConnectTo;
-            for (U32 i = 0; i < inputs.size(); ++i) {
-                if ( inputs[i].lock() && !selectedInputNode->getNode()->getEffectInstance()->isInputOptional(i) &&
-                     !selectedInputNode->getNode()->getEffectInstance()->isInputRotoBrush(i) ) {
+            for (U32 i = 0; i < inputs.size(); ++i)
+            {
+                if (inputs[i].lock() && !selectedInputNode->getNode()->getEffectInstance()->isInputOptional(i) &&
+                    !selectedInputNode->getNode()->getEffectInstance()->isInputRotoBrush(i))
+                {
                     inputToConnectTo = inputs[i].lock();
                     break;
                 }
             }
 
-            if (inputToConnectTo) {
-                for (std::list<std::pair<int, NodeWPtr> >::iterator it2 = it->output.outputs.begin(); it2 != it->output.outputs.end(); ++it2) {
+            if (inputToConnectTo)
+            {
+                for (std::list<std::pair<int, NodeWPtr>>::iterator it2 = it->output.outputs.begin(); it2 != it->output.outputs.end(); ++it2)
+                {
                     NodePtr node = it2->second.lock();
-                    if (!node) {
+                    if (!node)
+                    {
                         continue;
                     }
                     node->disconnectInput(it2->first);
@@ -1456,10 +1566,13 @@ ExtractNodeUndoRedoCommand::redo()
         }
 
         ///Disconnect and move output
-        if (!outputsAlreadyDisconnected) {
-            for (std::list<std::pair<int, NodeWPtr> >::iterator it2 = it->output.outputs.begin(); it2 != it->output.outputs.end(); ++it2) {
+        if (!outputsAlreadyDisconnected)
+        {
+            for (std::list<std::pair<int, NodeWPtr>>::iterator it2 = it->output.outputs.begin(); it2 != it->output.outputs.end(); ++it2)
+            {
                 NodePtr node = it2->second.lock();
-                if (node) {
+                if (node)
+                {
                     node->disconnectInput(it2->first);
                 }
             }
@@ -1468,16 +1581,19 @@ ExtractNodeUndoRedoCommand::redo()
         QPointF curPos = output->getPos_mt_safe();
         output->refreshPosition(curPos.x() + 200, curPos.y(), true);
 
-
         ///Disconnect and move inputs
-        for (std::list<ExtractedInput>::iterator it2 = it->inputs.begin(); it2 != it->inputs.end(); ++it2) {
+        for (std::list<ExtractedInput>::iterator it2 = it->inputs.begin(); it2 != it->inputs.end(); ++it2)
+        {
             NodeGuiPtr node = it2->node.lock();
-            for (U32 i  =  0; i < it2->inputs.size(); ++i) {
-                if ( it2->inputs[i].lock() ) {
+            for (U32 i = 0; i < it2->inputs.size(); ++i)
+            {
+                if (it2->inputs[i].lock())
+                {
                     node->getNode()->disconnectInput(i);
                 }
             }
-            if (node != output) {
+            if (node != output)
+            {
                 QPointF curPos = node->getPos_mt_safe();
                 node->refreshPosition(curPos.x() + 200, curPos.y(), true);
             }
@@ -1485,65 +1601,65 @@ ExtractNodeUndoRedoCommand::redo()
 
         ///Move all other nodes
 
-        for (std::list<NodeGuiWPtr>::iterator it2 = it->inbetweenNodes.begin(); it2 != it->inbetweenNodes.end(); ++it2) {
+        for (std::list<NodeGuiWPtr>::iterator it2 = it->inbetweenNodes.begin(); it2 != it->inbetweenNodes.end(); ++it2)
+        {
             NodeGuiPtr node = it2->lock();
             QPointF curPos = node->getPos_mt_safe();
             node->refreshPosition(curPos.x() + 200, curPos.y(), true);
         }
     }
 
-    for (std::set<ViewerInstance* >::iterator it = viewers.begin(); it != viewers.end(); ++it) {
+    for (std::set<ViewerInstance *>::iterator it = viewers.begin(); it != viewers.end(); ++it)
+    {
         (*it)->renderCurrentFrame(true);
     }
 
     _graph->getGui()->getApp()->triggerAutoSave();
 
-
-    setText( tr("Extract node") );
+    setText(tr("Extract node"));
 } // ExtractNodeUndoRedoCommand::redo
 
-GroupFromSelectionCommand::GroupFromSelectionCommand(NodeGraph* graph,
-                                                     const NodesGuiList & nodes)
-    : QUndoCommand()
-    , _graph(graph)
-    , _group()
-    , _firstRedoCalled(false)
-    , _isRedone(false)
+GroupFromSelectionCommand::GroupFromSelectionCommand(NodeGraph *graph,
+                                                     const NodesGuiList &nodes)
+    : QUndoCommand(), _graph(graph), _group(), _firstRedoCalled(false), _isRedone(false)
 {
-    setText( tr("Group from selection") );
+    setText(tr("Group from selection"));
 
-    assert( !nodes.empty() );
-    for (NodesGuiList::const_iterator it = nodes.begin(); it != nodes.end(); ++it) {
+    assert(!nodes.empty());
+    for (NodesGuiList::const_iterator it = nodes.begin(); it != nodes.end(); ++it)
+    {
         _originalNodes.push_back(*it);
     }
-
 }
 
 GroupFromSelectionCommand::~GroupFromSelectionCommand()
 {
 }
 
-void
-GroupFromSelectionCommand::undo()
+void GroupFromSelectionCommand::undo()
 {
     std::list<NodeGuiPtr> nodesToSelect;
 
-    for (OutputLinksMap::iterator it = _outputLinks.begin(); it != _outputLinks.end(); ++it) {
+    for (OutputLinksMap::iterator it = _outputLinks.begin(); it != _outputLinks.end(); ++it)
+    {
         NodePtr outputNode = it->first.lock();
-        if (!outputNode) {
+        if (!outputNode)
+        {
             continue;
         }
         NodePtr input = it->second.inputNode.lock();
-        if (!input) {
+        if (!input)
+        {
             continue;
         }
         outputNode->replaceInput(input, it->second.inputIdx);
     }
 
-
-    for (std::list<NodeGuiWPtr>::iterator it = _originalNodes.begin(); it != _originalNodes.end(); ++it) {
+    for (std::list<NodeGuiWPtr>::iterator it = _originalNodes.begin(); it != _originalNodes.end(); ++it)
+    {
         NodeGuiPtr node = it->lock();
-        if (node) {
+        if (node)
+        {
             node->getNode()->activate(NodesList(), true, false);
             nodesToSelect.push_back(node);
         }
@@ -1559,16 +1675,17 @@ GroupFromSelectionCommand::undo()
     _isRedone = false;
 }
 
-void
-GroupFromSelectionCommand::redo()
+void GroupFromSelectionCommand::redo()
 {
     // The group position will be at the centroid of all selected nodes
     QPointF groupPosition;
 
     NodesGuiList originalNodes;
-    for (std::list<NodeGuiWPtr>::const_iterator it = _originalNodes.begin(); it != _originalNodes.end(); ++it) {
+    for (std::list<NodeGuiWPtr>::const_iterator it = _originalNodes.begin(); it != _originalNodes.end(); ++it)
+    {
         NodeGuiPtr n = it->lock();
-        if (!n) {
+        if (!n)
+        {
             continue;
         }
         originalNodes.push_back(n);
@@ -1578,22 +1695,27 @@ GroupFromSelectionCommand::redo()
     }
 
     unsigned sz = originalNodes.size();
-    if (sz) {
+    if (sz)
+    {
         groupPosition.rx() /= sz;
         groupPosition.ry() /= sz;
     }
 
     NodeGroupPtr isGrp;
-    if (_firstRedoCalled) {
+    if (_firstRedoCalled)
+    {
         isGrp = boost::dynamic_pointer_cast<NodeGroup>(_group.lock()->getNode()->getEffectInstance());
         assert(isGrp);
-        if (!isGrp) {
+        if (!isGrp)
+        {
             throw std::logic_error("GroupFromSelectionCommand::redo()");
         }
-    } else {
+    }
+    else
+    {
         NodesList internalNewNodes;
         // Create the actual Group node
-        CreateNodeArgs groupArgs( PLUGINID_NATRON_GROUP, _graph->getGroup() );
+        CreateNodeArgs groupArgs(PLUGINID_NATRON_GROUP, _graph->getGroup());
         groupArgs.setProperty<bool>(kCreateNodeArgsPropNodeGroupDisableCreateInitialNodes, true);
         groupArgs.setProperty<bool>(kCreateNodeArgsPropSettingsOpened, false);
         groupArgs.setProperty<bool>(kCreateNodeArgsPropAutoConnect, false);
@@ -1601,25 +1723,27 @@ GroupFromSelectionCommand::redo()
 
         NodePtr containerNode = _graph->getGui()->getApp()->createNode(groupArgs);
 
-        isGrp = boost::dynamic_pointer_cast<NodeGroup>( containerNode->getEffectInstance()->shared_from_this() );
+        isGrp = boost::dynamic_pointer_cast<NodeGroup>(containerNode->getEffectInstance()->shared_from_this());
         assert(isGrp);
-        if (!isGrp) {
+        if (!isGrp)
+        {
             throw std::logic_error("GroupFromSelectionCommand::redo()");
         }
         NodeGuiIPtr container_i = containerNode->getNodeGui();
         assert(container_i);
         _group = boost::dynamic_pointer_cast<NodeGui>(container_i);
-        assert( _group.lock() );
+        assert(_group.lock());
 
         // Set the position of the group
-        container_i->setPosition( groupPosition.x(), groupPosition.y() );
+        container_i->setPosition(groupPosition.x(), groupPosition.y());
 
         // Copy all the selected nodes and paste them in the newly created Group
-        std::list<std::pair<std::string, NodeGuiPtr> > newNodes;
+        std::list<std::pair<std::string, NodeGuiPtr>> newNodes;
         _graph->copyNodesAndCreateInGroup(originalNodes, isGrp, newNodes);
 
-        for (std::list<std::pair<std::string, NodeGuiPtr> >::iterator it = newNodes.begin(); it != newNodes.end(); ++it) {
-            internalNewNodes.push_back( it->second->getNode() );
+        for (std::list<std::pair<std::string, NodeGuiPtr>>::iterator it = newNodes.begin(); it != newNodes.end(); ++it)
+        {
+            internalNewNodes.push_back(it->second->getNode());
         }
 
         // Extract all trees from these new nodes
@@ -1627,40 +1751,50 @@ GroupFromSelectionCommand::redo()
         Project::extractTreesFromNodes(internalNewNodes, trees);
         bool hasCreatedOutput = false;
         int inputNb = 0;
-        for (std::list<Project::NodesTree>::iterator it = trees.begin(); it != trees.end(); ++it) {
+        for (std::list<Project::NodesTree>::iterator it = trees.begin(); it != trees.end(); ++it)
+        {
             NodeGuiPtr foundOriginalOutputNode;
-            for (NodesGuiList::const_iterator it3 = originalNodes.begin(); it3 != originalNodes.end(); ++it3) {
-                if ( (*it3)->getNode()->getScriptName_mt_safe() == it->output.node->getScriptName_mt_safe() ) {
+            for (NodesGuiList::const_iterator it3 = originalNodes.begin(); it3 != originalNodes.end(); ++it3)
+            {
+                if ((*it3)->getNode()->getScriptName_mt_safe() == it->output.node->getScriptName_mt_safe())
+                {
                     foundOriginalOutputNode = *it3;
                     break;
                 }
             }
             assert(foundOriginalOutputNode);
-            if (!foundOriginalOutputNode) {
+            if (!foundOriginalOutputNode)
+            {
                 continue;
             }
 
             // For each input node of each tree branch within the group, add a Input node in input of that branch
             // to actually create the input on the Group node
-            for (std::list<Project::TreeInput>::iterator it2 = it->inputs.begin(); it2 != it->inputs.end(); ++it2) {
+            for (std::list<Project::TreeInput>::iterator it2 = it->inputs.begin(); it2 != it->inputs.end(); ++it2)
+            {
                 // Find the equivalent node in the original nodes and see which inputs we need to create
                 NodeGuiPtr foundOriginalNode;
-                for (NodesGuiList::const_iterator it3 = originalNodes.begin(); it3 != originalNodes.end(); ++it3) {
-                    if ( (*it3)->getNode()->getScriptName_mt_safe() == it2->node->getScriptName_mt_safe() ) {
+                for (NodesGuiList::const_iterator it3 = originalNodes.begin(); it3 != originalNodes.end(); ++it3)
+                {
+                    if ((*it3)->getNode()->getScriptName_mt_safe() == it2->node->getScriptName_mt_safe())
+                    {
                         foundOriginalNode = *it3;
                         break;
                     }
                 }
                 assert(foundOriginalNode);
-                if (!foundOriginalNode) {
+                if (!foundOriginalNode)
+                {
                     continue;
                 }
 
                 // For each connected input of the original node, create a corresponding Input node with the appropriate name
                 NodePtr originalNodeInternal = foundOriginalNode->getNode();
-                const std::vector<NodeWPtr>& originalNodeInputs = originalNodeInternal->getInputs();
-                for (std::size_t i = 0; i < originalNodeInputs.size(); ++i) {
-                    if ( !originalNodeInternal->isInputVisible(i) ) {
+                const std::vector<NodeWPtr> &originalNodeInputs = originalNodeInternal->getInputs();
+                for (std::size_t i = 0; i < originalNodeInputs.size(); ++i)
+                {
+                    if (!originalNodeInternal->isInputVisible(i))
+                    {
                         // do not create an Input node for an invisible input (example: Shadertoy node, which hides its inputs)
                         continue;
                     }
@@ -1672,7 +1806,6 @@ GroupFromSelectionCommand::redo()
                     args.setProperty<bool>(kCreateNodeArgsPropAutoConnect, false);
                     args.setProperty<bool>(kCreateNodeArgsPropAddUndoRedoCommand, false);
 
-
                     NodePtr input = _graph->getGui()->getApp()->createNode(args);
                     assert(input);
                     std::string inputLabel = originalNodeInternal->getLabel() + '_' + originalNodeInternal->getInputLabel(i);
@@ -1681,45 +1814,52 @@ GroupFromSelectionCommand::redo()
                     // Position the input node correctly
                     double offsetX, offsetY;
 
-
                     double originalX, originalY;
                     foundOriginalNode->getPosition(&originalX, &originalY);
-                    if (originalInput) {
+                    if (originalInput)
+                    {
                         double inputX, inputY;
                         originalInput->getPosition(&inputX, &inputY);
                         offsetX = inputX - originalX;
                         offsetY = inputY - originalY;
-                    } else {
+                    }
+                    else
+                    {
                         offsetX = originalX;
                         offsetY = originalY;
                     }
                     double thisInputX, thisInputY;
                     it2->node->getPosition(&thisInputX, &thisInputY);
-                    
+
                     thisInputX += offsetX;
                     thisInputY += offsetY;
 
                     input->setPosition(thisInputX, thisInputY);
 
                     it2->node->connectInput(input, i);
-                    if (originalInput) {
+                    if (originalInput)
+                    {
                         isGrp->getNode()->connectInput(originalInput, inputNb);
                     }
                     ++inputNb;
 
                 } // for all node's inputs
-            } // for all inputs in the tree
+            }     // for all inputs in the tree
             //Create only a single output
 
-            if (!hasCreatedOutput) {
+            if (!hasCreatedOutput)
+            {
                 CreateNodeArgs args(PLUGINID_NATRON_OUTPUT, isGrp);
                 args.setProperty<bool>(kCreateNodeArgsPropSettingsOpened, false);
                 args.setProperty<bool>(kCreateNodeArgsPropAutoConnect, false);
                 args.setProperty<bool>(kCreateNodeArgsPropAddUndoRedoCommand, false);
                 NodePtr output = _graph->getGui()->getApp()->createNode(args);
-                try {
+                try
+                {
                     output->setScriptName("Output");
-                } catch (...) {
+                }
+                catch (...)
+                {
                 }
 
                 assert(output);
@@ -1740,34 +1880,38 @@ GroupFromSelectionCommand::redo()
             // Connect all outputs of the original node to the new Group
             NodesWList originalOutputs;
             foundOriginalOutputNode->getNode()->getOutputs_mt_safe(originalOutputs);
-            for (NodesWList::const_iterator it2 = originalOutputs.begin(); it2 != originalOutputs.end(); ++it2) {
+            for (NodesWList::const_iterator it2 = originalOutputs.begin(); it2 != originalOutputs.end(); ++it2)
+            {
                 NodePtr output = it2->lock();
-                if (!output) {
+                if (!output)
+                {
                     continue;
                 }
                 int inputIdx = output->getInputIndex(foundOriginalOutputNode->getNode().get());
                 assert(inputIdx != -1);
                 output->replaceInput(isGrp->getNode(), inputIdx);
-                OutputLink& link = _outputLinks[*it2];
+                OutputLink &link = _outputLinks[*it2];
                 link.inputNode = foundOriginalOutputNode->getNode();
                 link.inputIdx = inputIdx;
             }
         } // for all trees
-    } // !_firstRedoCalled
+    }     // !_firstRedoCalled
 
-    if (_firstRedoCalled) {
-        for (OutputLinksMap::iterator it = _outputLinks.begin(); it != _outputLinks.end(); ++it) {
+    if (_firstRedoCalled)
+    {
+        for (OutputLinksMap::iterator it = _outputLinks.begin(); it != _outputLinks.end(); ++it)
+        {
             NodePtr outputNode = it->first.lock();
-            if (!outputNode) {
+            if (!outputNode)
+            {
                 continue;
             }
             outputNode->replaceInput(isGrp->getNode(), it->second.inputIdx);
         }
     }
 
-
-
-    for (NodesGuiList::iterator it = originalNodes.begin(); it != originalNodes.end(); ++it) {
+    for (NodesGuiList::iterator it = originalNodes.begin(); it != originalNodes.end(); ++it)
+    {
         (*it)->getNode()->deactivate(NodesList(),
                                      true,
                                      false,
@@ -1778,44 +1922,46 @@ GroupFromSelectionCommand::redo()
 
     std::list<NodeGuiPtr> nodesToSelect;
     NodeGuiPtr nodeGroup = _group.lock();
-    if (_firstRedoCalled && nodeGroup) {
+    if (_firstRedoCalled && nodeGroup)
+    {
         nodeGroup->getNode()->activate(NodesList(), true, false);
     }
-    if (nodeGroup) {
+    if (nodeGroup)
+    {
         nodesToSelect.push_back(nodeGroup);
     }
     _graph->setSelection(nodesToSelect);
 
-
-    std::list<ViewerInstance*> viewers;
+    std::list<ViewerInstance *> viewers;
     _graph->getGroup()->getViewers(&viewers);
-    for (std::list<ViewerInstance*>::iterator it = viewers.begin(); it != viewers.end(); ++it) {
+    for (std::list<ViewerInstance *>::iterator it = viewers.begin(); it != viewers.end(); ++it)
+    {
         (*it)->renderCurrentFrame(true);
     }
-    NodeGraphI* graph_i = isGrp->getNodeGraph();
+    NodeGraphI *graph_i = isGrp->getNodeGraph();
     assert(graph_i);
-    NodeGraph* graph = dynamic_cast<NodeGraph*>(graph_i);
+    NodeGraph *graph = dynamic_cast<NodeGraph *>(graph_i);
     assert(graph);
-    if (graph) {
+    if (graph)
+    {
         graph->centerOnAllNodes();
     }
     _firstRedoCalled = true;
     _isRedone = true;
 }
 
-InlineGroupCommand::InlineGroupCommand(NodeGraph* graph,
-                                       const std::list<NodeGuiPtr> & groupNodes)
-    : QUndoCommand()
-    , _graph(graph)
-    , _groupNodes()
-    , _firstRedoCalled(false)
+InlineGroupCommand::InlineGroupCommand(NodeGraph *graph,
+                                       const std::list<NodeGuiPtr> &groupNodes)
+    : QUndoCommand(), _graph(graph), _groupNodes(), _firstRedoCalled(false)
 {
-    setText( tr("Inline group(s)") );
+    setText(tr("Inline group(s)"));
 
-    for (std::list<NodeGuiPtr> ::const_iterator it = groupNodes.begin(); it != groupNodes.end(); ++it) {
-        NodeGroup* group = (*it)->getNode()->isEffectGroup();
+    for (std::list<NodeGuiPtr>::const_iterator it = groupNodes.begin(); it != groupNodes.end(); ++it)
+    {
+        NodeGroup *group = (*it)->getNode()->isEffectGroup();
         assert(group);
-        if (!group) {
+        if (!group)
+        {
             continue;
         }
         InlinedGroup expandedGroup;
@@ -1830,10 +1976,12 @@ InlineGroupCommand::InlineGroupCommand(NodeGraph* graph,
         group->getInputs(&groupInputs, true);
 
         std::list<NodeGuiPtr> nodesToCopy;
-        for (NodesList::iterator it2 = nodes.begin(); it2 != nodes.end(); ++it2) {
-            GroupInput* inp = dynamic_cast<GroupInput*>( (*it2)->getEffectInstance().get() );
-            GroupOutput* output = dynamic_cast<GroupOutput*>( (*it2)->getEffectInstance().get() );
-            if ( !inp && !output && !(*it2)->getParentMultiInstance() ) {
+        for (NodesList::iterator it2 = nodes.begin(); it2 != nodes.end(); ++it2)
+        {
+            GroupInput *inp = dynamic_cast<GroupInput *>((*it2)->getEffectInstance().get());
+            GroupOutput *output = dynamic_cast<GroupOutput *>((*it2)->getEffectInstance().get());
+            if (!inp && !output && !(*it2)->getParentMultiInstance())
+            {
                 NodeGuiIPtr gui_i = (*it2)->getNodeGui();
                 assert(gui_i);
                 NodeGuiPtr nodeGui = boost::dynamic_pointer_cast<NodeGui>(gui_i);
@@ -1846,14 +1994,15 @@ InlineGroupCommand::InlineGroupCommand(NodeGraph* graph,
             NodeGraphI *graph_i = group->getNodeGraph();
             assert(graph_i);
             {
-                NodeGraph* thisGroupGraph = dynamic_cast<NodeGraph*>(graph_i);
+                NodeGraph *thisGroupGraph = dynamic_cast<NodeGraph *>(graph_i);
                 assert(thisGroupGraph);
-                if (thisGroupGraph) {
+                if (thisGroupGraph)
+                {
                     thisGroupGraph->copyNodes(nodesToCopy, cb);
                 }
             }
         }
-        std::list<std::pair<std::string, NodeGuiPtr> > newNodes;
+        std::list<std::pair<std::string, NodeGuiPtr>> newNodes;
         _graph->pasteCliboard(cb, &newNodes);
 
         NodeGuiIPtr groupGui_i = group->getNode()->getNodeGui();
@@ -1862,33 +2011,36 @@ InlineGroupCommand::InlineGroupCommand(NodeGraph* graph,
         assert(groupGui);
         expandedGroup.group = groupGui;
 
-        QPointF groupNodePos = groupGui->mapToScene( groupGui->mapFromParent( groupGui->getPos_mt_safe() ) );
+        QPointF groupNodePos = groupGui->mapToScene(groupGui->mapFromParent(groupGui->getPos_mt_safe()));
 
         //This is the BBox of the new inlined nodes
         RectD bbox;
         bbox.setupInfinity();
-        for (std::list<std::pair<std::string, NodeGuiPtr> >::iterator it2 = newNodes.begin();
-             it2 != newNodes.end(); ++it2) {
-            QPointF p = it2->second->mapToScene( it2->second->mapFromParent( it2->second->getPos_mt_safe() ) );
-            bbox.x1 = std::min( bbox.x1, p.x() );
-            bbox.x2 = std::max( bbox.x2, p.x() );
+        for (std::list<std::pair<std::string, NodeGuiPtr>>::iterator it2 = newNodes.begin();
+             it2 != newNodes.end(); ++it2)
+        {
+            QPointF p = it2->second->mapToScene(it2->second->mapFromParent(it2->second->getPos_mt_safe()));
+            bbox.x1 = std::min(bbox.x1, p.x());
+            bbox.x2 = std::max(bbox.x2, p.x());
 
             //Qt coord system is top down
-            bbox.y1 = std::min( bbox.y1, p.y() );
-            bbox.y2 = std::max( bbox.y2, p.y() );
+            bbox.y1 = std::min(bbox.y1, p.y());
+            bbox.y2 = std::max(bbox.y2, p.y());
             expandedGroup.inlinedNodes.push_back(it2->second);
         }
 
-        QPointF bboxCenter( (bbox.x1 + bbox.x2) / 2., (bbox.y1 + bbox.y2) / 2. );
+        QPointF bboxCenter((bbox.x1 + bbox.x2) / 2., (bbox.y1 + bbox.y2) / 2.);
         // Remember the links from the Group node we are expending to its inputs and outputs
 
         // This is the y coord. of the bottom-most input
         double inputY = INT_MIN;
         int maxInputs = group->getNode()->getNInputs();
-        assert( maxInputs == (int)groupInputs.size() );
-        for (int i = 0; i < maxInputs; ++i) {
+        assert(maxInputs == (int)groupInputs.size());
+        for (int i = 0; i < maxInputs; ++i)
+        {
             NodePtr input = group->getNode()->getInput(i);
-            if (input) {
+            if (input)
+            {
                 NodeToConnect ntc;
 
                 assert(groupInputs[i]);
@@ -1901,22 +2053,26 @@ InlineGroupCommand::InlineGroupCommand(NodeGraph* graph,
                 assert(inputGui);
                 ntc.input = inputGui;
 
-                QPointF p = inputGui->mapToScene( inputGui->mapFromParent( inputGui->getPos_mt_safe() ) );
-                if (p.y() > inputY) {
+                QPointF p = inputGui->mapToScene(inputGui->mapFromParent(inputGui->getPos_mt_safe()));
+                if (p.y() > inputY)
+                {
                     inputY = p.y();
                 }
 
-                for (std::map<NodePtr, int>::iterator it2 = outputConnected.begin(); it2 != outputConnected.end(); ++it2) {
+                for (std::map<NodePtr, int>::iterator it2 = outputConnected.begin(); it2 != outputConnected.end(); ++it2)
+                {
                     NodeGuiPtr outputGui;
                     ///Find the new node that was inlined, based on the script name of the old node in the group
-                    for (std::list<std::pair<std::string, NodeGuiPtr> >::iterator it3 = newNodes.begin(); it3 != newNodes.end(); ++it3) {
-                        if ( it3->first == it2->first->getScriptName() ) {
+                    for (std::list<std::pair<std::string, NodeGuiPtr>>::iterator it3 = newNodes.begin(); it3 != newNodes.end(); ++it3)
+                    {
+                        if (it3->first == it2->first->getScriptName())
+                        {
                             outputGui = it3->second;
                             break;
                         }
                     }
                     assert(outputGui);
-                    ntc.outputs.insert( std::make_pair(outputGui, it2->second) );
+                    ntc.outputs.insert(std::make_pair(outputGui, it2->second));
                 }
 
                 expandedGroup.connections[i] = ntc;
@@ -1928,70 +2084,78 @@ InlineGroupCommand::InlineGroupCommand(NodeGraph* graph,
 
         // This is the y coord of the top most output
         double outputY = INT_MAX;
-        if (groupOutput) {
+        if (groupOutput)
+        {
             NodePtr groupOutputInput = groupOutput->getInput(0);
-            if (groupOutputInput) {
+            if (groupOutputInput)
+            {
                 NodeToConnect outputConnection;
                 NodeGuiPtr inputGui;
                 ///Find the new node that was inlined, based on the script name of the old node in the group
-                for (std::list<std::pair<std::string, NodeGuiPtr> >::iterator it3 = newNodes.begin(); it3 != newNodes.end(); ++it3) {
-                    if ( it3->first == groupOutputInput->getScriptName() ) {
+                for (std::list<std::pair<std::string, NodeGuiPtr>>::iterator it3 = newNodes.begin(); it3 != newNodes.end(); ++it3)
+                {
+                    if (it3->first == groupOutputInput->getScriptName())
+                    {
                         inputGui = it3->second;
                         break;
                     }
                 }
 
-                if (!inputGui) {
+                if (!inputGui)
+                {
                     continue;
                 }
-                firstInputPos = inputGui->mapToScene( inputGui->mapFromParent( inputGui->getPos_mt_safe() ) );
+                firstInputPos = inputGui->mapToScene(inputGui->mapFromParent(inputGui->getPos_mt_safe()));
                 outputConnection.input = inputGui;
 
                 std::map<NodePtr, int> outputConnected;
                 group->getNode()->getOutputsConnectedToThisNode(&outputConnected);
-                for (std::map<NodePtr, int>::iterator it2 = outputConnected.begin(); it2 != outputConnected.end(); ++it2) {
+                for (std::map<NodePtr, int>::iterator it2 = outputConnected.begin(); it2 != outputConnected.end(); ++it2)
+                {
                     NodeGuiIPtr outputGui_i = it2->first->getNodeGui();
                     assert(outputGui_i);
                     NodeGuiPtr outputGui = boost::dynamic_pointer_cast<NodeGui>(outputGui_i);
                     assert(outputGui);
                     outputsConnectedToGroup.push_back(outputGui);
 
-                    QPointF p = outputGui->mapToScene( outputGui->mapFromParent( outputGui->getPos_mt_safe() ) );
-                    if (p.y() < outputY) {
+                    QPointF p = outputGui->mapToScene(outputGui->mapFromParent(outputGui->getPos_mt_safe()));
+                    if (p.y() < outputY)
+                    {
                         outputY = p.y();
                     }
-                    outputConnection.outputs.insert( std::make_pair(outputGui, it2->second) );
+                    outputConnection.outputs.insert(std::make_pair(outputGui, it2->second));
                 }
                 expandedGroup.connections[-1] = outputConnection;
             }
         }
 
         // If there is no output to the group, the output is considered to be infinite (so we don't move any node)
-        if (outputY == INT_MIN) {
+        if (outputY == INT_MIN)
+        {
             outputY = INT_MAX;
         }
 
-        const double ySpaceAvailable = outputY  - inputY;
+        const double ySpaceAvailable = outputY - inputY;
         const double ySpaceNeeded = bbox.y2 - bbox.y1 + TO_DPIX(100);
 
         //  Move recursively the outputs of the group nodes so that it does not overlap the inlining of the group
         QRectF rectToClear(bbox.x1, bbox.y1, bbox.x2 - bbox.x1, ySpaceNeeded - ySpaceAvailable);
-        for (std::list<NodeGuiPtr> ::iterator it2 = outputsConnectedToGroup.begin();
-             it2 != outputsConnectedToGroup.end(); ++it2) {
+        for (std::list<NodeGuiPtr>::iterator it2 = outputsConnectedToGroup.begin();
+             it2 != outputsConnectedToGroup.end(); ++it2)
+        {
             (*it2)->moveBelowPositionRecursively(rectToClear);
         }
 
-
         // Move all created nodes by this delta to fit in the space we've just made
-        for (std::list<std::pair<std::string, NodeGuiPtr> >::iterator it2 = newNodes.begin();
-             it2 != newNodes.end(); ++it2) {
-            QPointF p = it2->second->mapToScene( it2->second->mapFromParent( it2->second->getPos_mt_safe() ) );
+        for (std::list<std::pair<std::string, NodeGuiPtr>>::iterator it2 = newNodes.begin();
+             it2 != newNodes.end(); ++it2)
+        {
+            QPointF p = it2->second->mapToScene(it2->second->mapFromParent(it2->second->getPos_mt_safe()));
             QPointF delta = p - bboxCenter;
             p = groupNodePos + delta;
-            p = it2->second->mapToParent( it2->second->mapFromScene(p) );
-            it2->second->setPosition( p.x(), p.y() );
+            p = it2->second->mapToParent(it2->second->mapFromScene(p));
+            it2->second->setPosition(p.x(), p.y());
         }
-
 
         _groupNodes.push_back(expandedGroup);
     } // for (std::list<NodeGuiPtr> ::const_iterator it = groupNodes.begin(); it != groupNodes.end(); ++it) {
@@ -2001,25 +2165,29 @@ InlineGroupCommand::~InlineGroupCommand()
 {
 }
 
-void
-InlineGroupCommand::undo()
+void InlineGroupCommand::undo()
 {
-    std::set<ViewerInstance*> viewers;
+    std::set<ViewerInstance *> viewers;
     std::list<NodeGuiPtr> nodesToSelect;
 
-    for (std::list<InlinedGroup>::iterator it = _groupNodes.begin(); it != _groupNodes.end(); ++it) {
+    for (std::list<InlinedGroup>::iterator it = _groupNodes.begin(); it != _groupNodes.end(); ++it)
+    {
         NodeGuiPtr groupNode = it->group.lock();
-        if (groupNode) {
+        if (groupNode)
+        {
             groupNode->getNode()->activate(NodesList(), true, false);
-            std::list<ViewerInstance*> connectedViewers;
+            std::list<ViewerInstance *> connectedViewers;
             groupNode->getNode()->hasViewersConnected(&connectedViewers);
-            for (std::list<ViewerInstance*>::iterator it2 = connectedViewers.begin(); it2 != connectedViewers.end(); ++it2) {
+            for (std::list<ViewerInstance *>::iterator it2 = connectedViewers.begin(); it2 != connectedViewers.end(); ++it2)
+            {
                 viewers.insert(*it2);
             }
             for (std::list<NodeGuiWPtr>::iterator it2 = it->inlinedNodes.begin();
-                 it2 != it->inlinedNodes.end(); ++it2) {
+                 it2 != it->inlinedNodes.end(); ++it2)
+            {
                 NodeGuiPtr node = (*it2).lock();
-                if (node) {
+                if (node)
+                {
                     node->getNode()->deactivate(NodesList(), false, false, true, false, false);
                 }
             }
@@ -2027,48 +2195,58 @@ InlineGroupCommand::undo()
         nodesToSelect.push_back(groupNode);
     }
     _graph->setSelection(nodesToSelect);
-    for (std::set<ViewerInstance*>::iterator it = viewers.begin(); it != viewers.end(); ++it) {
+    for (std::set<ViewerInstance *>::iterator it = viewers.begin(); it != viewers.end(); ++it)
+    {
         (*it)->renderCurrentFrame(true);
     }
 
     _graph->getGui()->getApp()->triggerAutoSave();
 }
 
-void
-InlineGroupCommand::redo()
+void InlineGroupCommand::redo()
 {
-    std::set<ViewerInstance*> viewers;
+    std::set<ViewerInstance *> viewers;
     std::list<NodeGuiPtr> nodesToSelect;
 
-    for (std::list<InlinedGroup>::iterator it = _groupNodes.begin(); it != _groupNodes.end(); ++it) {
+    for (std::list<InlinedGroup>::iterator it = _groupNodes.begin(); it != _groupNodes.end(); ++it)
+    {
         NodeGuiPtr groupNode = it->group.lock();
-        if (groupNode) {
-            std::list<ViewerInstance*> connectedViewers;
+        if (groupNode)
+        {
+            std::list<ViewerInstance *> connectedViewers;
             groupNode->getNode()->hasViewersConnected(&connectedViewers);
-            for (std::list<ViewerInstance*>::iterator it2 = connectedViewers.begin(); it2 != connectedViewers.end(); ++it2) {
+            for (std::list<ViewerInstance *>::iterator it2 = connectedViewers.begin(); it2 != connectedViewers.end(); ++it2)
+            {
                 viewers.insert(*it2);
             }
             groupNode->getNode()->deactivate(NodesList(), true, false, true, false, false);
             for (std::list<NodeGuiWPtr>::iterator it2 = it->inlinedNodes.begin();
-                 it2 != it->inlinedNodes.end(); ++it2) {
+                 it2 != it->inlinedNodes.end(); ++it2)
+            {
                 NodeGuiPtr node = (*it2).lock();
-                if (node) {
-                    if  (_firstRedoCalled) {
+                if (node)
+                {
+                    if (_firstRedoCalled)
+                    {
                         node->getNode()->activate(NodesList(), false, false);
                     }
                     nodesToSelect.push_back(node);
                 }
             }
 
-            for (std::map<int, NodeToConnect>::iterator it2 = it->connections.begin(); it2 != it->connections.end(); ++it2) {
+            for (std::map<int, NodeToConnect>::iterator it2 = it->connections.begin(); it2 != it->connections.end(); ++it2)
+            {
                 NodeGuiPtr input = it2->second.input.lock();
-                if (!input) {
+                if (!input)
+                {
                     continue;
                 }
                 for (std::map<NodeGuiWPtr, int>::iterator it3 = it2->second.outputs.begin();
-                     it3 != it2->second.outputs.end(); ++it3) {
+                     it3 != it2->second.outputs.end(); ++it3)
+                {
                     NodeGuiPtr node = it3->first.lock();
-                    if (node) {
+                    if (node)
+                    {
                         node->getNode()->disconnectInput(it3->second);
                         NodeCollection::connectNodes(it3->second, input->getNode(), node->getNode(), false);
                     }
@@ -2078,7 +2256,8 @@ InlineGroupCommand::redo()
     }
     _graph->setSelection(nodesToSelect);
 
-    for (std::set<ViewerInstance*>::iterator it = viewers.begin(); it != viewers.end(); ++it) {
+    for (std::set<ViewerInstance *>::iterator it = viewers.begin(); it != viewers.end(); ++it)
+    {
         (*it)->renderCurrentFrame(true);
     }
     _graph->getGui()->getApp()->triggerAutoSave();

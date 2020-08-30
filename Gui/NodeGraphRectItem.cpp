@@ -17,7 +17,6 @@
  * along with Natron.  If not, see <http://www.gnu.org/licenses/gpl-2.0.html>
  * ***** END LICENSE BLOCK ***** */
 
-
 // ***** BEGIN PYTHON BLOCK *****
 // from <https://docs.python.org/3/c-api/intro.html#include-files>:
 // "Since Python may define some pre-processor definitions which affect the standard headers on some systems, you must include Python.h before any standard headers are included."
@@ -32,13 +31,11 @@ NATRON_NAMESPACE_ENTER
 
 NodeGraphRectItem::NodeGraphRectItem(QGraphicsItem *parent,
                                      int cornerRadiusPx)
-: QGraphicsRectItem(parent)
-, _cornerRadiusPx(cornerRadiusPx)
+    : QGraphicsRectItem(parent), _cornerRadiusPx(cornerRadiusPx)
 {
 }
 
-void
-NodeGraphRectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem* /*option*/, QWidget* /*widget*/)
+void NodeGraphRectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*option*/, QWidget * /*widget*/)
 {
     painter->setPen(pen());
     painter->setBrush(brush());

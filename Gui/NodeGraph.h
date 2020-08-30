@@ -59,32 +59,34 @@ NATRON_NAMESPACE_ENTER
 class NodeGraphPrivate;
 
 class NodeGraph
-    : public QGraphicsView, public NodeGraphI, public PanelWidget, public boost::noncopyable
+    : public QGraphicsView,
+      public NodeGraphI,
+      public PanelWidget,
+      public boost::noncopyable
 {
-GCC_DIAG_SUGGEST_OVERRIDE_OFF
+    GCC_DIAG_SUGGEST_OVERRIDE_OFF
     Q_OBJECT
-GCC_DIAG_SUGGEST_OVERRIDE_ON
+    GCC_DIAG_SUGGEST_OVERRIDE_ON
 
 public:
-
-    explicit NodeGraph(Gui* gui,
-                       const NodeCollectionPtr& group,
-                       QGraphicsScene* scene = 0,
+    explicit NodeGraph(Gui *gui,
+                       const NodeCollectionPtr &group,
+                       QGraphicsScene *scene = 0,
                        QWidget *parent = 0);
 
     virtual ~NodeGraph();
 
-    static void makeFullyQualifiedLabel(Node* node, std::string* ret);
+    static void makeFullyQualifiedLabel(Node *node, std::string *ret);
     NodeCollectionPtr getGroup() const;
-    const std::list<NodeGuiPtr> & getSelectedNodes() const;
-    NodeGuiPtr createNodeGUI(const NodePtr & node,
-                             const CreateNodeArgs& args);
+    const std::list<NodeGuiPtr> &getSelectedNodes() const;
+    NodeGuiPtr createNodeGUI(const NodePtr &node,
+                             const CreateNodeArgs &args);
 
-    void selectNode(const NodeGuiPtr & n, bool addToSelection);
+    void selectNode(const NodeGuiPtr &n, bool addToSelection);
 
-    void deselectNode(const NodeGuiPtr& n);
+    void deselectNode(const NodeGuiPtr &n);
 
-    void setSelection(const NodesGuiList& nodes);
+    void setSelection(const NodesGuiList &nodes);
 
     void clearSelection();
 
@@ -103,30 +105,29 @@ public:
      **/
     void updateNavigator();
 
-    const NodesGuiList & getAllActiveNodes() const;
+    const NodesGuiList &getAllActiveNodes() const;
     NodesGuiList getAllActiveNodes_mt_safe() const;
 
-    void moveToTrash(NodeGui* node);
+    void moveToTrash(NodeGui *node);
 
-    void restoreFromTrash(NodeGui* node);
+    void restoreFromTrash(NodeGui *node);
 
-    QGraphicsItem* getRootItem() const;
+    QGraphicsItem *getRootItem() const;
     virtual void notifyGuiClosing() OVERRIDE FINAL;
     void discardScenePointer();
-
 
     /**
      * @brief Removes the given node from the nodegraph, using the undo/redo stack.
      **/
-    void removeNode(const NodeGuiPtr & node);
+    void removeNode(const NodeGuiPtr &node);
 
-    void centerOnItem(QGraphicsItem* item);
+    void centerOnItem(QGraphicsItem *item);
 
     void setUndoRedoStackLimit(int limit);
 
-    void deleteNodePermanantly(const NodeGuiPtr& n);
+    void deleteNodePermanantly(const NodeGuiPtr &n);
 
-    NodesGuiList getNodesWithinBackdrop(const NodeGuiPtr& node) const;
+    NodesGuiList getNodesWithinBackdrop(const NodeGuiPtr &node) const;
 
     void selectAllNodes(bool onlyInVisiblePortion);
 
@@ -141,15 +142,15 @@ public:
 
     bool areOptionalInputsAutoHidden() const;
 
-    void copyNodesAndCreateInGroup(const NodesGuiList& nodes,
-                                   const NodeCollectionPtr& group,
-                                   std::list<std::pair<std::string, NodeGuiPtr> >& createdNodes);
+    void copyNodesAndCreateInGroup(const NodesGuiList &nodes,
+                                   const NodeCollectionPtr &group,
+                                   std::list<std::pair<std::string, NodeGuiPtr>> &createdNodes);
 
     virtual void onNodesCleared() OVERRIDE FINAL;
 
-    void setLastSelectedViewer(ViewerTab* tab);
+    void setLastSelectedViewer(ViewerTab *tab);
 
-    ViewerTab* getLastSelectedViewer() const;
+    ViewerTab *getLastSelectedViewer() const;
 
     /**
      * @brief Given the node, it tries to move it to the ideal position
@@ -159,16 +160,16 @@ public:
      * so they do not overlap.
      **/
     void moveNodesForIdealPosition(const NodeGuiPtr &n,
-                                   const NodeGuiPtr& selected,
+                                   const NodeGuiPtr &selected,
                                    bool autoConnect);
 
-    void copyNodes(const NodesGuiList& nodes, NodeClipBoard& clipboard);
+    void copyNodes(const NodesGuiList &nodes, NodeClipBoard &clipboard);
 
-    void pasteCliboard(const NodeClipBoard& clipboard, std::list<std::pair<std::string, NodeGuiPtr> >* newNodes);
+    void pasteCliboard(const NodeClipBoard &clipboard, std::list<std::pair<std::string, NodeGuiPtr>> *newNodes);
 
-    void duplicateSelectedNodes(const QPointF& pos);
-    bool pasteNodeClipBoards(const QPointF& pos);
-    void cloneSelectedNodes(const QPointF& pos);
+    void duplicateSelectedNodes(const QPointF &pos);
+    bool pasteNodeClipBoards(const QPointF &pos);
+    void cloneSelectedNodes(const QPointF &pos);
 
     QPointF getRootPos() const;
 
@@ -184,7 +185,7 @@ public Q_SLOTS:
 
     void onRefreshNodesRenderStateTimerTimeout();
 
-    void showMenu(const QPoint & pos);
+    void showMenu(const QPoint &pos);
 
     void toggleCacheInfo();
 
@@ -228,7 +229,7 @@ public Q_SLOTS:
 
     void onNodeCreationDialogFinished(bool accepted);
 
-    void popFindDialog( const QPoint& pos = QPoint(0, 0) );
+    void popFindDialog(const QPoint &pos = QPoint(0, 0));
 
     void renameNode();
 
@@ -240,44 +241,41 @@ public Q_SLOTS:
 
     void toggleAutoTurbo();
 
-    void onGroupNameChanged(const QString& name);
-    void onGroupScriptNameChanged(const QString& name);
-
+    void onGroupNameChanged(const QString &name);
+    void onGroupScriptNameChanged(const QString &name);
 
     void onAutoScrollTimerTriggered();
 
 private:
+    void showNodePanel(bool casIsCtrl, bool casIsShift, NodeGui *nearbyNode);
 
-    void showNodePanel(bool casIsCtrl, bool casIsShift, NodeGui* nearbyNode);
+    void checkForHints(bool shiftdown, bool controlDown, const NodeGuiPtr &selectedNode, const QRectF &visibleSceneR);
 
-    void checkForHints(bool shiftdown, bool controlDown, const NodeGuiPtr& selectedNode, const QRectF& visibleSceneR);
+    void moveSelectedNodesBy(bool shiftdown, bool controlDown, const QPointF &lastMousePosScene, const QPointF &newPos, const QRectF &visibleSceneR, bool userEdit);
 
-    void moveSelectedNodesBy(bool shiftdown, bool controlDown, const QPointF& lastMousePosScene, const QPointF& newPos, const QRectF& visibleSceneR, bool userEdit);
+    void scrollViewIfNeeded(const QPointF &scenePos);
 
-    void scrollViewIfNeeded(const QPointF& scenePos);
+    void checkAndStartAutoScrollTimer(const QPointF &scenePos);
 
-    void checkAndStartAutoScrollTimer(const QPointF& scenePos);
+    bool isNearbyNavigator(const QPoint &widgetPos, QPointF &scenePos) const;
 
-    bool isNearbyNavigator(const QPoint& widgetPos, QPointF& scenePos) const;
-
-    virtual void enterEvent(QEvent* e) OVERRIDE FINAL;
-    virtual void leaveEvent(QEvent* e) OVERRIDE FINAL;
-    virtual void keyPressEvent(QKeyEvent* e) OVERRIDE FINAL;
-    virtual void keyReleaseEvent(QKeyEvent* e) OVERRIDE FINAL;
-    virtual bool event(QEvent* e) OVERRIDE FINAL;
-    virtual void mousePressEvent(QMouseEvent* e) OVERRIDE FINAL;
-    virtual void mouseReleaseEvent(QMouseEvent* e) OVERRIDE FINAL;
-    virtual void mouseMoveEvent(QMouseEvent* e) OVERRIDE FINAL;
-    virtual void mouseDoubleClickEvent(QMouseEvent* e) OVERRIDE FINAL;
-    virtual void resizeEvent(QResizeEvent* e) OVERRIDE FINAL;
-    virtual void paintEvent(QPaintEvent* e) OVERRIDE FINAL;
-    virtual void wheelEvent(QWheelEvent* e) OVERRIDE FINAL;
-    virtual void focusInEvent(QFocusEvent* e) OVERRIDE FINAL;
-    virtual void focusOutEvent(QFocusEvent* e) OVERRIDE FINAL;
-    virtual QUndoStack* getUndoStack() const OVERRIDE FINAL WARN_UNUSED_RETURN;
+    virtual void enterEvent(QEvent *e) OVERRIDE FINAL;
+    virtual void leaveEvent(QEvent *e) OVERRIDE FINAL;
+    virtual void keyPressEvent(QKeyEvent *e) OVERRIDE FINAL;
+    virtual void keyReleaseEvent(QKeyEvent *e) OVERRIDE FINAL;
+    virtual bool event(QEvent *e) OVERRIDE FINAL;
+    virtual void mousePressEvent(QMouseEvent *e) OVERRIDE FINAL;
+    virtual void mouseReleaseEvent(QMouseEvent *e) OVERRIDE FINAL;
+    virtual void mouseMoveEvent(QMouseEvent *e) OVERRIDE FINAL;
+    virtual void mouseDoubleClickEvent(QMouseEvent *e) OVERRIDE FINAL;
+    virtual void resizeEvent(QResizeEvent *e) OVERRIDE FINAL;
+    virtual void paintEvent(QPaintEvent *e) OVERRIDE FINAL;
+    virtual void wheelEvent(QWheelEvent *e) OVERRIDE FINAL;
+    virtual void focusInEvent(QFocusEvent *e) OVERRIDE FINAL;
+    virtual void focusOutEvent(QFocusEvent *e) OVERRIDE FINAL;
+    virtual QUndoStack *getUndoStack() const OVERRIDE FINAL WARN_UNUSED_RETURN;
 
 private:
-
     enum NearbyItemEnum
     {
         eNearbyItemNone = 0,
@@ -288,11 +286,11 @@ private:
         eNearbyItemEdgeBendPoint,
     };
 
-    void getNodesWithinViewportRect(const QRect& rect, std::set<NodeGui*>* nodes) const;
+    void getNodesWithinViewportRect(const QRect &rect, std::set<NodeGui *> *nodes) const;
 
-    NearbyItemEnum hasItemNearbyMouse(const QPoint& mousePosViewport,
-                                      NodeGui** node,
-                                      Edge** edge);
+    NearbyItemEnum hasItemNearbyMouse(const QPoint &mousePosViewport,
+                                      NodeGui **node,
+                                      Edge **edge);
 
     void moveRootInternal(double dx, double dy);
 
@@ -301,38 +299,34 @@ private:
     boost::scoped_ptr<NodeGraphPrivate> _imp;
 };
 
-
 struct FindNodeDialogPrivate;
 class FindNodeDialog
     : public QDialog
 {
-GCC_DIAG_SUGGEST_OVERRIDE_OFF
+    GCC_DIAG_SUGGEST_OVERRIDE_OFF
     Q_OBJECT
-GCC_DIAG_SUGGEST_OVERRIDE_ON
+    GCC_DIAG_SUGGEST_OVERRIDE_ON
 
 public:
-
-    FindNodeDialog(NodeGraph* graph,
-                   QWidget* parent);
+    FindNodeDialog(NodeGraph *graph,
+                   QWidget *parent);
 
     virtual ~FindNodeDialog();
 
 public Q_SLOTS:
 
-    void onButtonClicked(QAbstractButton* button);
+    void onButtonClicked(QAbstractButton *button);
 
-    void updateFindResults(const QString& filter);
+    void updateFindResults(const QString &filter);
 
     void updateFindResultsWithCurrentFilter();
     void forceUpdateFindResults();
 
 private:
-
-
     void selectNextResult();
 
-    virtual void changeEvent(QEvent* e) OVERRIDE FINAL;
-    virtual void keyPressEvent(QKeyEvent* e) OVERRIDE FINAL;
+    virtual void changeEvent(QEvent *e) OVERRIDE FINAL;
+    virtual void keyPressEvent(QKeyEvent *e) OVERRIDE FINAL;
     boost::scoped_ptr<FindNodeDialogPrivate> _imp;
 };
 
@@ -340,14 +334,13 @@ struct EditNodeNameDialogPrivate;
 class EditNodeNameDialog
     : public QDialog
 {
-GCC_DIAG_SUGGEST_OVERRIDE_OFF
+    GCC_DIAG_SUGGEST_OVERRIDE_OFF
     Q_OBJECT
-GCC_DIAG_SUGGEST_OVERRIDE_ON
+    GCC_DIAG_SUGGEST_OVERRIDE_ON
 
 public:
-
-    EditNodeNameDialog(const NodeGuiPtr& node,
-                       QWidget* parent);
+    EditNodeNameDialog(const NodeGuiPtr &node,
+                       QWidget *parent);
 
     virtual ~EditNodeNameDialog();
 
@@ -356,9 +349,8 @@ public:
     NodeGuiPtr getNode() const;
 
 private:
-
-    virtual void changeEvent(QEvent* e) OVERRIDE FINAL;
-    virtual void keyPressEvent(QKeyEvent* e) OVERRIDE FINAL;
+    virtual void changeEvent(QEvent *e) OVERRIDE FINAL;
+    virtual void keyPressEvent(QKeyEvent *e) OVERRIDE FINAL;
     boost::scoped_ptr<EditNodeNameDialogPrivate> _imp;
 };
 

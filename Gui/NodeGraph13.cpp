@@ -41,12 +41,11 @@
 NATRON_NAMESPACE_ENTER
 //using std::cout; using std::endl;
 
-
-bool
-NodeGraph::isNearbyNavigator(const QPoint& widgetPos,
-                             QPointF& scenePos) const
+bool NodeGraph::isNearbyNavigator(const QPoint &widgetPos,
+                                  QPointF &scenePos) const
 {
-    if ( !_imp->_navigator->isVisible() ) {
+    if (!_imp->_navigator->isVisible())
+    {
         return false;
     }
 
@@ -54,10 +53,11 @@ NodeGraph::isNearbyNavigator(const QPoint& widgetPos,
     int navWidth = std::ceil(width() * NATRON_NAVIGATOR_BASE_WIDTH);
     int navHeight = std::ceil(height() * NATRON_NAVIGATOR_BASE_HEIGHT);
     QPoint btmRightWidget = visibleWidget.bottomRight();
-    QPoint navTopLeftWidget = btmRightWidget - QPoint(navWidth, navHeight );
+    QPoint navTopLeftWidget = btmRightWidget - QPoint(navWidth, navHeight);
 
-    if ( ( widgetPos.x() >= navTopLeftWidget.x() ) && ( widgetPos.x() < btmRightWidget.x() ) &&
-         ( widgetPos.y() >= navTopLeftWidget.y() ) && ( widgetPos.y() <= btmRightWidget.y() ) ) {
+    if ((widgetPos.x() >= navTopLeftWidget.x()) && (widgetPos.x() < btmRightWidget.x()) &&
+        (widgetPos.y() >= navTopLeftWidget.y()) && (widgetPos.y() <= btmRightWidget.y()))
+    {
         ///The bbox of all nodes in the nodegraph
         QRectF sceneR = _imp->calcNodesBoundingRect();
 
@@ -67,11 +67,11 @@ NodeGraph::isNearbyNavigator(const QPoint& widgetPos,
 
         ///Make sceneR and viewRect keep the same aspect ratio as the navigator
         double xScale = navWidth / sceneR.width();
-        double yScale =  navHeight / sceneR.height();
-        double scaleFactor = std::max( 0.001, std::min(xScale, yScale) );
+        double yScale = navHeight / sceneR.height();
+        double scaleFactor = std::max(0.001, std::min(xScale, yScale));
 
         ///Make the widgetPos relative to the navTopLeftWidget
-        QPoint clickNavPos( widgetPos.x() - navTopLeftWidget.x(), widgetPos.y() - navTopLeftWidget.y() );
+        QPoint clickNavPos(widgetPos.x() - navTopLeftWidget.x(), widgetPos.y() - navTopLeftWidget.y());
 
         scenePos.rx() = clickNavPos.x() / scaleFactor;
         scenePos.ry() = clickNavPos.y() / scaleFactor;
@@ -86,25 +86,25 @@ NodeGraph::isNearbyNavigator(const QPoint& widgetPos,
     return false;
 }
 
-bool
-NodeGraph::areOptionalInputsAutoHidden() const
+bool NodeGraph::areOptionalInputsAutoHidden() const
 {
     return appPTR->getCurrentSettings()->areOptionalInputsAutoHidden();
 }
 
-void
-NodeGraph::deselect()
+void NodeGraph::deselect()
 {
     {
         QMutexLocker l(&_imp->_nodesMutex);
-        for (NodesGuiList::iterator it = _imp->_selection.begin(); it != _imp->_selection.end(); ++it) {
+        for (NodesGuiList::iterator it = _imp->_selection.begin(); it != _imp->_selection.end(); ++it)
+        {
             (*it)->setUserSelected(false);
         }
     }
 
     _imp->_selection.clear();
 
-    if (_imp->_magnifiedNode && _imp->_magnifOn) {
+    if (_imp->_magnifiedNode && _imp->_magnifOn)
+    {
         _imp->_magnifOn = false;
         _imp->_magnifiedNode->setScale_natron(_imp->_nodeSelectedScaleBeforeMagnif);
     }

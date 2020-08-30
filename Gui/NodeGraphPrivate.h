@@ -56,7 +56,6 @@ CLANG_DIAG_ON(uninitialized)
 #include "Gui/NodeGraphUndoRedo.h" // NodeGuiPtr
 #include "Gui/GuiFwd.h"
 
-
 #define NATRON_CACHE_SIZE_TEXT_REFRESH_INTERVAL_MS 1000
 #define NATRON_NODES_RENDER_STATE_REFRESH_INTERVAL_MS 300
 
@@ -86,23 +85,18 @@ enum EventStateEnum
 class Navigator
     : public QGraphicsPixmapItem
 {
-    QGraphicsLineItem* _navLeftEdge;
-    QGraphicsLineItem* _navBottomEdge;
-    QGraphicsLineItem* _navRightEdge;
-    QGraphicsLineItem* _navTopEdge;
+    QGraphicsLineItem *_navLeftEdge;
+    QGraphicsLineItem *_navBottomEdge;
+    QGraphicsLineItem *_navRightEdge;
+    QGraphicsLineItem *_navTopEdge;
 
 public:
-
-    Navigator(QGraphicsItem* parent = 0)
-        : QGraphicsPixmapItem(parent)
-        , _navLeftEdge(NULL)
-        , _navBottomEdge(NULL)
-        , _navRightEdge(NULL)
-        , _navTopEdge(NULL)
+    Navigator(QGraphicsItem *parent = 0)
+        : QGraphicsPixmapItem(parent), _navLeftEdge(NULL), _navBottomEdge(NULL), _navRightEdge(NULL), _navTopEdge(NULL)
     {
         QPen p;
 
-        p.setBrush( QColor(200, 200, 200) );
+        p.setBrush(QColor(200, 200, 200));
         p.setWidth(2);
 
         _navLeftEdge = new QGraphicsLineItem(this);
@@ -127,7 +121,7 @@ public:
         return _navLeftEdge->pen().width();
     }
 
-    void refreshPosition(const QPointF & navTopLeftScene,
+    void refreshPosition(const QPointF &navTopLeftScene,
                          double width,
                          double height)
     {
@@ -155,11 +149,10 @@ public:
     }
 };
 
-
 class NodeGraphPrivate
 {
 public:
-    NodeGraph* _publicInterface;
+    NodeGraph *_publicInterface;
     NodeCollectionWPtr group;
     QPoint _lastMousePos;
     QPointF _lastSelectionStartPointScene;
@@ -167,7 +160,7 @@ public:
     NodeGuiPtr _magnifiedNode;
     double _nodeSelectedScaleBeforeMagnif;
     bool _magnifOn;
-    Edge* _arrowSelected;
+    Edge *_arrowSelected;
     mutable QMutex _nodesMutex;
     NodesGuiList _nodes;
     NodesGuiList _nodesTrash;
@@ -176,22 +169,22 @@ public:
     ///This is set to true on enterEvent and set back to false on leaveEvent
     bool _nodeCreationShortcutEnabled;
     QString _lastNodeCreatedName;
-    QGraphicsItem* _root; ///< this is the parent of all items in the graph
-    QGraphicsItem* _nodeRoot; ///< this is the parent of all nodes
-    QGraphicsSimpleTextItem* _cacheSizeText;
+    QGraphicsItem *_root;     ///< this is the parent of all items in the graph
+    QGraphicsItem *_nodeRoot; ///< this is the parent of all nodes
+    QGraphicsSimpleTextItem *_cacheSizeText;
     bool cacheSizeHidden;
     QTimer _refreshCacheTextTimer;
-    Navigator* _navigator;
-    QUndoStack* _undoStack;
-    QMenu* _menu;
+    Navigator *_navigator;
+    QUndoStack *_undoStack;
+    QMenu *_menu;
     QGraphicsItem *_tL, *_tR, *_bR, *_bL;
     bool _refreshOverlays;
-    Edge* _highLightedEdge;
+    Edge *_highLightedEdge;
     NodeGuiPtr _mergeHintNode;
 
     ///This is a hint edge we show when _highLightedEdge is not NULL to display a possible connection.
-    Edge* _hintInputEdge;
-    Edge* _hintOutputEdge;
+    Edge *_hintInputEdge;
+    Edge *_hintOutputEdge;
     NodeGuiPtr _backdropResized; //< the backdrop being resized
     NodesGuiList _selection;
 
@@ -205,7 +198,7 @@ public:
     bool _detailsVisible;
     QPointF _deltaSinceMousePress; //< mouse delta since last press
     bool _hasMovedOnce;
-    ViewerTab* lastSelectedViewer;
+    ViewerTab *lastSelectedViewer;
     QPixmap unlockIcon;
 
     ///True when the graph is rendered from the getFullSceneScreenShot() function
@@ -213,9 +206,8 @@ public:
     QTimer autoScrollTimer;
     QTimer refreshRenderStateTimer;
 
-
-    NodeGraphPrivate(NodeGraph* p,
-                     const NodeCollectionPtr& group);
+    NodeGraphPrivate(NodeGraph *p,
+                     const NodeCollectionPtr &group);
 
     QPoint getPyPlugUnlockPos() const;
 
@@ -223,32 +215,31 @@ public:
 
     QRectF calcNodesBoundingRect();
 
-    void copyNodesInternal(const NodesGuiList& selection, NodeClipBoard & clipboard);
-    void pasteNodesInternal(const NodeClipBoard & clipboard, const QPointF& scenPos,
+    void copyNodesInternal(const NodesGuiList &selection, NodeClipBoard &clipboard);
+    void pasteNodesInternal(const NodeClipBoard &clipboard, const QPointF &scenPos,
                             bool useUndoCommand,
-                            std::list<std::pair<std::string, NodeGuiPtr> > *newNodes);
+                            std::list<std::pair<std::string, NodeGuiPtr>> *newNodes);
 
     /**
      * @brief Create a new node given the serialization of another one
      * @param offset[in] The offset applied to the new node position relative to the serialized node's position.
      **/
-    NodeGuiPtr pasteNode(const NodeSerializationPtr & internalSerialization,
-                         const NodeGuiSerializationPtr & guiSerialization,
-                         const QPointF & offset,
-                         const NodeCollectionPtr& group,
-                         const std::string& parentName,
+    NodeGuiPtr pasteNode(const NodeSerializationPtr &internalSerialization,
+                         const NodeGuiSerializationPtr &guiSerialization,
+                         const QPointF &offset,
+                         const NodeCollectionPtr &group,
+                         const std::string &parentName,
                          bool clone,
-                         std::map<std::string, std::string>* oldNewScriptNameMapping);
-
+                         std::map<std::string, std::string> *oldNewScriptNameMapping);
 
     /**
      * @brief This is called once all nodes of a clipboard have been pasted to try to restore connections between them
      * WARNING: The 2 lists must be ordered the same: each item in serializations corresponds to the same item in the newNodes
      * list. We're not using 2 lists to avoid a copy from the paste function.
      **/
-    void restoreConnections(const std::list<NodeSerializationPtr> & serializations,
-                            const std::list<std::pair<std::string, NodeGuiPtr> > & newNodes,
-                            const std::map<std::string, std::string>& oldNewScriptNamesMap);
+    void restoreConnections(const std::list<NodeSerializationPtr> &serializations,
+                            const std::list<std::pair<std::string, NodeGuiPtr>> &newNodes,
+                            const std::map<std::string, std::string> &oldNewScriptNamesMap);
 
     void editSelectionFromSelectionRectangle(bool addToSelection);
 
@@ -260,7 +251,7 @@ public:
 
     void toggleSelectedNodesEnabled();
 
-    void getNodeSet(const NodesGuiList& nodeList, std::set<NodeGuiPtr>& nodeSet);
+    void getNodeSet(const NodesGuiList &nodeList, std::set<NodeGuiPtr> &nodeSet);
 };
 
 NATRON_NAMESPACE_EXIT

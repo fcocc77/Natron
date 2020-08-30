@@ -54,15 +54,13 @@ NATRON_NAMESPACE_ENTER
  * except the move command.
  **/
 
-
 class MoveMultipleNodesCommand
     : public QUndoCommand
 {
     Q_DECLARE_TR_FUNCTIONS(MoveMultipleNodesCommand)
 
 public:
-
-    MoveMultipleNodesCommand(const NodesGuiList & nodes,
+    MoveMultipleNodesCommand(const NodesGuiList &nodes,
                              double dx,
                              double dy,
                              QUndoCommand *parent = 0);
@@ -70,14 +68,12 @@ public:
     virtual void redo();
 
 private:
-
     void move(double dx, double dy);
 
     bool _firstRedoCalled;
     NodesGuiList _nodes;
     double _dx, _dy;
 };
-
 
 /**
  * @class The first redo() call will do nothing, it assumes the node has already been added.
@@ -91,15 +87,13 @@ class AddMultipleNodesCommand
     Q_DECLARE_TR_FUNCTIONS(AddMultipleNodesCommand)
 
 public:
-
-    AddMultipleNodesCommand(NodeGraph* graph,
-                            const NodesGuiList & nodes,
+    AddMultipleNodesCommand(NodeGraph *graph,
+                            const NodesGuiList &nodes,
                             QUndoCommand *parent = 0);
 
-    AddMultipleNodesCommand(NodeGraph* graph,
-                            const NodeGuiPtr & node,
-                            QUndoCommand* parent = 0);
-
+    AddMultipleNodesCommand(NodeGraph *graph,
+                            const NodeGuiPtr &node,
+                            QUndoCommand *parent = 0);
 
     virtual ~AddMultipleNodesCommand();
 
@@ -107,13 +101,11 @@ public:
     virtual void redo();
 
 private:
-
     std::list<NodeGuiWPtr> _nodes;
-    NodeGraph* _graph;
+    NodeGraph *_graph;
     bool _firstRedoCalled;
     bool _isUndone;
 };
-
 
 class RemoveMultipleNodesCommand
     : public QUndoCommand
@@ -121,9 +113,8 @@ class RemoveMultipleNodesCommand
     Q_DECLARE_TR_FUNCTIONS(RemoveMultipleNodesCommand)
 
 public:
-
-    RemoveMultipleNodesCommand(NodeGraph* graph,
-                               const NodesGuiList & nodes,
+    RemoveMultipleNodesCommand(NodeGraph *graph,
+                               const NodesGuiList &nodes,
                                QUndoCommand *parent = 0);
 
     virtual ~RemoveMultipleNodesCommand();
@@ -142,7 +133,7 @@ private:
     };
 
     std::list<NodeToRemove> _nodes;
-    NodeGraph* _graph;
+    NodeGraph *_graph;
     bool _isRedone;
 };
 
@@ -152,24 +143,23 @@ class ConnectCommand
     Q_DECLARE_TR_FUNCTIONS(ConnectCommand)
 
 public:
-    ConnectCommand(NodeGraph* graph,
-                   Edge* edge,
+    ConnectCommand(NodeGraph *graph,
+                   Edge *edge,
                    const NodeGuiPtr &oldSrc,
-                   const NodeGuiPtr & newSrc,
+                   const NodeGuiPtr &newSrc,
                    QUndoCommand *parent = 0);
 
     virtual void undo();
     virtual void redo();
 
 protected:
-
     static void doConnect(const NodeGuiPtr &oldSrc,
-                          const NodeGuiPtr & newSrc,
-                          const NodeGuiPtr& dst,
+                          const NodeGuiPtr &newSrc,
+                          const NodeGuiPtr &dst,
                           int inputNb);
     NodeGuiWPtr _oldSrc, _newSrc;
     NodeGuiWPtr _dst;
-    NodeGraph* _graph;
+    NodeGraph *_graph;
     int _inputNb;
 };
 
@@ -182,20 +172,17 @@ class InsertNodeCommand
     Q_DECLARE_TR_FUNCTIONS(InsertNodeCommand)
 
 public:
-
-    InsertNodeCommand(NodeGraph* graph,
-                      Edge* edge,
-                      const NodeGuiPtr & newSrc,
+    InsertNodeCommand(NodeGraph *graph,
+                      Edge *edge,
+                      const NodeGuiPtr &newSrc,
                       QUndoCommand *parent = 0);
 
     virtual void undo();
     virtual void redo();
 
 private:
-
-    Edge* _inputEdge;
+    Edge *_inputEdge;
 };
-
 
 class ResizeBackdropCommand
     : public QUndoCommand
@@ -203,8 +190,7 @@ class ResizeBackdropCommand
     Q_DECLARE_TR_FUNCTIONS(ResizeBackdropCommand)
 
 public:
-
-    ResizeBackdropCommand(const NodeGuiPtr& bd,
+    ResizeBackdropCommand(const NodeGuiPtr &bd,
                           int w,
                           int h,
                           QUndoCommand *parent = 0);
@@ -220,12 +206,10 @@ public:
     virtual bool mergeWith(const QUndoCommand *command);
 
 private:
-
     NodeGuiPtr _bd;
     int _w, _h;
     int _oldW, _oldH;
 };
-
 
 class DecloneMultipleNodesCommand
     : public QUndoCommand
@@ -233,11 +217,9 @@ class DecloneMultipleNodesCommand
     Q_DECLARE_TR_FUNCTIONS(DecloneMultipleNodesCommand)
 
 public:
-
-    DecloneMultipleNodesCommand(NodeGraph* graph,
-                                const NodesGuiList & nodes,
+    DecloneMultipleNodesCommand(NodeGraph *graph,
+                                const NodesGuiList &nodes,
                                 QUndoCommand *parent = 0);
-
 
     virtual ~DecloneMultipleNodesCommand();
 
@@ -245,7 +227,6 @@ public:
     virtual void redo();
 
 private:
-
     struct NodeToDeclone
     {
         NodeGuiWPtr node;
@@ -253,9 +234,8 @@ private:
     };
 
     std::list<NodeToDeclone> _nodes;
-    NodeGraph* _graph;
+    NodeGraph *_graph;
 };
-
 
 class RearrangeNodesCommand
     : public QUndoCommand
@@ -263,20 +243,18 @@ class RearrangeNodesCommand
     Q_DECLARE_TR_FUNCTIONS(RearrangeNodesCommand)
 
 public:
-
     struct NodeToRearrange
     {
         NodeGuiPtr node;
         QPointF oldPos, newPos;
     };
 
-    RearrangeNodesCommand(const NodesGuiList & nodes,
+    RearrangeNodesCommand(const NodesGuiList &nodes,
                           QUndoCommand *parent = 0);
     virtual void undo();
     virtual void redo();
 
 private:
-
     std::list<NodeToRearrange> _nodes;
 };
 
@@ -286,15 +264,13 @@ class DisableNodesCommand
     Q_DECLARE_TR_FUNCTIONS(DisableNodesCommand)
 
 public:
-
-    DisableNodesCommand(const NodesGuiList & nodes,
+    DisableNodesCommand(const NodesGuiList &nodes,
                         QUndoCommand *parent = 0);
     virtual void undo();
     virtual void redo();
 
 private:
-
-    std::list<NodeGuiWPtr>_nodes;
+    std::list<NodeGuiWPtr> _nodes;
 };
 
 class EnableNodesCommand
@@ -303,17 +279,14 @@ class EnableNodesCommand
     Q_DECLARE_TR_FUNCTIONS(EnableNodesCommand)
 
 public:
-
-    EnableNodesCommand(const NodesGuiList & nodes,
+    EnableNodesCommand(const NodesGuiList &nodes,
                        QUndoCommand *parent = 0);
     virtual void undo();
     virtual void redo();
 
 private:
-
-    std::list<NodeGuiWPtr>_nodes;
+    std::list<NodeGuiWPtr> _nodes;
 };
-
 
 class LoadNodePresetsCommand
     : public QUndoCommand
@@ -321,9 +294,8 @@ class LoadNodePresetsCommand
     Q_DECLARE_TR_FUNCTIONS(LoadNodePresetsCommand)
 
 public:
-
-    LoadNodePresetsCommand(const NodeGuiPtr & node,
-                           const std::list<NodeSerializationPtr>& serialization,
+    LoadNodePresetsCommand(const NodeGuiPtr &node,
+                           const std::list<NodeSerializationPtr> &serialization,
                            QUndoCommand *parent = 0);
 
     virtual ~LoadNodePresetsCommand();
@@ -331,9 +303,8 @@ public:
     virtual void redo();
 
 private:
-
-    void getListAsShared(const std::list<NodeWPtr>& original,
-                         std::list<NodePtr>& shared) const;
+    void getListAsShared(const std::list<NodeWPtr> &original,
+                         std::list<NodePtr> &shared) const;
 
     bool _firstRedoCalled;
     bool _isUndone;
@@ -348,17 +319,15 @@ class RenameNodeUndoRedoCommand
     Q_DECLARE_TR_FUNCTIONS(RenameNodeUndoRedoCommand)
 
 public:
-
-    RenameNodeUndoRedoCommand(const NodeGuiPtr & node,
-                              const QString& oldName,
-                              const QString& newName);
+    RenameNodeUndoRedoCommand(const NodeGuiPtr &node,
+                              const QString &oldName,
+                              const QString &newName);
 
     virtual ~RenameNodeUndoRedoCommand();
     virtual void undo();
     virtual void redo();
 
 private:
-
     NodeGuiWPtr _node;
     QString _oldName, _newName;
 };
@@ -366,7 +335,7 @@ private:
 struct ExtractedOutput
 {
     NodeGuiWPtr node;
-    std::list<std::pair<int, NodeWPtr> > outputs;
+    std::list<std::pair<int, NodeWPtr>> outputs;
 };
 
 struct ExtractedInput
@@ -382,25 +351,21 @@ struct ExtractedTree
     std::list<NodeGuiWPtr> inbetweenNodes;
 };
 
-
 class ExtractNodeUndoRedoCommand
     : public QUndoCommand
 {
     Q_DECLARE_TR_FUNCTIONS(ExtractNodeUndoRedoCommand)
 
 public:
-
-    ExtractNodeUndoRedoCommand(NodeGraph* graph,
-                               const NodesGuiList & nodes);
+    ExtractNodeUndoRedoCommand(NodeGraph *graph,
+                               const NodesGuiList &nodes);
 
     virtual ~ExtractNodeUndoRedoCommand();
     virtual void undo();
     virtual void redo();
 
 private:
-
-
-    NodeGraph* _graph;
+    NodeGraph *_graph;
     std::list<ExtractedTree> _trees;
 };
 
@@ -410,9 +375,8 @@ class GroupFromSelectionCommand
     Q_DECLARE_TR_FUNCTIONS(GroupFromSelectionCommand)
 
 public:
-
-    GroupFromSelectionCommand(NodeGraph* graph,
-                              const NodesGuiList & nodes);
+    GroupFromSelectionCommand(NodeGraph *graph,
+                              const NodesGuiList &nodes);
 
     virtual ~GroupFromSelectionCommand();
 
@@ -420,8 +384,7 @@ public:
     virtual void redo();
 
 private:
-
-    NodeGraph* _graph;
+    NodeGraph *_graph;
     std::list<NodeGuiWPtr> _originalNodes;
     struct OutputLink
     {
@@ -441,9 +404,8 @@ class InlineGroupCommand
     Q_DECLARE_TR_FUNCTIONS(InlineGroupCommand)
 
 public:
-
-    InlineGroupCommand(NodeGraph* graph,
-                       const NodesGuiList & nodes);
+    InlineGroupCommand(NodeGraph *graph,
+                       const NodesGuiList &nodes);
 
     virtual ~InlineGroupCommand();
 
@@ -451,7 +413,6 @@ public:
     virtual void redo();
 
 private:
-
     struct NodeToConnect
     {
         NodeGuiWPtr input;
@@ -465,11 +426,10 @@ private:
         std::map<int, NodeToConnect> connections;
     };
 
-    NodeGraph* _graph;
+    NodeGraph *_graph;
     std::list<InlinedGroup> _groupNodes;
     bool _firstRedoCalled;
 };
-
 
 NATRON_NAMESPACE_EXIT
 

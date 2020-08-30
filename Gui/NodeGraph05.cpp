@@ -49,15 +49,14 @@
 NATRON_NAMESPACE_ENTER
 //using std::cout; using std::endl;
 
-
-void
-NodeGraph::moveNodesForIdealPosition(const NodeGuiPtr &node,
-                                     const NodeGuiPtr &selected,
-                                     bool autoConnect)
+void NodeGraph::moveNodesForIdealPosition(const NodeGuiPtr &node,
+                                          const NodeGuiPtr &selected,
+                                          bool autoConnect)
 {
-    BackdropGui* isBd = dynamic_cast<BackdropGui*>( node.get() );
+    BackdropGui *isBd = dynamic_cast<BackdropGui *>(node.get());
 
-    if (isBd) {
+    if (isBd)
+    {
         return;
     }
 
@@ -69,9 +68,12 @@ NodeGraph::moveNodesForIdealPosition(const NodeGuiPtr &node,
     /// 2 = pop the node below the selected node and move the outputs of the selected node a little
     int behavior = 0;
 
-    if (!selected || !autoConnect) {
+    if (!selected || !autoConnect)
+    {
         behavior = 0;
-    } else {
+    }
+    else
+    {
         ///this function is redundant with Project::autoConnect, depending on the node selected
         ///and this node we make some assumptions on to where we could put the node.
 
@@ -89,33 +91,44 @@ NodeGraph::moveNodesForIdealPosition(const NodeGuiPtr &node,
         //          c) created is regular --> connect output
 
         ///1)
-        if ( selected->getNode()->isOutputNode() ) {
+        if (selected->getNode()->isOutputNode())
+        {
             ///case 1-a) just do default we don't know what else to do
-            if ( node->getNode()->isOutputNode() ) {
+            if (node->getNode()->isOutputNode())
+            {
                 behavior = 0;
-            } else {
+            }
+            else
+            {
                 ///for either cases 1-b) or 1-c) we just connect the created node as input of the selected node.
                 behavior = 1;
             }
         }
         ///2) and 3) are similar except for case b)
-        else {
+        else
+        {
             ///case 2 or 3- a): connect the created node as output of the selected node.
-            if ( node->getNode()->isOutputNode() ) {
+            if (node->getNode()->isOutputNode())
+            {
                 behavior = 2;
             }
             ///case b)
-            else if ( node->getNode()->isInputNode() ) {
-                if ( selected->getNode()->getEffectInstance()->isReader() ) {
+            else if (node->getNode()->isInputNode())
+            {
+                if (selected->getNode()->getEffectInstance()->isReader())
+                {
                     ///case 2-b) just do default we don't know what else to do
                     behavior = 0;
-                } else {
+                }
+                else
+                {
                     ///case 3-b): connect the created node as input of the selected node
                     behavior = 1;
                 }
             }
             ///case c) connect created as output of the selected node
-            else {
+            else
+            {
                 behavior = 2;
             }
         }
@@ -123,48 +136,56 @@ NodeGraph::moveNodesForIdealPosition(const NodeGuiPtr &node,
 
     NodePtr createdNodeInternal = node->getNode();
     NodePtr selectedNodeInternal;
-    if (selected) {
+    if (selected)
+    {
         selectedNodeInternal = selected->getNode();
     }
 
-
     ///if behaviour is 1 , just check that we can effectively connect the node to avoid moving them for nothing
     ///otherwise fallback on behaviour 0
-    if (behavior == 1) {
-        const std::vector<NodeWPtr> & inputs = selected->getNode()->getGuiInputs();
+    if (behavior == 1)
+    {
+        const std::vector<NodeWPtr> &inputs = selected->getNode()->getGuiInputs();
         bool oneInputEmpty = false;
-        for (std::size_t i = 0; i < inputs.size(); ++i) {
-            if ( !inputs[i].lock() ) {
+        for (std::size_t i = 0; i < inputs.size(); ++i)
+        {
+            if (!inputs[i].lock())
+            {
                 oneInputEmpty = true;
                 break;
             }
         }
-        if (!oneInputEmpty) {
+        if (!oneInputEmpty)
+        {
             behavior = 0;
         }
     }
 
-
     ProjectPtr proj = getGui()->getApp()->getProject();
-
 
     ///default
     QPointF position;
-    if (behavior == 0) {
-        position.setX( ( viewPos.bottomRight().x() + viewPos.topLeft().x() ) / 2. );
-        position.setY( ( viewPos.topLeft().y() + viewPos.bottomRight().y() ) / 2. );
-    } else if (behavior == 1) {
+    if (behavior == 0)
+    {
+        position.setX((viewPos.bottomRight().x() + viewPos.topLeft().x()) / 2.);
+        position.setY((viewPos.topLeft().y() + viewPos.bottomRight().y()) / 2.);
+    }
+    else if (behavior == 1)
+    {
         ///pop it above the selected node
 
         ///If this is the first connected input, insert it in a "linear" way so the tree remains vertical
         int nbConnectedInput = 0;
-        const std::vector<Edge*> & selectedNodeInputs = selected->getInputsArrows();
-        for (std::vector<Edge*>::const_iterator it = selectedNodeInputs.begin(); it != selectedNodeInputs.end(); ++it) {
+        const std::vector<Edge *> &selectedNodeInputs = selected->getInputsArrows();
+        for (std::vector<Edge *>::const_iterator it = selectedNodeInputs.begin(); it != selectedNodeInputs.end(); ++it)
+        {
             NodeGuiPtr input;
-            if (*it) {
+            if (*it)
+            {
                 input = (*it)->getSource();
             }
-            if (input) {
+            if (input)
+            {
                 ++nbConnectedInput;
             }
         }
@@ -173,32 +194,35 @@ NodeGraph::moveNodesForIdealPosition(const NodeGuiPtr &node,
         QSize selectedNodeSize = selected->getSize();
         QSize createdNodeSize = node->getSize();
 
-
-        if (nbConnectedInput == 0) {
+        if (nbConnectedInput == 0)
+        {
             QPointF selectedNodeMiddlePos = selected->scenePos() +
                                             QPointF(selectedNodeSize.width() / 2, selectedNodeSize.height() / 2);
 
-
             position.setX(selectedNodeMiddlePos.x() - createdNodeSize.width() / 2);
-            position.setY( selectedNodeMiddlePos.y() - selectedNodeSize.height() / 2 - NodeGui::DEFAULT_OFFSET_BETWEEN_NODES
-                           - createdNodeSize.height() );
+            position.setY(selectedNodeMiddlePos.y() - selectedNodeSize.height() / 2 - NodeGui::DEFAULT_OFFSET_BETWEEN_NODES - createdNodeSize.height());
 
-            QRectF createdNodeRect( position.x(), position.y(), createdNodeSize.width(), createdNodeSize.height() );
+            QRectF createdNodeRect(position.x(), position.y(), createdNodeSize.width(), createdNodeSize.height());
 
             ///now that we have the position of the node, move the inputs of the selected node to make some space for this node
 
-            for (std::vector<Edge*>::const_iterator it = selectedNodeInputs.begin(); it != selectedNodeInputs.end(); ++it) {
-                if ( (*it)->hasSource() ) {
+            for (std::vector<Edge *>::const_iterator it = selectedNodeInputs.begin(); it != selectedNodeInputs.end(); ++it)
+            {
+                if ((*it)->hasSource())
+                {
                     (*it)->getSource()->moveAbovePositionRecursively(createdNodeRect);
                 }
             }
 
             int selectedInput = selectedNodeInternal->getPreferredInputForConnection();
-            if (selectedInput != -1) {
+            if (selectedInput != -1)
+            {
                 bool ok = proj->connectNodes(selectedInput, createdNodeInternal, selectedNodeInternal, true);
                 Q_UNUSED(ok);
             }
-        } else {
+        }
+        else
+        {
             //ViewerInstance* isSelectedViewer = selectedNodeInternal->isEffectViewer();
             //Don't pop a dot, it will most likely annoy the user, just fallback on behavior 0
             /*    position.setX( ( viewPos.bottomRight().x() + viewPos.topLeft().x() ) / 2. );
@@ -206,27 +230,30 @@ NodeGraph::moveNodesForIdealPosition(const NodeGuiPtr &node,
                }
                else {
              */
-            QRectF selectedBbox = selected->mapToScene( selected->boundingRect() ).boundingRect();
+            QRectF selectedBbox = selected->mapToScene(selected->boundingRect()).boundingRect();
             QPointF selectedCenter = selectedBbox.center();
-            double y = selectedCenter.y() - selectedNodeSize.height() / 2.
-                       - NodeGui::DEFAULT_OFFSET_BETWEEN_NODES - createdNodeSize.height();
+            double y = selectedCenter.y() - selectedNodeSize.height() / 2. - NodeGui::DEFAULT_OFFSET_BETWEEN_NODES - createdNodeSize.height();
             double x = selectedCenter.x() + nbConnectedInput * 150;
 
-            position.setX(x  - createdNodeSize.width() / 2.);
+            position.setX(x - createdNodeSize.width() / 2.);
             position.setY(y);
 
             int index = selectedNodeInternal->getPreferredInputForConnection();
-            if (index != -1) {
+            if (index != -1)
+            {
                 bool ok = proj->connectNodes(index, createdNodeInternal, selectedNodeInternal, true);
                 Q_UNUSED(ok);
             }
             //} // if (isSelectedViewer) {*/
         } // if (nbConnectedInput == 0) {
-    } else {
+    }
+    else
+    {
         ///pop it below the selected node
 
-        const NodesWList& outputs = selectedNodeInternal->getGuiOutputs();
-        if ( !createdNodeInternal->isOutputNode() || outputs.empty() ) {
+        const NodesWList &outputs = selectedNodeInternal->getGuiOutputs();
+        if (!createdNodeInternal->isOutputNode() || outputs.empty())
+        {
             QSize selectedNodeSize = selected->getSize();
             QSize createdNodeSize = node->getSize();
             QPointF selectedNodeMiddlePos = selected->scenePos() +
@@ -236,21 +263,25 @@ NodeGraph::moveNodesForIdealPosition(const NodeGuiPtr &node,
             position.setX(selectedNodeMiddlePos.x() - createdNodeSize.width() / 2);
             position.setY(selectedNodeMiddlePos.y() + (selectedNodeSize.height() / 2) + NodeGui::DEFAULT_OFFSET_BETWEEN_NODES);
 
-            QRectF createdNodeRect( position.x(), position.y(), createdNodeSize.width(), createdNodeSize.height() );
+            QRectF createdNodeRect(position.x(), position.y(), createdNodeSize.width(), createdNodeSize.height());
 
             ///and move the selected node below recursively
-            for (NodesWList::const_iterator it = outputs.begin(); it != outputs.end(); ++it) {
+            for (NodesWList::const_iterator it = outputs.begin(); it != outputs.end(); ++it)
+            {
                 NodePtr output = it->lock();
-                if (!output) {
+                if (!output)
+                {
                     continue;
                 }
                 NodeGuiIPtr output_i = output->getNodeGui();
-                if (!output_i) {
+                if (!output_i)
+                {
                     continue;
                 }
-                NodeGui* outputGui = dynamic_cast<NodeGui*>( output_i.get() );
+                NodeGui *outputGui = dynamic_cast<NodeGui *>(output_i.get());
                 assert(outputGui);
-                if (outputGui) {
+                if (outputGui)
+                {
                     outputGui->moveBelowPositionRecursively(createdNodeRect);
                 }
             }
@@ -258,49 +289,54 @@ NodeGraph::moveNodesForIdealPosition(const NodeGuiPtr &node,
             ///Connect the created node to the selected node
             ///finally we connect the created node to the selected node
             int createdInput = createdNodeInternal->getPreferredInputForConnection();
-            if (createdInput != -1) {
-                ignore_result( createdNodeInternal->connectInput(selectedNodeInternal, createdInput) );
+            if (createdInput != -1)
+            {
+                ignore_result(createdNodeInternal->connectInput(selectedNodeInternal, createdInput));
             }
 
-            if ( !createdNodeInternal->isOutputNode() ) {
+            if (!createdNodeInternal->isOutputNode())
+            {
                 ///we find all the nodes that were previously connected to the selected node,
                 ///and connect them to the created node instead.
                 std::map<NodePtr, int> outputsConnectedToSelectedNode;
                 selectedNodeInternal->getOutputsConnectedToThisNode(&outputsConnectedToSelectedNode);
 
                 for (std::map<NodePtr, int>::iterator it = outputsConnectedToSelectedNode.begin();
-                     it != outputsConnectedToSelectedNode.end(); ++it) {
-                    if ( it->first->getParentMultiInstanceName().empty() && (it->first != createdNodeInternal) ) {
+                     it != outputsConnectedToSelectedNode.end(); ++it)
+                {
+                    if (it->first->getParentMultiInstanceName().empty() && (it->first != createdNodeInternal))
+                    {
                         /*
                            Internal rotopaint nodes are connecting to the Rotopaint itself... make sure not to connect
                            internal nodes of the tree
                          */
                         RotoDrawableItemPtr stroke = it->first->getAttachedRotoItem();
-                        if ( stroke && (stroke->getContext()->getNode() == selectedNodeInternal) ) {
+                        if (stroke && (stroke->getContext()->getNode() == selectedNodeInternal))
+                        {
                             continue;
                         }
 
-                        ignore_result( it->first->replaceInput(createdNodeInternal, it->second) );
-//                        bool ok = proj->disconnectNodes(selectedNodeInternal.get(), it->first);
-//                        if (ok) {
-//                            ignore_result(proj->connectNodes(it->second, createdNodeInternal, it->first));
-//                        }
+                        ignore_result(it->first->replaceInput(createdNodeInternal, it->second));
+                        //                        bool ok = proj->disconnectNodes(selectedNodeInternal.get(), it->first);
+                        //                        if (ok) {
+                        //                            ignore_result(proj->connectNodes(it->second, createdNodeInternal, it->first));
+                        //                        }
                         //assert(ok); Might not be ok if the disconnectNodes() action above was queued
                     }
                 }
             }
-        } else {
+        }
+        else
+        {
             ///the created node is an output node and the selected node already has several outputs, create it aside
             QSize createdNodeSize = node->getSize();
-            QRectF selectedBbox = selected->mapToScene( selected->boundingRect() ).boundingRect();
+            QRectF selectedBbox = selected->mapToScene(selected->boundingRect()).boundingRect();
             QPointF selectedCenter = selectedBbox.center();
-            double y = selectedCenter.y() + selectedBbox.height() / 2.
-                       + NodeGui::DEFAULT_OFFSET_BETWEEN_NODES;
+            double y = selectedCenter.y() + selectedBbox.height() / 2. + NodeGui::DEFAULT_OFFSET_BETWEEN_NODES;
             double x = selectedCenter.x() + (int)outputs.size() * 150;
 
-            position.setX(x  - createdNodeSize.width() / 2.);
+            position.setX(x - createdNodeSize.width() / 2.);
             position.setY(y);
-
 
             //Don't pop a dot, it will most likely annoy the user, just fallback on behavior 0
 
@@ -311,8 +347,7 @@ NodeGraph::moveNodesForIdealPosition(const NodeGuiPtr &node,
     }
     position = node->mapFromScene(position);
     position = node->mapToParent(position);
-    node->setPosition( position.x(), position.y() );
+    node->setPosition(position.x(), position.y());
 } // moveNodesForIdealPosition
 
 NATRON_NAMESPACE_EXIT
-

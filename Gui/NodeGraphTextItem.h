@@ -41,12 +41,11 @@ NATRON_NAMESPACE_ENTER
 class NodeGraphTextItem
     : public QGraphicsTextItem
 {
-    NodeGraph* _graph;
+    NodeGraph *_graph;
     bool _alwaysDrawText;
 
 public:
-
-    NodeGraphTextItem(NodeGraph* graph,
+    NodeGraphTextItem(NodeGraph *graph,
                       QGraphicsItem *parent,
                       bool alwaysDrawText);
 
@@ -58,12 +57,11 @@ public:
 class NodeGraphSimpleTextItem
     : public QGraphicsSimpleTextItem
 {
-    NodeGraph* _graph;
+    NodeGraph *_graph;
     bool _alwaysDrawText;
 
 public:
-
-    NodeGraphSimpleTextItem(NodeGraph* graph,
+    NodeGraphSimpleTextItem(NodeGraph *graph,
                             QGraphicsItem *parent,
                             bool alwaysDrawText);
 
@@ -75,10 +73,10 @@ public:
 class NodeGraphPixmapItem
     : public QGraphicsPixmapItem
 {
-    NodeGraph* _graph;
+    NodeGraph *_graph;
 
 public:
-    NodeGraphPixmapItem(NodeGraph* graph,
+    NodeGraphPixmapItem(NodeGraph *graph,
                         QGraphicsItem *parent);
 
     virtual ~NodeGraphPixmapItem();
@@ -87,6 +85,5 @@ public:
 };
 
 NATRON_NAMESPACE_EXIT
-
 
 #endif // NODEGRAPHTEXTITEM_H

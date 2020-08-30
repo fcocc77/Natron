@@ -17,10 +17,8 @@
  * along with Natron.  If not, see <http://www.gnu.org/licenses/gpl-2.0.html>
  * ***** END LICENSE BLOCK ***** */
 
-
 #ifndef NODEGRAPHRECTITEM_H
 #define NODEGRAPHRECTITEM_H
-
 
 // ***** BEGIN PYTHON BLOCK *****
 // from <https://docs.python.org/3/c-api/intro.html#include-files>:
@@ -41,17 +39,16 @@ CLANG_DIAG_ON(uninitialized)
 NATRON_NAMESPACE_ENTER
 
 class NodeGraphRectItem
-: public QGraphicsRectItem
+    : public QGraphicsRectItem
 {
     int _cornerRadiusPx;
-public:
 
+public:
     NodeGraphRectItem(QGraphicsItem *parent,
                       int cornerRadiusPx);
 
     virtual ~NodeGraphRectItem()
     {
-
     }
 
     void setCornerRadiusPx(int cornerRadiusPx)

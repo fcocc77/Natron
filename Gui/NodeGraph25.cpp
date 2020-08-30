@@ -62,58 +62,77 @@ CLANG_DIAG_ON(uninitialized)
 
 NATRON_NAMESPACE_ENTER
 
-void
-NodeGraph::showNodePanel(bool casIsCtrl, bool casIsShift, NodeGui* nearbyNode)
+void NodeGraph::showNodePanel(bool casIsCtrl, bool casIsShift, NodeGui *nearbyNode)
 {
-    if (!nearbyNode) {
+    if (!nearbyNode)
+    {
         return;
     }
-    if ( casIsCtrl ) {
+    if (casIsCtrl)
+    {
         nearbyNode->ensurePanelCreated();
-        if ( nearbyNode->getSettingPanel() ) {
+        if (nearbyNode->getSettingPanel())
+        {
             nearbyNode->getSettingPanel()->floatPanel();
         }
-    } else {
+    }
+    else
+    {
         nearbyNode->setVisibleSettingsPanel(true);
-        if ( nearbyNode->getSettingPanel() ) {
-            getGui()->putSettingsPanelFirst( nearbyNode->getSettingPanel() );
-        } else {
-            ViewerInstance* isViewer = nearbyNode->getNode()->isEffectViewer();
-            if (isViewer) {
-                ViewerGL* viewer = dynamic_cast<ViewerGL*>( isViewer->getUiContext() );
+        if (nearbyNode->getSettingPanel())
+        {
+            getGui()->putSettingsPanelFirst(nearbyNode->getSettingPanel());
+        }
+        else
+        {
+            ViewerInstance *isViewer = nearbyNode->getNode()->isEffectViewer();
+            if (isViewer)
+            {
+                ViewerGL *viewer = dynamic_cast<ViewerGL *>(isViewer->getUiContext());
                 assert(viewer);
-                if (viewer) {
-                    ViewerTab* tab = viewer->getViewerTab();
+                if (viewer)
+                {
+                    ViewerTab *tab = viewer->getViewerTab();
                     assert(tab);
 
-                    TabWidget* foundTab = 0;
-                    QWidget* parent = 0;
-                    if (tab) {
+                    TabWidget *foundTab = 0;
+                    QWidget *parent = 0;
+                    if (tab)
+                    {
                         parent = tab->parentWidget();
                     }
-                    while (parent) {
-                        foundTab = dynamic_cast<TabWidget*>(parent);
-                        if (foundTab) {
+                    while (parent)
+                    {
+                        foundTab = dynamic_cast<TabWidget *>(parent);
+                        if (foundTab)
+                        {
                             break;
                         }
                         parent = parent->parentWidget();
                     }
-                    if (foundTab) {
+                    if (foundTab)
+                    {
                         foundTab->setCurrentWidget(tab);
-                    } else {
+                    }
+                    else
+                    {
                         //try to find a floating window
-                        FloatingWidget* floating = 0;
-                        if (tab) {
+                        FloatingWidget *floating = 0;
+                        if (tab)
+                        {
                             parent = tab->parentWidget();
                         }
-                        while (parent) {
-                            floating = dynamic_cast<FloatingWidget*>(parent);
-                            if (floating) {
+                        while (parent)
+                        {
+                            floating = dynamic_cast<FloatingWidget *>(parent);
+                            if (floating)
+                            {
                                 break;
                             }
                             parent = parent->parentWidget();
                         }
-                        if (floating) {
+                        if (floating)
+                        {
                             floating->activateWindow();
                         }
                     }
@@ -121,32 +140,40 @@ NodeGraph::showNodePanel(bool casIsCtrl, bool casIsShift, NodeGui* nearbyNode)
             }
         }
     }
-    if ( !nearbyNode->wasBeginEditCalled() ) {
+    if (!nearbyNode->wasBeginEditCalled())
+    {
         nearbyNode->beginEditKnobs();
     }
 
-    if ( casIsShift ) {
-        NodeGroup* isGrp = nearbyNode->getNode()->isEffectGroup();
-        if ( isGrp && isGrp->isSubGraphUserVisible() ) {
-            NodeGraphI* graph_i = isGrp->getNodeGraph();
+    if (casIsShift)
+    {
+        NodeGroup *isGrp = nearbyNode->getNode()->isEffectGroup();
+        if (isGrp && isGrp->isSubGraphUserVisible())
+        {
+            NodeGraphI *graph_i = isGrp->getNodeGraph();
             assert(graph_i);
-            NodeGraph* graph = dynamic_cast<NodeGraph*>(graph_i);
-            if (graph) {
-                TabWidget* isParentTab = dynamic_cast<TabWidget*>( graph->parentWidget() );
-                if (isParentTab) {
+            NodeGraph *graph = dynamic_cast<NodeGraph *>(graph_i);
+            if (graph)
+            {
+                TabWidget *isParentTab = dynamic_cast<TabWidget *>(graph->parentWidget());
+                if (isParentTab)
+                {
                     isParentTab->setCurrentWidget(graph);
-                } else {
-                    NodeGraph* lastSelectedGraph = getGui()->getLastSelectedGraph();
+                }
+                else
+                {
+                    NodeGraph *lastSelectedGraph = getGui()->getLastSelectedGraph();
                     ///We're in the double click event, it should've entered the focus in event beforehand!
                     assert(lastSelectedGraph == this);
 
-                    isParentTab = dynamic_cast<TabWidget*>( lastSelectedGraph->parentWidget() );
+                    isParentTab = dynamic_cast<TabWidget *>(lastSelectedGraph->parentWidget());
                     assert(isParentTab);
-                    if (isParentTab) {
+                    if (isParentTab)
+                    {
                         isParentTab->appendTab(graph, graph);
                     }
                 }
-                QTimer::singleShot( 25, graph, SLOT(centerOnAllNodes()) );
+                QTimer::singleShot(25, graph, SLOT(centerOnAllNodes()));
             }
         }
     }
@@ -154,34 +181,36 @@ NodeGraph::showNodePanel(bool casIsCtrl, bool casIsShift, NodeGui* nearbyNode)
     getGui()->getApp()->redrawAllViewers();
 }
 
-void
-NodeGraph::mouseDoubleClickEvent(QMouseEvent* e)
+void NodeGraph::mouseDoubleClickEvent(QMouseEvent *e)
 {
-    NodeGui* nearbyNode;
-    Edge* nearbyEdge;
+    NodeGui *nearbyNode;
+    Edge *nearbyEdge;
     NearbyItemEnum nearbyItemCode = hasItemNearbyMouse(e->pos(), &nearbyNode, &nearbyEdge);
 
-    if (nearbyItemCode == eNearbyItemNode || nearbyItemCode == eNearbyItemBackdropFrame) {
+    if (nearbyItemCode == eNearbyItemNode || nearbyItemCode == eNearbyItemBackdropFrame)
+    {
         showNodePanel(modCASIsControl(e), modCASIsShift(e), nearbyNode);
     }
 } // NodeGraph::mouseDoubleClickEvent
 
-bool
-NodeGraph::event(QEvent* e)
+bool NodeGraph::event(QEvent *e)
 {
-    if ( !getGui() ) {
+    if (!getGui())
+    {
         return false;
     }
-    if (e->type() == QEvent::KeyPress) {
-        QKeyEvent* ke = dynamic_cast<QKeyEvent*>(e);
+    if (e->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *ke = dynamic_cast<QKeyEvent *>(e);
         assert(ke);
-        if (ke && (ke->key() == Qt::Key_Tab) && _imp->_nodeCreationShortcutEnabled) {
+        if (ke && (ke->key() == Qt::Key_Tab) && _imp->_nodeCreationShortcutEnabled)
+        {
             getGui()->disableUpdate(true);
-            NodeCreationDialog* nodeCreation = new NodeCreationDialog(_imp->_lastNodeCreatedName, this);
+            NodeCreationDialog *nodeCreation = new NodeCreationDialog(_imp->_lastNodeCreatedName, this);
 
             ///This allows us to have a non-modal dialog: when the user clicks outside of the dialog,
             ///it closes it.
-            QObject::connect( nodeCreation, SIGNAL(dialogFinished(bool)), this, SLOT(onNodeCreationDialogFinished(bool)) );
+            QObject::connect(nodeCreation, SIGNAL(dialogFinished(bool)), this, SLOT(onNodeCreationDialogFinished(bool)));
             nodeCreation->show();
 
             takeClickFocus();
@@ -194,22 +223,24 @@ NodeGraph::event(QEvent* e)
     return QGraphicsView::event(e);
 }
 
-void
-NodeGraph::onNodeCreationDialogFinished(bool accepted)
+void NodeGraph::onNodeCreationDialogFinished(bool accepted)
 {
-    NodeCreationDialog* dialog = qobject_cast<NodeCreationDialog*>( sender() );
+    NodeCreationDialog *dialog = qobject_cast<NodeCreationDialog *>(sender());
 
-    if (dialog) {
+    if (dialog)
+    {
         int major;
         QString res = dialog->getNodeName(&major);
 
-        if (accepted) {
+        if (accepted)
+        {
             _imp->_lastNodeCreatedName = res;
-            const PluginsMap & allPlugins = appPTR->getPluginsList();
-            PluginsMap::const_iterator found = allPlugins.find( res.toStdString() );
-            if ( found != allPlugins.end() ) {
-                QPointF posHint = mapToScene( mapFromGlobal( QCursor::pos() ) );
-                CreateNodeArgs args( res.toStdString(), getGroup() );
+            const PluginsMap &allPlugins = appPTR->getPluginsList();
+            PluginsMap::const_iterator found = allPlugins.find(res.toStdString());
+            if (found != allPlugins.end())
+            {
+                QPointF posHint = mapToScene(mapFromGlobal(QCursor::pos()));
+                CreateNodeArgs args(res.toStdString(), getGroup());
                 args.setProperty<double>(kCreateNodeArgsPropNodeInitialPosition, posHint.x(), 0);
                 args.setProperty<double>(kCreateNodeArgsPropNodeInitialPosition, posHint.y(), 1);
                 args.setProperty<int>(kCreateNodeArgsPropPluginVersion, major, 0);
@@ -218,22 +249,22 @@ NodeGraph::onNodeCreationDialogFinished(bool accepted)
         }
 
         dialog->close();
-
     }
 }
 
-void
-NodeGraph::keyPressEvent(QKeyEvent* e)
+void NodeGraph::keyPressEvent(QKeyEvent *e)
 {
     NodeCollectionPtr collection = getGroup();
-    NodeGroup* isGroup = dynamic_cast<NodeGroup*>( collection.get() );
+    NodeGroup *isGroup = dynamic_cast<NodeGroup *>(collection.get());
     bool groupEdited = true;
 
-    if (isGroup) {
+    if (isGroup)
+    {
         groupEdited = isGroup->getNode()->hasPyPlugBeenEdited();
     }
 
-    if (!groupEdited) {
+    if (!groupEdited)
+    {
         return;
     }
 
@@ -242,184 +273,297 @@ NodeGraph::keyPressEvent(QKeyEvent* e)
     bool accept = true;
 
 #ifndef NATRON_ENABLE_IO_META_NODES
-    if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphCreateReader, modifiers, key) ) {
+    if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphCreateReader, modifiers, key))
+    {
         getGui()->createReader();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphCreateWriter, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphCreateWriter, modifiers, key))
+    {
         getGui()->createWriter();
-    } else
+    }
+    else
 #endif
-    if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphRemoveNodes, modifiers, key) ) {
+        if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphRemoveNodes, modifiers, key))
+    {
         deleteSelection();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphForcePreview, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphForcePreview, modifiers, key))
+    {
         forceRefreshAllPreviews();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphCopy, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphCopy, modifiers, key))
+    {
         copySelectedNodes();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphPaste, modifiers, key) ) {
-        if ( !pasteNodeClipBoards() ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphPaste, modifiers, key))
+    {
+        if (!pasteNodeClipBoards())
+        {
             accept = false;
         }
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphCut, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphCut, modifiers, key))
+    {
         cutSelectedNodes();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphDuplicate, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphDuplicate, modifiers, key))
+    {
         duplicateSelectedNodes();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphClone, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphClone, modifiers, key))
+    {
         cloneSelectedNodes();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphDeclone, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphDeclone, modifiers, key))
+    {
         decloneSelectedNodes();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphFrameNodes, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphFrameNodes, modifiers, key))
+    {
         centerOnAllNodes();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphSwitchInputs, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphSwitchInputs, modifiers, key))
+    {
         ///No need to make an undo command for this, the user just have to do it a second time to reverse the effect
         switchInputs1and2ForSelectedNodes();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphSelectAll, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphSelectAll, modifiers, key))
+    {
         selectAllNodes(false);
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphSelectAllVisible, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphSelectAllVisible, modifiers, key))
+    {
         selectAllNodes(true);
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphMakeGroup, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphMakeGroup, modifiers, key))
+    {
         createGroupFromSelection();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphExpandGroup, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphExpandGroup, modifiers, key))
+    {
         expandSelectedGroups();
-    } else if ( (key == Qt::Key_Control) && (e->modifiers() == Qt::ControlModifier) ) {
+    }
+    else if ((key == Qt::Key_Control) && (e->modifiers() == Qt::ControlModifier))
+    {
         _imp->setNodesBendPointsVisible(true);
         accept = false;
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphSelectUp, modifiers, key) ||
-                isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphNavigateUpstream, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphSelectUp, modifiers, key) ||
+             isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphNavigateUpstream, modifiers, key))
+    {
         ///We try to find if the last selected node has an input, if so move selection (or add to selection)
         ///the first valid input node
-        if ( !_imp->_selection.empty() ) {
-            NodeGuiPtr lastSelected = ( *_imp->_selection.rbegin() );
-            const std::vector<Edge*> & inputs = lastSelected->getInputsArrows();
-            for (U32 i = 0; i < inputs.size(); ++i) {
-                if ( inputs[i]->hasSource() ) {
+        if (!_imp->_selection.empty())
+        {
+            NodeGuiPtr lastSelected = (*_imp->_selection.rbegin());
+            const std::vector<Edge *> &inputs = lastSelected->getInputsArrows();
+            for (U32 i = 0; i < inputs.size(); ++i)
+            {
+                if (inputs[i]->hasSource())
+                {
                     NodeGuiPtr input = inputs[i]->getSource();
-                    if ( input->getIsSelected() && modCASIsShift(e) ) {
+                    if (input->getIsSelected() && modCASIsShift(e))
+                    {
                         NodesGuiList::iterator found = std::find(_imp->_selection.begin(),
                                                                  _imp->_selection.end(), lastSelected);
-                        if ( found != _imp->_selection.end() ) {
+                        if (found != _imp->_selection.end())
+                        {
                             lastSelected->setUserSelected(false);
                             _imp->_selection.erase(found);
                         }
-                    } else {
-                        selectNode( inputs[i]->getSource(), modCASIsShift(e) );
+                    }
+                    else
+                    {
+                        selectNode(inputs[i]->getSource(), modCASIsShift(e));
                     }
                     break;
                 }
             }
         }
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphSelectDown, modifiers, key) ||
-                isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphNavigateDownstream, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphSelectDown, modifiers, key) ||
+             isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphNavigateDownstream, modifiers, key))
+    {
         ///We try to find if the last selected node has an output, if so move selection (or add to selection)
         ///the first valid output node
-        if ( !_imp->_selection.empty() ) {
-            NodeGuiPtr lastSelected = ( *_imp->_selection.rbegin() );
-            const NodesWList & outputs = lastSelected->getNode()->getGuiOutputs();
-            if ( !outputs.empty() ) {
+        if (!_imp->_selection.empty())
+        {
+            NodeGuiPtr lastSelected = (*_imp->_selection.rbegin());
+            const NodesWList &outputs = lastSelected->getNode()->getGuiOutputs();
+            if (!outputs.empty())
+            {
                 NodePtr firstOutput = outputs.front().lock();
-                if (firstOutput) {
+                if (firstOutput)
+                {
                     NodeGuiIPtr output_i = firstOutput->getNodeGui();
                     NodeGuiPtr output = boost::dynamic_pointer_cast<NodeGui>(output_i);
-                    if (output) {
-                        if ( output->getIsSelected() && modCASIsShift(e) ) {
+                    if (output)
+                    {
+                        if (output->getIsSelected() && modCASIsShift(e))
+                        {
                             NodesGuiList::iterator found = std::find(_imp->_selection.begin(),
                                                                      _imp->_selection.end(), lastSelected);
-                            if ( found != _imp->_selection.end() ) {
+                            if (found != _imp->_selection.end())
+                            {
                                 lastSelected->setUserSelected(false);
                                 _imp->_selection.erase(found);
                             }
-                        } else {
-                            selectNode( output, modCASIsShift(e) );
+                        }
+                        else
+                        {
+                            selectNode(output, modCASIsShift(e));
                         }
                     }
                 } // firstOutput
             }
         }
-    } else if ( isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerFirst, modifiers, key) ) {
-        if ( getLastSelectedViewer() ) {
+    }
+    else if (isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerFirst, modifiers, key))
+    {
+        if (getLastSelectedViewer())
+        {
             getLastSelectedViewer()->firstFrame();
         }
-    } else if ( isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerLast, modifiers, key) ) {
-        if ( getLastSelectedViewer() ) {
+    }
+    else if (isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerLast, modifiers, key))
+    {
+        if (getLastSelectedViewer())
+        {
             getLastSelectedViewer()->lastFrame();
         }
-    } else if ( isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevIncr, modifiers, key) ) {
-        if ( getLastSelectedViewer() ) {
+    }
+    else if (isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevIncr, modifiers, key))
+    {
+        if (getLastSelectedViewer())
+        {
             getLastSelectedViewer()->previousIncrement();
         }
-    } else if ( isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerNextIncr, modifiers, key) ) {
-        if ( getLastSelectedViewer() ) {
+    }
+    else if (isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerNextIncr, modifiers, key))
+    {
+        if (getLastSelectedViewer())
+        {
             getLastSelectedViewer()->nextIncrement();
         }
-    } else if ( isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerNext, modifiers, key) ) {
-        if ( getLastSelectedViewer() ) {
+    }
+    else if (isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerNext, modifiers, key))
+    {
+        if (getLastSelectedViewer())
+        {
             getLastSelectedViewer()->nextFrame();
         }
-    } else if ( isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevious, modifiers, key) ) {
-        if ( getLastSelectedViewer() ) {
+    }
+    else if (isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevious, modifiers, key))
+    {
+        if (getLastSelectedViewer())
+        {
             getLastSelectedViewer()->previousFrame();
         }
-    } else if ( isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevKF, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevKF, modifiers, key))
+    {
         getGui()->getApp()->goToPreviousKeyframe();
-    } else if ( isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerNextKF, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupPlayer, kShortcutIDActionPlayerNextKF, modifiers, key))
+    {
         getGui()->getApp()->goToNextKeyframe();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphRearrangeNodes, modifiers, key) ) {
-        if ( !_imp->rearrangeSelectedNodes() ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphRearrangeNodes, modifiers, key))
+    {
+        if (!_imp->rearrangeSelectedNodes())
+        {
             accept = false;
         }
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphDisableNodes, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphDisableNodes, modifiers, key))
+    {
         toggleSelectedNodesEnabled();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphShowExpressions, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphShowExpressions, modifiers, key))
+    {
         toggleKnobLinksVisible();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphToggleAutoPreview, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphToggleAutoPreview, modifiers, key))
+    {
         toggleAutoPreview();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphToggleAutoTurbo, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphToggleAutoTurbo, modifiers, key))
+    {
         toggleAutoTurbo();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphAutoHideInputs, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphAutoHideInputs, modifiers, key))
+    {
         toggleAutoHideInputs(true);
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphFindNode, modifiers, key) ) {
-        popFindDialog( QCursor::pos() );
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphRenameNode, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphFindNode, modifiers, key))
+    {
+        popFindDialog(QCursor::pos());
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphRenameNode, modifiers, key))
+    {
         renameNode();
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphExtractNode, modifiers, key) ) {
-        pushUndoCommand( new ExtractNodeUndoRedoCommand(this, _imp->_selection) );
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphTogglePreview, modifiers, key) ) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphExtractNode, modifiers, key))
+    {
+        pushUndoCommand(new ExtractNodeUndoRedoCommand(this, _imp->_selection));
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphTogglePreview, modifiers, key))
+    {
         togglePreviewsForSelectedNodes();
-    } else if ( isKeybind(kShortcutGroupGlobal, kShortcutIDActionZoomIn, Qt::NoModifier, key) ) { // zoom in/out doesn't care about modifiers
-        QWheelEvent e(mapFromGlobal( QCursor::pos() ), 120, Qt::NoButton, Qt::NoModifier); // one wheel click = +-120 delta
+    }
+    else if (isKeybind(kShortcutGroupGlobal, kShortcutIDActionZoomIn, Qt::NoModifier, key))
+    {                                                                                    // zoom in/out doesn't care about modifiers
+        QWheelEvent e(mapFromGlobal(QCursor::pos()), 120, Qt::NoButton, Qt::NoModifier); // one wheel click = +-120 delta
         wheelEvent(&e);
-    } else if ( isKeybind(kShortcutGroupGlobal, kShortcutIDActionZoomOut, Qt::NoModifier, key) ) { // zoom in/out doesn't care about modifiers
-        QWheelEvent e(mapFromGlobal( QCursor::pos() ), -120, Qt::NoButton, Qt::NoModifier); // one wheel click = +-120 delta
+    }
+    else if (isKeybind(kShortcutGroupGlobal, kShortcutIDActionZoomOut, Qt::NoModifier, key))
+    {                                                                                     // zoom in/out doesn't care about modifiers
+        QWheelEvent e(mapFromGlobal(QCursor::pos()), -120, Qt::NoButton, Qt::NoModifier); // one wheel click = +-120 delta
         wheelEvent(&e);
-    } else if ( isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphOpenNodePanel, modifiers, key) ) {
-        if (_imp->_selection.size() == 1) {
+    }
+    else if (isKeybind(kShortcutGroupNodegraph, kShortcutIDActionGraphOpenNodePanel, modifiers, key))
+    {
+        if (_imp->_selection.size() == 1)
+        {
             showNodePanel(modCASIsControl(e), modCASIsControl(e), _imp->_selection.front().get());
-        } else {
+        }
+        else
+        {
             accept = false;
         }
-    } else {
+    }
+    else
+    {
         bool intercepted = false;
 
-        if ( modifiers.testFlag(Qt::ControlModifier) && ( (key == Qt::Key_Up) || (key == Qt::Key_Down) ) ) {
+        if (modifiers.testFlag(Qt::ControlModifier) && ((key == Qt::Key_Up) || (key == Qt::Key_Down)))
+        {
             ///These shortcuts pans the graphics view but we don't want it
             intercepted = true;
         }
 
-        if (!intercepted) {
+        if (!intercepted)
+        {
             /// Search for a node which has a shortcut bound
-            const PluginsMap & allPlugins = appPTR->getPluginsList();
-            for (PluginsMap::const_iterator it = allPlugins.begin(); it != allPlugins.end(); ++it) {
-                assert( !it->second.empty() );
-                Plugin* plugin = *it->second.rbegin();
+            const PluginsMap &allPlugins = appPTR->getPluginsList();
+            for (PluginsMap::const_iterator it = allPlugins.begin(); it != allPlugins.end(); ++it)
+            {
+                assert(!it->second.empty());
+                Plugin *plugin = *it->second.rbegin();
 
-                if ( plugin->getHasShortcut() ) {
+                if (plugin->getHasShortcut())
+                {
                     QString group = QString::fromUtf8(kShortcutGroupNodes);
                     QStringList groupingSplit = plugin->getGrouping();
-                    for (int j = 0; j < groupingSplit.size(); ++j) {
-                        group.push_back( QLatin1Char('/') );
+                    for (int j = 0; j < groupingSplit.size(); ++j)
+                    {
+                        group.push_back(QLatin1Char('/'));
                         group.push_back(groupingSplit[j]);
                     }
-                    if ( isKeybind(group.toStdString(), plugin->getPluginID().toStdString(), modifiers, key) ) {
-                        QPointF hint = mapToScene( mapFromGlobal( QCursor::pos() ) );
-                        CreateNodeArgs args( plugin->getPluginID().toStdString(), getGroup() );
+                    if (isKeybind(group.toStdString(), plugin->getPluginID().toStdString(), modifiers, key))
+                    {
+                        QPointF hint = mapToScene(mapFromGlobal(QCursor::pos()));
+                        CreateNodeArgs args(plugin->getPluginID().toStdString(), getGroup());
                         args.setProperty<double>(kCreateNodeArgsPropNodeInitialPosition, hint.x(), 0);
                         args.setProperty<double>(kCreateNodeArgsPropNodeInitialPosition, hint.y(), 1);
                         getGui()->getApp()->createNode(args);
@@ -431,42 +575,50 @@ NodeGraph::keyPressEvent(QKeyEvent* e)
             }
         }
 
-
-        if (!intercepted) {
+        if (!intercepted)
+        {
             accept = false;
         }
     }
-    if (accept) {
+    if (accept)
+    {
         takeClickFocus();
         e->accept();
-    } else {
+    }
+    else
+    {
         handleUnCaughtKeyPressEvent(e);
         QGraphicsView::keyPressEvent(e);
     }
 } // keyPressEvent
 
-void
-NodeGraph::toggleAutoTurbo()
+void NodeGraph::toggleAutoTurbo()
 {
-    appPTR->getCurrentSettings()->setAutoTurboModeEnabled( !appPTR->getCurrentSettings()->isAutoTurboEnabled() );
+    appPTR->getCurrentSettings()->setAutoTurboModeEnabled(!appPTR->getCurrentSettings()->isAutoTurboEnabled());
 }
 
-void
-NodeGraph::selectAllNodes(bool onlyInVisiblePortion)
+void NodeGraph::selectAllNodes(bool onlyInVisiblePortion)
 {
     _imp->resetSelection();
-    if (onlyInVisiblePortion) {
+    if (onlyInVisiblePortion)
+    {
         QRectF r = visibleSceneRect();
-        for (NodesGuiList::iterator it = _imp->_nodes.begin(); it != _imp->_nodes.end(); ++it) {
-            QRectF bbox = (*it)->mapToScene( (*it)->boundingRect() ).boundingRect();
-            if ( r.intersects(bbox) && (*it)->isActive() && (*it)->isVisible() ) {
+        for (NodesGuiList::iterator it = _imp->_nodes.begin(); it != _imp->_nodes.end(); ++it)
+        {
+            QRectF bbox = (*it)->mapToScene((*it)->boundingRect()).boundingRect();
+            if (r.intersects(bbox) && (*it)->isActive() && (*it)->isVisible())
+            {
                 (*it)->setUserSelected(true);
                 _imp->_selection.push_back(*it);
             }
         }
-    } else {
-        for (NodesGuiList::iterator it = _imp->_nodes.begin(); it != _imp->_nodes.end(); ++it) {
-            if ( (*it)->isActive() && (*it)->isVisible() ) {
+    }
+    else
+    {
+        for (NodesGuiList::iterator it = _imp->_nodes.begin(); it != _imp->_nodes.end(); ++it)
+        {
+            if ((*it)->isActive() && (*it)->isVisible())
+            {
                 (*it)->setUserSelected(true);
                 _imp->_selection.push_back(*it);
             }
