@@ -164,6 +164,7 @@ public:
     mutable QMutex _nodesMutex;
     NodesGuiList _nodes;
     NodesGuiList _nodesTrash;
+    QPoint click_position;
 
     ///Enables the "Tab" shortcut to popup the node creation dialog.
     ///This is set to true on enterEvent and set back to false on leaveEvent
@@ -194,7 +195,6 @@ public:
     QRectF _selectionRect;
     bool _bendPointsVisible;
     bool _knobLinksVisible;
-    double _accumDelta;
     bool _detailsVisible;
     QPointF _deltaSinceMousePress; //< mouse delta since last press
     bool _hasMovedOnce;

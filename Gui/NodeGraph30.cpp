@@ -162,18 +162,15 @@ void NodeGraph::leaveEvent(QEvent *e)
     // setFocus();
 }
 
-void NodeGraph::wheelEventInternal(bool ctrlDown,
-                                   double delta)
+void NodeGraph::wheelEventInternal(bool ctrlDown, double delta)
 {
     double scaleFactor = pow(NATRON_WHEEL_ZOOM_PER_DELTA, delta);
     QTransform transfo = transform();
     double currentZoomFactor = transfo.mapRect(QRectF(0, 0, 1, 1)).width();
     double newZoomfactor = currentZoomFactor * scaleFactor;
 
-    if (((newZoomfactor < 0.01) && (scaleFactor < 1.)) || ((newZoomfactor > 50) && (scaleFactor > 1.)))
-    {
+    if (((newZoomfactor < 0.1) && (scaleFactor < 1.)) || ((newZoomfactor > 5) && (scaleFactor > 1.)))
         return;
-    }
 
     if (ctrlDown && _imp->_magnifiedNode)
     {
@@ -186,14 +183,7 @@ void NodeGraph::wheelEventInternal(bool ctrlDown,
     }
     else
     {
-        _imp->_accumDelta += delta;
-        if (std::abs(_imp->_accumDelta) > 60)
-        {
-            scaleFactor = pow(NATRON_WHEEL_ZOOM_PER_DELTA, _imp->_accumDelta);
-            // setSceneRect(NATRON_SCENE_MIN,NATRON_SCENE_MIN,NATRON_SCENE_MAX,NATRON_SCENE_MAX);
-            scale(scaleFactor, scaleFactor);
-            _imp->_accumDelta = 0;
-        }
+        scale(scaleFactor, scaleFactor);
         _imp->_refreshOverlays = true;
     }
 }
@@ -201,9 +191,8 @@ void NodeGraph::wheelEventInternal(bool ctrlDown,
 void NodeGraph::wheelEvent(QWheelEvent *e)
 {
     if (e->orientation() != Qt::Vertical)
-    {
         return;
-    }
+
     wheelEventInternal(modCASIsControl(e), e->delta());
     _imp->_lastMousePos = e->pos();
     update();

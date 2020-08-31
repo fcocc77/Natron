@@ -226,6 +226,7 @@ void NodeGraph::mousePressEvent(QMouseEvent *e)
 {
     assert(e);
 
+    _imp->click_position = e->pos();
     takeClickFocus();
 
     _imp->_hasMovedOnce = false;

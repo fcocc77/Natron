@@ -118,8 +118,7 @@ NodeGraph::NodeGraph(Gui *gui,
     setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     setRenderHint(QPainter::Antialiasing);
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-    //setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-    //setResizeAnchor(QGraphicsView::AnchorUnderMouse);
+    setResizeAnchor(QGraphicsView::AnchorUnderMouse);
     scale(0.8, 0.8);
 
     _imp->_root = new NodeGraphTextItem(this, 0, false);

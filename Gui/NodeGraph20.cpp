@@ -584,9 +584,20 @@ void NodeGraph::mouseMoveEvent(QMouseEvent *e)
     case eEventStateZoomingArea:
     {
         int delta = 2 * ((e->x() - _imp->_lastMousePos.x()) - (e->y() - _imp->_lastMousePos.y()));
-        setTransformationAnchor(QGraphicsView::AnchorViewCenter);
+
+        setTransformationAnchor(QGraphicsView::NoAnchor);
+        setResizeAnchor(QGraphicsView::NoAnchor);
+
+        QPointF old_pos = mapToScene(_imp->click_position);
+
         wheelEventInternal(modCASIsControl(e), delta);
+        QPointF new_pos = mapToScene(_imp->click_position);
+        QPointF _delta = new_pos - old_pos;
+        translate(_delta.x(), _delta.y());
+
         setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+        setResizeAnchor(QGraphicsView::AnchorUnderMouse);
+
         mustUpdate = true;
         _imp->cursorSet = true;
         setCursor(QCursor(Qt::SizeAllCursor));
