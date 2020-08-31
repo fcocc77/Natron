@@ -174,8 +174,9 @@ NodeGraph::NodeGraph(Gui *gui,
     _imp->_tR->setPos(_imp->_tR->mapFromScene(QPointF(NATRON_SCENE_MAX, NATRON_SCENE_MAX)));
     _imp->_bR->setPos(_imp->_bR->mapFromScene(QPointF(NATRON_SCENE_MAX, NATRON_SCENE_MIN)));
     _imp->_bL->setPos(_imp->_bL->mapFromScene(QPointF(NATRON_SCENE_MIN, NATRON_SCENE_MIN)));
-    centerOn(0, 0);
+
     setSceneRect(NATRON_SCENE_MIN, NATRON_SCENE_MIN, NATRON_SCENE_MAX, NATRON_SCENE_MAX);
+    centerOn(0, 0);
 
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

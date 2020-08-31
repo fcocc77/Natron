@@ -33,7 +33,7 @@ Gui:
     ViewerTab:
         ✔ cambiar icono de 'renderizar todas las lineas' por el icono con 5 lineas igual que en nuke @done (8/30/2020, 3:43:10 PM)
     NodeGraph:
-        ☐ Que el scroll con la tableta, funcione como el scroll del mouse, dependiendo de donde esta el puntero se hacerca a ese lugar
+        ✔ Que el scroll con la tableta, funcione como el scroll del mouse, dependiendo de donde esta el puntero se hacerca a ese lugar @done (8/30/2020, 9:00:49 PM)
         ☐ si dentro de un grupo precionamos el '1' para visualizarlo, el tab del viewer no se cambia al grupo correspondiente
         ☐ el snap de los nodos solo funciona cuando seleccionamos 1 nodo, con muchos nodos seleccionados el snap no funciona
         ☐ el backdrop, no deja escribir muchas palabras seguidas, solo un par y luego se quebra el texto hacia la siguiente linea
