@@ -13,7 +13,7 @@
     "scripts": {
         "d": "npx webpack -d",
         "w": "npx webpack -d --watch",
-        "b": "sh scripts/build.sh",
+        "build": "sh scripts/build.sh",
         "clean": "git clean -fdx",
         "push": "git push gh dev"
     },

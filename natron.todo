@@ -39,3 +39,4 @@ Gui:
         ☐ el backdrop, no deja escribir muchas palabras seguidas, solo un par y luego se quebra el texto hacia la siguiente linea
         ☐ el nodo viewer se selecciona al presionar el viewer y se deselecciona al precionar fuera del node NodeGraph, pero cuando es un grupo, al clickear fuera del NodeGraph no se deselecciona, pero al clickear en NodeGraph de raiz si lo hace
         ☐ al eliminar un nodo con nombre por ej; 'Transform1' el nodo queda en memoria, y el siguiente nodo a crear queda con nombre 'Transform2' y deberia ser 'Transform1' ya que se habia eliminado.
+        ☐ el cuadro inferior de busqueda, al mover el cuandro interior, cambia de tamaño, deberia mantener un tamaño fijo.
