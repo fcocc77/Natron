@@ -176,7 +176,7 @@ QAbstractSpinBox {
     background: #333333; }
 
 #ViewerTab #space {
-  border-right: 1px solid #2e2e2e;
+  border-right: 1px solid #4d4d4d;
   background: none; }
 
 #ViewerTab #firstSettingsRow {
@@ -201,6 +201,22 @@ QAbstractSpinBox {
   #ViewerTab #firstSettingsRow #ChannelsComboBox:hover {
     border-color: #346382;
     background: #333333; }
+  #ViewerTab #firstSettingsRow #comparison_widget #first_input_label, #ViewerTab #firstSettingsRow #comparison_widget #second_input_label {
+    background: #262626;
+    padding-left: 1px;
+    padding-right: 1px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px; }
+  #ViewerTab #firstSettingsRow #comparison_widget ComboBox {
+    border: none;
+    border-radius: 0px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background: #2e2e2e; }
+    #ViewerTab #firstSettingsRow #comparison_widget ComboBox:hover {
+      background: #2e2e2e; }
+  #ViewerTab #firstSettingsRow #comparison_widget #compositing_operator {
+    border-radius: 2px; }
 
 #ViewerTab #secondSettingsRow {
   background: #2e2e2e; }
@@ -211,7 +227,7 @@ QAbstractSpinBox {
   #ViewerTab #playerButtonsContainer QWidget {
     background: #2b2b2b; }
   #ViewerTab #playerButtonsContainer #space {
-    border-color: #262626; }
+    border-color: #404040; }
   #ViewerTab #playerButtonsContainer QCheckBox::indicator {
     width: 15px;
     height: 15px;

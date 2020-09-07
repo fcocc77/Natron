@@ -3,7 +3,7 @@
         @include combobox
 
     #space
-        border-right: 1px solid $b18
+        border-right: 1px solid $b30
         background: none
 
     #firstSettingsRow
@@ -28,6 +28,26 @@
             &:hover
                 border-color: mix($base, $b18, 40%)
                 background: $b20 
+        
+        #comparison_widget
+            #first_input_label, #second_input_label
+                background: $b15
+                padding-left: 1px
+                padding-right: 1px
+                border-top-left-radius: 2px
+                border-bottom-left-radius: 2px
+                
+            ComboBox
+                border: none
+                border-radius: 0px
+                border-top-right-radius: 2px
+                border-bottom-right-radius: 2px
+                background: $b18
+                &:hover
+                    background: $b18
+            #compositing_operator
+                border-radius: 2px
+
     #secondSettingsRow
         background: $b18
     #viewerContainer
@@ -38,7 +58,7 @@
         QWidget
             background: $b17
         #space
-            border-color: $b15
+            border-color: $b25
         QCheckBox
             @include checkbox 
         #playerButton

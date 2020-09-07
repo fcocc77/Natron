@@ -522,6 +522,8 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     QObject::connect(_imp->renderScaleCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onRenderScaleComboIndexChanged(int)));
     QObject::connect(_imp->activateRenderScale, SIGNAL(toggled(bool)), this, SLOT(onRenderScaleButtonClicked(bool)));
 
+    QObject::connect(_imp->timeFormat, SIGNAL(currentIndexChanged(int)), _imp->timeLineGui, SLOT(onTimeFormatChanged(int)));
+
     connectToViewerCache();
 
     for (std::list<NodeGuiPtr>::const_iterator it = existingNodesContext.begin(); it != existingNodesContext.end(); ++it)
@@ -686,32 +688,30 @@ QWidget *ViewerTab::comparison_setup_ui()
     QHBoxLayout *layout = new QHBoxLayout(widget);
     layout->setContentsMargins(0, 0, 0, 0);
     widget->setLayout(layout);
+    layout->setSpacing(0);
 
     const int pixmapIconSize = TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE);
 
     int combobox_width = 90;
 
-    _imp->firstInputLabel = new Label(QString::fromUtf8("A:"), _imp->firstSettingsRow);
+    _imp->firstInputLabel = new Label(QString::fromUtf8("A"), _imp->firstSettingsRow);
+    _imp->firstInputLabel->setObjectName("first_input_label");
     _imp->firstInputLabel->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Viewer input A."), NATRON_NAMESPACE::WhiteSpaceNormal));
-    layout->addWidget(_imp->firstInputLabel);
 
     _imp->firstInputImage = new ComboBox(_imp->firstSettingsRow);
     _imp->firstInputImage->setToolTip(_imp->firstInputLabel->toolTip());
     _imp->firstInputImage->setFixedWidth(combobox_width);
     _imp->firstInputImage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     _imp->firstInputImage->addItem(QString::fromUtf8(" - "));
-    QObject::connect(_imp->firstInputImage, SIGNAL(currentIndexChanged(QString)), this, SLOT(onFirstInputNameChanged(QString)));
-    layout->addWidget(_imp->firstInputImage);
 
     QPixmap pixMerge;
     appPTR->getIcon(NATRON_PIXMAP_MERGE_GROUPING, pixmapIconSize, &pixMerge);
     _imp->compositingOperatorLabel = new Label(QString(), _imp->firstSettingsRow);
     _imp->compositingOperatorLabel->setPixmap(pixMerge);
     _imp->compositingOperatorLabel->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Operation applied between viewer inputs A and B. a and b are the alpha components of each input. d is the wipe dissolve factor, controlled by the arc handle."), NATRON_NAMESPACE::WhiteSpaceNormal));
-    layout->addWidget(_imp->compositingOperatorLabel);
 
     _imp->compositingOperator = new ComboBox(_imp->firstSettingsRow);
-    QObject::connect(_imp->compositingOperator, SIGNAL(currentIndexChanged(int)), this, SLOT(onCompositingOperatorIndexChanged(int)));
+    _imp->compositingOperator->setObjectName("compositing_operator");
     _imp->compositingOperator->setFixedWidth(combobox_width);
     _imp->compositingOperator->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     _imp->compositingOperator->setToolTip(_imp->compositingOperatorLabel->toolTip());
@@ -727,19 +727,35 @@ QWidget *ViewerTab::comparison_setup_ui()
     _imp->compositingOperator->addItem(tr("S-Minus"), QIcon(), QKeySequence(), tr("Stack minus: A - B"));
     _imp->compositingOperator->addItem(tr("S-OnionSkin"), QIcon(), QKeySequence(), tr("Stack onion skin: A + B"));
 
-    layout->addWidget(_imp->compositingOperator);
-
-    _imp->secondInputLabel = new Label(QString::fromUtf8("B:"), _imp->firstSettingsRow);
+    _imp->secondInputLabel = new Label(QString::fromUtf8("B"), _imp->firstSettingsRow);
+    _imp->secondInputLabel->setObjectName("second_input_label");
     _imp->secondInputLabel->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Viewer input B."), NATRON_NAMESPACE::WhiteSpaceNormal));
-    layout->addWidget(_imp->secondInputLabel);
 
     _imp->secondInputImage = new ComboBox(_imp->firstSettingsRow);
     _imp->secondInputImage->setToolTip(_imp->secondInputLabel->toolTip());
     _imp->secondInputImage->setFixedWidth(combobox_width);
     _imp->secondInputImage->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     _imp->secondInputImage->addItem(QString::fromUtf8(" - "));
-    QObject::connect(_imp->secondInputImage, SIGNAL(currentIndexChanged(QString)), this, SLOT(onSecondInputNameChanged(QString)));
+
+    //------------------
+    // Añadir a Layout
+    //------------------
+    layout->addWidget(_imp->firstInputLabel);
+    layout->addWidget(_imp->firstInputImage);
+    layout->addSpacing(10);
+    layout->addWidget(_imp->compositingOperatorLabel);
+    layout->addSpacing(5);
+    layout->addWidget(_imp->compositingOperator);
+    layout->addSpacing(10);
+    layout->addWidget(_imp->secondInputLabel);
     layout->addWidget(_imp->secondInputImage);
+
+    // ---------------
+    // Conecciones
+    // ---------------
+    QObject::connect(_imp->firstInputImage, SIGNAL(currentIndexChanged(QString)), this, SLOT(onFirstInputNameChanged(QString)));
+    QObject::connect(_imp->compositingOperator, SIGNAL(currentIndexChanged(int)), this, SLOT(onCompositingOperatorIndexChanged(int)));
+    QObject::connect(_imp->secondInputImage, SIGNAL(currentIndexChanged(QString)), this, SLOT(onSecondInputNameChanged(QString)));
 
     return widget;
 }
@@ -1231,7 +1247,6 @@ QWidget *ViewerTab::player_control_left_setup_ui()
     QObject::connect(_imp->canEditFpsBox, SIGNAL(clicked(bool)), this, SLOT(onCanSetFPSClicked(bool)));
     QObject::connect(_imp->canEditFpsLabel, SIGNAL(clicked(bool)), this, SLOT(onCanSetFPSLabelClicked(bool)));
     QObject::connect(_imp->fpsBox, SIGNAL(valueChanged(double)), this, SLOT(onSpinboxFpsChanged(double)));
-    QObject::connect(_imp->timeFormat, SIGNAL(currentIndexChanged(int)), _imp->timeLineGui, SLOT(onTimeFormatChanged(int)));
 
     return widget;
 }
