@@ -151,8 +151,8 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     _imp->firstRowLayout->addWidget(_imp->comparison_widget);
     _imp->firstRowLayout->addStretch();
     _imp->buttons_a_widget = buttons_a_setup_ui();
-    _imp->firstRowLayout->addWidget(_imp->buttons_a_widget);
     _imp->buttons_b_widget = buttons_b_setup_ui();
+    _imp->firstRowLayout->addWidget(_imp->buttons_a_widget);
     _imp->firstRowLayout->addWidget(_imp->buttons_b_widget);
 
     const QSize buttonSize(TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
@@ -366,93 +366,7 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     _imp->playerLayout->setContentsMargins(4, 4, 4, 4);
     _imp->playerButtonsContainer->setLayout(_imp->playerLayout);
 
-    _imp->currentFrameBox = new SpinBox(_imp->playerButtonsContainer, SpinBox::eSpinBoxTypeInt);
-    _imp->currentFrameBox->setValue(0);
-    _imp->currentFrameBox->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
-    _imp->currentFrameBox->setToolTip(QString::fromUtf8("<p><b>") + tr("Current frame number") + QString::fromUtf8("</b></p>"));
-
-    _imp->firstFrame_Button = new Button(_imp->playerButtonsContainer);
-    _imp->firstFrame_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->firstFrame_Button->setFixedSize(playerButtonSize);
-    _imp->firstFrame_Button->setIconSize(buttonIconSize);
-    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerFirst, "<p>" + tr("First frame").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->firstFrame_Button);
-
-    _imp->previousKeyFrame_Button = new Button(_imp->playerButtonsContainer);
-    _imp->previousKeyFrame_Button->setObjectName(qs("playerButton"));
-    _imp->previousKeyFrame_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->previousKeyFrame_Button->setFixedSize(playerButtonSize);
-    _imp->previousKeyFrame_Button->setIconSize(buttonIconSize);
-    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevKF, "<p>" + tr("Previous Keyframe").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->previousKeyFrame_Button);
-
-    _imp->previousFrame_Button = new Button(_imp->playerButtonsContainer);
-    _imp->previousFrame_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->previousFrame_Button->setFixedSize(playerButtonSize);
-    _imp->previousFrame_Button->setIconSize(buttonIconSize);
-    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevious, "<p>" + tr("Previous frame").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->previousFrame_Button);
-
-    _imp->play_Backward_Button = new Button(_imp->playerButtonsContainer);
-    _imp->play_Backward_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->play_Backward_Button->setFixedSize(playerButtonSize);
-    _imp->play_Backward_Button->setIconSize(buttonIconSize);
-    {
-        std::list<std::string> actions;
-        actions.push_back(kShortcutIDActionPlayerBackward);
-        actions.push_back(kShortcutIDActionPlayerStop);
-        setToolTipWithShortcut2(kShortcutGroupPlayer, actions, "<p>" + tr("Play backward").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b> " + tr("(%2 to stop)").toStdString() + "</p>", _imp->play_Backward_Button);
-    }
-    _imp->play_Backward_Button->setCheckable(true);
-    _imp->play_Backward_Button->setDown(false);
-
-    _imp->play_Forward_Button = new Button(_imp->playerButtonsContainer);
-    _imp->play_Forward_Button->setObjectName(qs("playerButton"));
-    _imp->play_Forward_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->play_Forward_Button->setFixedSize(playerButtonSize);
-    _imp->play_Forward_Button->setIconSize(buttonIconSize);
-    {
-        std::list<std::string> actions;
-        actions.push_back(kShortcutIDActionPlayerForward);
-        actions.push_back(kShortcutIDActionPlayerStop);
-        setToolTipWithShortcut2(kShortcutGroupPlayer, actions, "<p>" + tr("Play forward").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b> " + tr("(%2 to stop)").toStdString() + "</p>", _imp->play_Forward_Button);
-    }
-    _imp->play_Forward_Button->setCheckable(true);
-    _imp->play_Forward_Button->setDown(false);
-
-    _imp->nextFrame_Button = new Button(_imp->playerButtonsContainer);
-    _imp->nextFrame_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->nextFrame_Button->setFixedSize(playerButtonSize);
-    _imp->nextFrame_Button->setIconSize(buttonIconSize);
-    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerNext, "<p>" + tr("Next frame").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->nextFrame_Button);
-
-    _imp->nextKeyFrame_Button = new Button(_imp->playerButtonsContainer);
-    _imp->nextKeyFrame_Button->setObjectName(qs("playerButton"));
-    _imp->nextKeyFrame_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->nextKeyFrame_Button->setFixedSize(playerButtonSize);
-    _imp->nextKeyFrame_Button->setIconSize(buttonIconSize);
-    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerNextKF, "<p>" + tr("Next Keyframe").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->nextKeyFrame_Button);
-
-    _imp->lastFrame_Button = new Button(_imp->playerButtonsContainer);
-    _imp->lastFrame_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->lastFrame_Button->setFixedSize(playerButtonSize);
-    _imp->lastFrame_Button->setIconSize(buttonIconSize);
-    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerLast, "<p>" + tr("Last Frame").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->lastFrame_Button);
-
-    _imp->previousIncrement_Button = new Button(_imp->playerButtonsContainer);
-    _imp->previousIncrement_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->previousIncrement_Button->setFixedSize(buttonSize);
-    _imp->previousIncrement_Button->setIconSize(buttonIconSize);
-    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevIncr, "<p>" + tr("Previous Increment").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->previousIncrement_Button);
-
-    _imp->incrementSpinBox = new SpinBox(_imp->playerButtonsContainer);
-    _imp->incrementSpinBox->setValue(10);
-    _imp->incrementSpinBox->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
-    _imp->incrementSpinBox->setToolTip(QString::fromUtf8("<p><b>") + tr("Frame increment:") + QString::fromUtf8("</b></p>") + tr("The previous/next increment buttons step"
-                                                                                                                                 " with this increment."));
-
-    _imp->nextIncrement_Button = new Button(_imp->playerButtonsContainer);
-    _imp->nextIncrement_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->nextIncrement_Button->setFixedSize(buttonSize);
-    _imp->nextIncrement_Button->setIconSize(buttonIconSize);
-    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerNextIncr, "<p>" + tr("Next Increment").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->nextIncrement_Button);
+    _imp->firstRowLayout->addWidget(_imp->buttons_a_widget);
 
     _imp->playBackInputButton = new Button(_imp->playerButtonsContainer);
     _imp->playBackInputButton->setFocusPolicy(Qt::NoFocus);
@@ -460,176 +374,40 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     _imp->playBackInputButton->setIconSize(buttonIconSize);
     setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerPlaybackIn, "<p>" + tr("Set the playback in point at the current frame.").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->playBackInputButton);
 
-    _imp->playBackOutputButton = new Button(_imp->playerButtonsContainer);
-    _imp->playBackOutputButton->setFocusPolicy(Qt::NoFocus);
-    _imp->playBackOutputButton->setFixedSize(buttonSize);
-    _imp->playBackOutputButton->setIconSize(buttonIconSize);
-    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerPlaybackOut, "<p>" + tr("Set the playback out point at the current frame.").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->playBackOutputButton);
-
-    _imp->playBackInputSpinbox = new SpinBox(_imp->playerButtonsContainer);
-    _imp->playBackInputSpinbox->setToolTip(tr("The playback in point"));
-    _imp->playBackInputSpinbox->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
-
-    _imp->playBackOutputSpinbox = new SpinBox(_imp->playerButtonsContainer);
-    _imp->playBackOutputSpinbox->setToolTip(tr("The playback out point"));
-    _imp->playBackOutputSpinbox->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
-
-    _imp->playbackMode_Button = new Button(_imp->playerButtonsContainer);
-    _imp->playbackMode_Button->setFocusPolicy(Qt::NoFocus);
-    _imp->playbackMode_Button->setFixedSize(buttonSize);
-    _imp->playbackMode_Button->setIconSize(buttonIconSize);
-    _imp->playbackMode_Button->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Behaviour to adopt when the playback hit the end of the range: loop,bounce or stop."), NATRON_NAMESPACE::WhiteSpaceNormal));
-
     TimeLinePtr timeline = getGui()->getApp()->getTimeLine();
-    QPixmap tripleSyncUnlockPix, tripleSyncLockedPix;
-    appPTR->getIcon(NATRON_PIXMAP_UNLOCKED, pixmapIconSize, &tripleSyncUnlockPix);
-    appPTR->getIcon(NATRON_PIXMAP_LOCKED, pixmapIconSize, &tripleSyncLockedPix);
 
-    QIcon tripleSyncIc;
-    tripleSyncIc.addPixmap(tripleSyncUnlockPix, QIcon::Normal, QIcon::Off);
-    tripleSyncIc.addPixmap(tripleSyncLockedPix, QIcon::Normal, QIcon::On);
-    _imp->tripleSyncButton = new Button(tripleSyncIc, QString(), _imp->playerButtonsContainer);
-    _imp->tripleSyncButton->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When activated, the timeline frame-range is synchronized with the Dope Sheet and the Curve Editor."), NATRON_NAMESPACE::WhiteSpaceNormal));
-    _imp->tripleSyncButton->setCheckable(true);
-    _imp->tripleSyncButton->setChecked(false);
-    _imp->tripleSyncButton->setFixedSize(buttonSize);
-    _imp->tripleSyncButton->setIconSize(buttonIconSize);
-    QObject::connect(_imp->tripleSyncButton, SIGNAL(toggled(bool)),
-                     this, SLOT(toggleTripleSync(bool)));
-
-    _imp->canEditFpsBox = new QCheckBox(_imp->playerButtonsContainer);
-
-    QString canEditFpsBoxTT = NATRON_NAMESPACE::convertFromPlainText(tr("When unchecked, the playback frame rate is automatically set from "
-                                                                        " the Viewer A input.  "
-                                                                        "When checked, the user setting is used."),
-                                                                     NATRON_NAMESPACE::WhiteSpaceNormal);
-
-    _imp->canEditFpsBox->setFixedSize(buttonSize);
-    //_imp->canEditFpsBox->setIconSize(buttonIconSize);
-    _imp->canEditFpsBox->setToolTip(canEditFpsBoxTT);
-    _imp->canEditFpsBox->setChecked(!_imp->fpsLocked);
-    QObject::connect(_imp->canEditFpsBox, SIGNAL(clicked(bool)), this, SLOT(onCanSetFPSClicked(bool)));
-
-    _imp->canEditFpsLabel = new ClickableLabel(tr("fps:"), _imp->playerButtonsContainer);
-    QObject::connect(_imp->canEditFpsLabel, SIGNAL(clicked(bool)), this, SLOT(onCanSetFPSLabelClicked(bool)));
-    _imp->canEditFpsLabel->setToolTip(canEditFpsBoxTT);
-    //_imp->canEditFpsLabel->setFont(font);
-
-    _imp->fpsBox = new SpinBox(_imp->playerButtonsContainer, SpinBox::eSpinBoxTypeDouble);
-    _imp->fpsBox->setEnabled(!_imp->fpsLocked);
-    _imp->fpsBox->decimals(1);
-    _imp->userFps = 24.;
-    _imp->fpsBox->setValue(_imp->userFps);
-    _imp->fpsBox->setIncrement(0.1);
-    _imp->fpsBox->setToolTip(QString::fromUtf8("<p><b>") + tr("fps:") + QString::fromUtf8("</b></p>") + tr("Viewer playback framerate, in frames per second."));
-
-    _imp->timeFormat = new ComboBox(_imp->playerButtonsContainer);
-    _imp->timeFormat->addItem(tr("TC"), QIcon(), QKeySequence(), tr("Timecode"));
-    _imp->timeFormat->addItem(tr("TF"), QIcon(), QKeySequence(), tr("Timeline Frames"));
-    _imp->timeFormat->setCurrentIndex_no_emit(1);
-    _imp->timeFormat->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Set the time display format."), NATRON_NAMESPACE::WhiteSpaceNormal));
-    const QSize timeFormatSize(TO_DPIX(NATRON_LARGE_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
-    _imp->timeFormat->setFixedSize(timeFormatSize);
-
-    QPixmap pixFreezeEnabled, pixFreezeDisabled;
-    appPTR->getIcon(NATRON_PIXMAP_FREEZE_ENABLED, &pixFreezeEnabled);
-    appPTR->getIcon(NATRON_PIXMAP_FREEZE_DISABLED, &pixFreezeDisabled);
-    QIcon icFreeze;
-    icFreeze.addPixmap(pixFreezeEnabled, QIcon::Normal, QIcon::On);
-    icFreeze.addPixmap(pixFreezeDisabled, QIcon::Normal, QIcon::Off);
-    _imp->turboButton = new Button(icFreeze, QString(), _imp->playerButtonsContainer);
-    _imp->turboButton->setCheckable(true);
-    _imp->turboButton->setChecked(false);
-    _imp->turboButton->setDown(false);
-    _imp->turboButton->setFixedSize(buttonSize);
-    _imp->turboButton->setIconSize(buttonIconSize);
-    _imp->turboButton->setToolTip(QString::fromUtf8("<p><b>") + tr("Turbo mode:") + QString::fromUtf8("</p></b><p>") +
-                                  tr("When checked, only the viewer is redrawn during playback, "
-                                     "for maximum efficiency.") +
-                                  QString::fromUtf8("</p>"));
-    _imp->turboButton->setFocusPolicy(Qt::NoFocus);
-    QObject::connect(_imp->turboButton, SIGNAL(clicked(bool)), getGui(), SLOT(onFreezeUIButtonClicked(bool)));
-    QPixmap pixFirst;
-    QPixmap pixPrevKF;
-    QPixmap pixRewindDisabled;
-    QPixmap pixBack1;
-    QPixmap pixStop;
-    QPixmap pixForward1;
-    QPixmap pixPlayDisabled;
-    QPixmap pixNextKF;
-    QPixmap pixLast;
-    QPixmap pixPrevIncr;
-    QPixmap pixNextIncr;
     QPixmap pixRefresh;
     QPixmap pixRefreshActive;
     QPixmap pixCenterViewer;
-    QPixmap pixLoopMode;
     QPixmap pixClipToProjectEnabled;
     QPixmap pixClipToProjectDisabled;
     QPixmap pixViewerRoIEnabled;
     QPixmap pixViewerRoIDisabled;
     QPixmap pixViewerRs;
     QPixmap pixViewerRsChecked;
-    QPixmap pixInpoint;
-    QPixmap pixOutPoint;
     QPixmap pixPauseEnabled;
     QPixmap pixPauseDisabled;
     QPixmap pixFullFrameOn;
     QPixmap pixFullFrameOff;
 
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_FIRST_FRAME, &pixFirst);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_PREVIOUS_KEY, &pixPrevKF);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_REWIND_DISABLED, &pixRewindDisabled);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_PREVIOUS, &pixBack1);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_STOP_ENABLED, &pixStop);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_NEXT, &pixForward1);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_PLAY_DISABLED, &pixPlayDisabled);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_NEXT_KEY, &pixNextKF);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_LAST_FRAME, &pixLast);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_PREVIOUS_INCR, &pixPrevIncr);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_NEXT_INCR, &pixNextIncr);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_REFRESH, &pixRefresh);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_REFRESH_ACTIVE, &pixRefreshActive);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_CENTER, &pixCenterViewer);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_LOOP_MODE, &pixLoopMode);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_CLIP_TO_PROJECT_ENABLED, &pixClipToProjectEnabled);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_CLIP_TO_PROJECT_DISABLED, &pixClipToProjectDisabled);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_ROI_ENABLED, &pixViewerRoIEnabled);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_ROI_DISABLED, &pixViewerRoIDisabled);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_RENDER_SCALE, &pixViewerRs);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_RENDER_SCALE_CHECKED, &pixViewerRsChecked);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_TIMELINE_IN, &pixInpoint);
-    appPTR->getIcon(NATRON_PIXMAP_PLAYER_TIMELINE_OUT, &pixOutPoint);
     appPTR->getIcon(NATRON_PIXMAP_PLAYER_PAUSE_DISABLED, &pixPauseDisabled);
     appPTR->getIcon(NATRON_PIXMAP_PLAYER_PAUSE_ENABLED, &pixPauseEnabled);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_FULL_FRAME_OFF, &pixFullFrameOff);
     appPTR->getIcon(NATRON_PIXMAP_VIEWER_FULL_FRAME_ON, &pixFullFrameOn);
 
-    _imp->firstFrame_Button->setIcon(QIcon(pixFirst));
-    _imp->previousKeyFrame_Button->setIcon(QIcon(pixPrevKF));
-
-    QIcon icRewind;
-    icRewind.addPixmap(pixStop, QIcon::Normal, QIcon::On);
-    icRewind.addPixmap(pixRewindDisabled, QIcon::Normal, QIcon::Off);
-    _imp->play_Backward_Button->setIcon(icRewind);
-    _imp->previousFrame_Button->setIcon(QIcon(pixBack1));
-    _imp->nextFrame_Button->setIcon(QIcon(pixForward1));
-
-    QIcon icPlay;
-    icPlay.addPixmap(pixStop, QIcon::Normal, QIcon::On);
-    icPlay.addPixmap(pixPlayDisabled, QIcon::Normal, QIcon::Off);
-    _imp->play_Forward_Button->setIcon(icPlay);
-    _imp->nextKeyFrame_Button->setIcon(QIcon(pixNextKF));
-    _imp->lastFrame_Button->setIcon(QIcon(pixLast));
-    _imp->previousIncrement_Button->setIcon(QIcon(pixPrevIncr));
-    _imp->nextIncrement_Button->setIcon(QIcon(pixNextIncr));
     _imp->iconRefreshOff = QIcon(pixRefresh);
     _imp->iconRefreshOn = QIcon(pixRefreshActive);
     _imp->refreshButton->setIcon(_imp->iconRefreshOff);
     _imp->centerViewerButton->setIcon(QIcon(pixCenterViewer));
-    _imp->playbackMode_Button->setIcon(QIcon(pixLoopMode));
-    _imp->playBackInputButton->setIcon(QIcon(pixInpoint));
-    _imp->playBackOutputButton->setIcon(QIcon(pixOutPoint));
 
     QIcon icClip;
     icClip.addPixmap(pixClipToProjectEnabled, QIcon::Normal, QIcon::On);
@@ -675,50 +453,11 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
                                                                   "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>" + "<p>" + tr("Press %2 to activate and drag a new region.").toStdString() + "</p>",
                             _imp->enableViewerRoI);
 
-    _imp->playerLayout->addWidget(_imp->playBackInputButton);
-    _imp->playerLayout->addWidget(_imp->playBackInputSpinbox);
-
+    _imp->playerLayout->addWidget(player_control_left_setup_ui());
     _imp->playerLayout->addStretch();
-
-    _imp->playerLayout->addWidget(_imp->canEditFpsBox);
-    _imp->playerLayout->addSpacing(TO_DPIX(5));
-    _imp->playerLayout->addWidget(_imp->canEditFpsLabel);
-    _imp->playerLayout->addWidget(_imp->fpsBox);
-    _imp->playerLayout->addWidget(_imp->timeFormat);
-    _imp->playerLayout->addWidget(_imp->turboButton);
-    _imp->playerLayout->addWidget(_imp->playbackMode_Button);
-    _imp->playerLayout->addSpacing(TO_DPIX(10));
-    _imp->playerLayout->addWidget(_imp->tripleSyncButton);
-
+    _imp->playerLayout->addWidget(player_control_center_setup_ui());
     _imp->playerLayout->addStretch();
-
-    _imp->playerLayout->addWidget(_imp->firstFrame_Button);
-    _imp->playerLayout->addWidget(_imp->play_Backward_Button);
-    _imp->playerLayout->addWidget(_imp->currentFrameBox);
-    _imp->playerLayout->addWidget(_imp->play_Forward_Button);
-    _imp->playerLayout->addWidget(_imp->lastFrame_Button);
-
-    _imp->playerLayout->addSpacing(TO_DPIX(10));
-
-    _imp->playerLayout->addWidget(_imp->previousFrame_Button);
-    _imp->playerLayout->addWidget(_imp->nextFrame_Button);
-
-    _imp->playerLayout->addSpacing(TO_DPIX(10));
-
-    _imp->playerLayout->addWidget(_imp->previousKeyFrame_Button);
-    _imp->playerLayout->addWidget(_imp->nextKeyFrame_Button);
-    _imp->playerLayout->addSpacing(TO_DPIX(10));
-
-    _imp->playerLayout->addWidget(_imp->previousIncrement_Button);
-    _imp->playerLayout->addWidget(_imp->incrementSpinBox);
-    _imp->playerLayout->addWidget(_imp->nextIncrement_Button);
-    _imp->playerLayout->addSpacing(TO_DPIX(10));
-
-    _imp->playerLayout->addStretch();
-    _imp->playerLayout->addStretch();
-
-    _imp->playerLayout->addWidget(_imp->playBackOutputSpinbox);
-    _imp->playerLayout->addWidget(_imp->playBackOutputButton);
+    _imp->playerLayout->addWidget(player_control_right_setup_ui());
 
     /*=================================================*/
 
@@ -728,7 +467,6 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     QObject::connect(_imp->timeLineGui, SIGNAL(boundariesChanged(SequenceTime, SequenceTime)),
                      this, SLOT(onTimelineBoundariesChanged(SequenceTime, SequenceTime)));
     QObject::connect(gui->getApp()->getProject().get(), SIGNAL(frameRangeChanged(int, int)), _imp->timeLineGui, SLOT(onProjectFrameRangeChanged(int, int)));
-    QObject::connect(_imp->timeFormat, SIGNAL(currentIndexChanged(int)), _imp->timeLineGui, SLOT(onTimeFormatChanged(int)));
     _imp->timeLineGui->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
     //Add some spacing because the timeline might be black as the info
@@ -746,8 +484,6 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     /*slots & signals*/
 
     manageTimelineSlot(false, timeline);
-    QObject::connect(_imp->nextKeyFrame_Button, SIGNAL(clicked(bool)), getGui()->getApp().get(), SLOT(goToNextKeyframe()));
-    QObject::connect(_imp->previousKeyFrame_Button, SIGNAL(clicked(bool)), getGui()->getApp().get(), SLOT(goToPreviousKeyframe()));
     NodePtr wrapperNode = _imp->viewerNode->getNode();
     RenderEnginePtr engine = _imp->viewerNode->getRenderEngine();
     QObject::connect(_imp->viewerNode, SIGNAL(renderStatsAvailable(int, ViewIdx, double, RenderStatsMap)),
@@ -767,25 +503,10 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     QObject::connect(_imp->viewer, SIGNAL(zoomChanged(int)), this, SLOT(updateZoomComboBox(int)));
     QObject::connect(_imp->gainBox, SIGNAL(valueChanged(double)), this, SLOT(onGainSpinBoxValueChanged(double)));
     QObject::connect(_imp->gainSlider, SIGNAL(positionChanged(double)), this, SLOT(onGainSliderChanged(double)));
-    QObject::connect(_imp->currentFrameBox, SIGNAL(valueChanged(double)), this, SLOT(onCurrentTimeSpinBoxChanged(double)));
-    QObject::connect(_imp->play_Forward_Button, SIGNAL(clicked(bool)), this, SLOT(startPause(bool)));
-    QObject::connect(_imp->play_Backward_Button, SIGNAL(clicked(bool)), this, SLOT(startBackward(bool)));
-    QObject::connect(_imp->previousFrame_Button, SIGNAL(clicked()), this, SLOT(previousFrame()));
-    QObject::connect(_imp->nextFrame_Button, SIGNAL(clicked()), this, SLOT(nextFrame()));
-    QObject::connect(_imp->previousIncrement_Button, SIGNAL(clicked()), this, SLOT(previousIncrement()));
-    QObject::connect(_imp->nextIncrement_Button, SIGNAL(clicked()), this, SLOT(nextIncrement()));
-    QObject::connect(_imp->firstFrame_Button, SIGNAL(clicked()), this, SLOT(firstFrame()));
-    QObject::connect(_imp->lastFrame_Button, SIGNAL(clicked()), this, SLOT(lastFrame()));
-    QObject::connect(_imp->playbackMode_Button, SIGNAL(clicked(bool)), this, SLOT(togglePlaybackMode()));
-    QObject::connect(_imp->playBackInputButton, SIGNAL(clicked()), this, SLOT(onPlaybackInButtonClicked()));
-    QObject::connect(_imp->playBackOutputButton, SIGNAL(clicked()), this, SLOT(onPlaybackOutButtonClicked()));
-    QObject::connect(_imp->playBackInputSpinbox, SIGNAL(valueChanged(double)), this, SLOT(onPlaybackInSpinboxValueChanged(double)));
-    QObject::connect(_imp->playBackOutputSpinbox, SIGNAL(valueChanged(double)), this, SLOT(onPlaybackOutSpinboxValueChanged(double)));
     QObject::connect(_imp->refreshButton, SIGNAL(clicked()), this, SLOT(refresh()));
     QObject::connect(_imp->pauseButton, SIGNAL(clicked(bool)), this, SLOT(onPauseViewerButtonClicked(bool)));
     QObject::connect(_imp->centerViewerButton, SIGNAL(clicked()), this, SLOT(centerViewer()));
     QObject::connect(_imp->viewerNode, SIGNAL(viewerDisconnected()), this, SLOT(disconnectViewer()));
-    QObject::connect(_imp->fpsBox, SIGNAL(valueChanged(double)), this, SLOT(onSpinboxFpsChanged(double)));
     QObject::connect(engine.get(), SIGNAL(renderFinished(int)), this, SLOT(onEngineStopped()));
     QObject::connect(engine.get(), SIGNAL(renderStarted(bool)), this, SLOT(onEngineStarted(bool)));
 
@@ -846,15 +567,15 @@ void ViewerTab::resizeEvent(QResizeEvent *e)
     else
         _imp->comparison_widget->setVisible(false);
 
-    if (width > 650)
-        _imp->buttons_b_widget->setVisible(true);
-    else
-        _imp->buttons_b_widget->setVisible(false);
-
     if (width > 450)
         _imp->buttons_a_widget->setVisible(true);
     else
         _imp->buttons_a_widget->setVisible(false);
+
+    if (width > 650)
+        _imp->buttons_b_widget->setVisible(true);
+    else
+        _imp->buttons_b_widget->setVisible(false);
 }
 
 QWidget *ViewerTab::channels_setup_ui()
@@ -982,7 +703,7 @@ QWidget *ViewerTab::comparison_setup_ui()
 QWidget *ViewerTab::buttons_a_setup_ui()
 {
     QWidget *widget = new QWidget(this);
-    widget->setObjectName("buttons_widget");
+    widget->setObjectName("buttons_a_widget");
     QHBoxLayout *layout = new QHBoxLayout(widget);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(4);
@@ -1088,7 +809,7 @@ QWidget *ViewerTab::buttons_a_setup_ui()
 QWidget *ViewerTab::buttons_b_setup_ui()
 {
     QWidget *widget = new QWidget(this);
-    widget->setObjectName("buttons_widget");
+    widget->setObjectName("buttons_b_widget");
     QHBoxLayout *layout = new QHBoxLayout(widget);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(4);
@@ -1097,6 +818,7 @@ QWidget *ViewerTab::buttons_b_setup_ui()
     const int pixmapIconSize = TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE);
     const QSize buttonSize(TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
     const QSize buttonIconSize(TO_DPIX(NATRON_MEDIUM_BUTTON_ICON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_ICON_SIZE));
+
     QPixmap lockEnabled, lockDisabled;
     appPTR->getIcon(NATRON_PIXMAP_LOCKED, pixmapIconSize, &lockEnabled);
     appPTR->getIcon(NATRON_PIXMAP_UNLOCKED, pixmapIconSize, &lockDisabled);
@@ -1176,15 +898,378 @@ QWidget *ViewerTab::buttons_b_setup_ui()
     return widget;
 }
 
-QWidget *ViewerTab::player_control_setup_ui()
+QWidget *ViewerTab::player_control_center_setup_ui()
 {
     QWidget *widget = new QWidget(this);
-    widget->setObjectName("player_control");
+    widget->setObjectName("player_control_center");
     QHBoxLayout *layout = new QHBoxLayout(widget);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(4);
     widget->setLayout(layout);
 
+    const QSize playerButtonSize = QSize(30, 25);
+    const QSize buttonSize(TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
+    const QSize buttonIconSize(TO_DPIX(NATRON_MEDIUM_BUTTON_ICON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_ICON_SIZE));
+
+    _imp->playbackMode_Button = new Button(_imp->playerButtonsContainer);
+    _imp->playbackMode_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->playbackMode_Button->setFixedSize(buttonSize);
+    _imp->playbackMode_Button->setIconSize(buttonIconSize);
+    _imp->playbackMode_Button->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Behaviour to adopt when the playback hit the end of the range: loop,bounce or stop."), NATRON_NAMESPACE::WhiteSpaceNormal));
+
+    _imp->currentFrameBox = new SpinBox(_imp->playerButtonsContainer, SpinBox::eSpinBoxTypeInt);
+    _imp->currentFrameBox->setValue(0);
+    _imp->currentFrameBox->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+    _imp->currentFrameBox->setToolTip(QString::fromUtf8("<p><b>") + tr("Current frame number") + QString::fromUtf8("</b></p>"));
+
+    _imp->firstFrame_Button = new Button(_imp->playerButtonsContainer);
+    _imp->firstFrame_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->firstFrame_Button->setFixedSize(playerButtonSize);
+    _imp->firstFrame_Button->setIconSize(buttonIconSize);
+    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerFirst, "<p>" + tr("First frame").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->firstFrame_Button);
+
+    _imp->previousKeyFrame_Button = new Button(_imp->playerButtonsContainer);
+    _imp->previousKeyFrame_Button->setObjectName(qs("playerButton"));
+    _imp->previousKeyFrame_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->previousKeyFrame_Button->setFixedSize(playerButtonSize);
+    _imp->previousKeyFrame_Button->setIconSize(buttonIconSize);
+    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevKF, "<p>" + tr("Previous Keyframe").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->previousKeyFrame_Button);
+
+    _imp->previousFrame_Button = new Button(_imp->playerButtonsContainer);
+    _imp->previousFrame_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->previousFrame_Button->setFixedSize(playerButtonSize);
+    _imp->previousFrame_Button->setIconSize(buttonIconSize);
+    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevious, "<p>" + tr("Previous frame").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->previousFrame_Button);
+
+    _imp->play_Backward_Button = new Button(_imp->playerButtonsContainer);
+    _imp->play_Backward_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->play_Backward_Button->setFixedSize(playerButtonSize);
+    _imp->play_Backward_Button->setIconSize(buttonIconSize);
+    {
+        std::list<std::string> actions;
+        actions.push_back(kShortcutIDActionPlayerBackward);
+        actions.push_back(kShortcutIDActionPlayerStop);
+        setToolTipWithShortcut2(kShortcutGroupPlayer, actions, "<p>" + tr("Play backward").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b> " + tr("(%2 to stop)").toStdString() + "</p>", _imp->play_Backward_Button);
+    }
+    _imp->play_Backward_Button->setCheckable(true);
+    _imp->play_Backward_Button->setDown(false);
+
+    _imp->play_Forward_Button = new Button(_imp->playerButtonsContainer);
+    _imp->play_Forward_Button->setObjectName(qs("playerButton"));
+    _imp->play_Forward_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->play_Forward_Button->setFixedSize(playerButtonSize);
+    _imp->play_Forward_Button->setIconSize(buttonIconSize);
+    {
+        std::list<std::string> actions;
+        actions.push_back(kShortcutIDActionPlayerForward);
+        actions.push_back(kShortcutIDActionPlayerStop);
+        setToolTipWithShortcut2(kShortcutGroupPlayer, actions, "<p>" + tr("Play forward").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b> " + tr("(%2 to stop)").toStdString() + "</p>", _imp->play_Forward_Button);
+    }
+    _imp->play_Forward_Button->setCheckable(true);
+    _imp->play_Forward_Button->setDown(false);
+
+    _imp->nextFrame_Button = new Button(_imp->playerButtonsContainer);
+    _imp->nextFrame_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->nextFrame_Button->setFixedSize(playerButtonSize);
+    _imp->nextFrame_Button->setIconSize(buttonIconSize);
+    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerNext, "<p>" + tr("Next frame").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->nextFrame_Button);
+
+    _imp->nextKeyFrame_Button = new Button(_imp->playerButtonsContainer);
+    _imp->nextKeyFrame_Button->setObjectName(qs("playerButton"));
+    _imp->nextKeyFrame_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->nextKeyFrame_Button->setFixedSize(playerButtonSize);
+    _imp->nextKeyFrame_Button->setIconSize(buttonIconSize);
+    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerNextKF, "<p>" + tr("Next Keyframe").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->nextKeyFrame_Button);
+
+    _imp->lastFrame_Button = new Button(_imp->playerButtonsContainer);
+    _imp->lastFrame_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->lastFrame_Button->setFixedSize(playerButtonSize);
+    _imp->lastFrame_Button->setIconSize(buttonIconSize);
+    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerLast, "<p>" + tr("Last Frame").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->lastFrame_Button);
+
+    _imp->previousIncrement_Button = new Button(_imp->playerButtonsContainer);
+    _imp->previousIncrement_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->previousIncrement_Button->setFixedSize(buttonSize);
+    _imp->previousIncrement_Button->setIconSize(buttonIconSize);
+    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerPrevIncr, "<p>" + tr("Previous Increment").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->previousIncrement_Button);
+
+    _imp->incrementSpinBox = new SpinBox(_imp->playerButtonsContainer);
+    _imp->incrementSpinBox->setValue(10);
+    _imp->incrementSpinBox->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+    _imp->incrementSpinBox->setToolTip(QString::fromUtf8("<p><b>") + tr("Frame increment:") + QString::fromUtf8("</b></p>") + tr("The previous/next increment buttons step"
+                                                                                                                                 " with this increment."));
+
+    _imp->nextIncrement_Button = new Button(_imp->playerButtonsContainer);
+    _imp->nextIncrement_Button->setFocusPolicy(Qt::NoFocus);
+    _imp->nextIncrement_Button->setFixedSize(buttonSize);
+    _imp->nextIncrement_Button->setIconSize(buttonIconSize);
+    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerNextIncr, "<p>" + tr("Next Increment").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->nextIncrement_Button);
+
+    //------------------
+    // Añadir a Iconos
+    //------------------
+    QPixmap pixLoopMode;
+    QPixmap pixRewindDisabled;
+    QPixmap pixPlayDisabled;
+    QPixmap pixFirst;
+    QPixmap pixPrevKF;
+    QPixmap pixBack1;
+    QPixmap pixStop;
+    QPixmap pixForward1;
+    QPixmap pixNextKF;
+    QPixmap pixLast;
+    QPixmap pixPrevIncr;
+    QPixmap pixNextIncr;
+
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_LOOP_MODE, &pixLoopMode);
+
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_REWIND_DISABLED, &pixRewindDisabled);
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_PLAY_DISABLED, &pixPlayDisabled);
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_PREVIOUS_KEY, &pixPrevKF);
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_FIRST_FRAME, &pixFirst);
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_PREVIOUS, &pixBack1);
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_STOP_ENABLED, &pixStop);
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_NEXT, &pixForward1);
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_NEXT_KEY, &pixNextKF);
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_LAST_FRAME, &pixLast);
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_PREVIOUS_INCR, &pixPrevIncr);
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_NEXT_INCR, &pixNextIncr);
+
+    _imp->playbackMode_Button->setIcon(QIcon(pixLoopMode));
+
+    _imp->firstFrame_Button->setIcon(QIcon(pixFirst));
+    _imp->previousKeyFrame_Button->setIcon(QIcon(pixPrevKF));
+    _imp->previousFrame_Button->setIcon(QIcon(pixBack1));
+
+    QIcon icRewind;
+    icRewind.addPixmap(pixStop, QIcon::Normal, QIcon::On);
+    icRewind.addPixmap(pixRewindDisabled, QIcon::Normal, QIcon::Off);
+    _imp->play_Backward_Button->setIcon(icRewind);
+
+    QIcon icPlay;
+    icPlay.addPixmap(pixStop, QIcon::Normal, QIcon::On);
+    icPlay.addPixmap(pixPlayDisabled, QIcon::Normal, QIcon::Off);
+    _imp->play_Forward_Button->setIcon(icPlay);
+
+    _imp->nextFrame_Button->setIcon(QIcon(pixForward1));
+    _imp->nextKeyFrame_Button->setIcon(QIcon(pixNextKF));
+    _imp->lastFrame_Button->setIcon(QIcon(pixLast));
+    _imp->previousIncrement_Button->setIcon(QIcon(pixPrevIncr));
+    _imp->nextIncrement_Button->setIcon(QIcon(pixNextIncr));
+
+    //------------------
+    // Añadir a Layout
+    //------------------
+    layout->addWidget(_imp->playbackMode_Button);
+
+    layout->addWidget(_imp->firstFrame_Button);
+    layout->addWidget(_imp->play_Backward_Button);
+    layout->addWidget(_imp->currentFrameBox);
+    layout->addWidget(_imp->play_Forward_Button);
+    layout->addWidget(_imp->lastFrame_Button);
+
+    layout->addSpacing(TO_DPIX(10));
+
+    layout->addWidget(_imp->previousFrame_Button);
+    layout->addWidget(_imp->nextFrame_Button);
+
+    layout->addSpacing(TO_DPIX(10));
+
+    layout->addWidget(_imp->previousKeyFrame_Button);
+    layout->addWidget(_imp->nextKeyFrame_Button);
+    layout->addSpacing(TO_DPIX(10));
+
+    layout->addWidget(_imp->previousIncrement_Button);
+    layout->addWidget(_imp->incrementSpinBox);
+    layout->addWidget(_imp->nextIncrement_Button);
+    layout->addSpacing(TO_DPIX(10));
+
+    //----------------
+    // Conecciones
+    //----------------
+    QObject::connect(_imp->playbackMode_Button, SIGNAL(clicked(bool)), this, SLOT(togglePlaybackMode()));
+    QObject::connect(_imp->currentFrameBox, SIGNAL(valueChanged(double)), this, SLOT(onCurrentTimeSpinBoxChanged(double)));
+    QObject::connect(_imp->firstFrame_Button, SIGNAL(clicked()), this, SLOT(firstFrame()));
+    QObject::connect(_imp->previousKeyFrame_Button, SIGNAL(clicked(bool)), getGui()->getApp().get(), SLOT(goToPreviousKeyframe()));
+    QObject::connect(_imp->previousFrame_Button, SIGNAL(clicked()), this, SLOT(previousFrame()));
+    QObject::connect(_imp->play_Backward_Button, SIGNAL(clicked(bool)), this, SLOT(startBackward(bool)));
+    QObject::connect(_imp->play_Forward_Button, SIGNAL(clicked(bool)), this, SLOT(startPause(bool)));
+    QObject::connect(_imp->nextFrame_Button, SIGNAL(clicked()), this, SLOT(nextFrame()));
+    QObject::connect(_imp->nextKeyFrame_Button, SIGNAL(clicked(bool)), getGui()->getApp().get(), SLOT(goToNextKeyframe()));
+    QObject::connect(_imp->lastFrame_Button, SIGNAL(clicked()), this, SLOT(lastFrame()));
+    QObject::connect(_imp->previousIncrement_Button, SIGNAL(clicked()), this, SLOT(previousIncrement()));
+    QObject::connect(_imp->nextIncrement_Button, SIGNAL(clicked()), this, SLOT(nextIncrement()));
+
+    return widget;
+}
+
+QWidget *ViewerTab::player_control_left_setup_ui()
+{
+    QWidget *widget = new QWidget(this);
+    widget->setObjectName("player_control_left");
+    QHBoxLayout *layout = new QHBoxLayout(widget);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(4);
+    widget->setLayout(layout);
+
+    const QSize buttonSize(TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
+    const QSize buttonIconSize(TO_DPIX(NATRON_MEDIUM_BUTTON_ICON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_ICON_SIZE));
+
+    _imp->playBackInputSpinbox = new SpinBox(_imp->playerButtonsContainer);
+    _imp->playBackInputSpinbox->setToolTip(tr("The playback in point"));
+    _imp->playBackInputSpinbox->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+
+    _imp->canEditFpsBox = new QCheckBox(_imp->playerButtonsContainer);
+
+    QString canEditFpsBoxTT = NATRON_NAMESPACE::convertFromPlainText(tr("When unchecked, the playback frame rate is automatically set from "
+                                                                        " the Viewer A input.  "
+                                                                        "When checked, the user setting is used."),
+                                                                     NATRON_NAMESPACE::WhiteSpaceNormal);
+
+    _imp->canEditFpsBox->setFixedSize(buttonSize);
+    //_imp->canEditFpsBox->setIconSize(buttonIconSize);
+    _imp->canEditFpsBox->setToolTip(canEditFpsBoxTT);
+    _imp->canEditFpsBox->setChecked(!_imp->fpsLocked);
+
+    _imp->canEditFpsLabel = new ClickableLabel(tr("fps:"), _imp->playerButtonsContainer);
+    _imp->canEditFpsLabel->setToolTip(canEditFpsBoxTT);
+    //_imp->canEditFpsLabel->setFont(font);
+
+    _imp->fpsBox = new SpinBox(_imp->playerButtonsContainer, SpinBox::eSpinBoxTypeDouble);
+    _imp->fpsBox->setEnabled(!_imp->fpsLocked);
+    _imp->fpsBox->decimals(1);
+    _imp->userFps = 24.;
+    _imp->fpsBox->setValue(_imp->userFps);
+    _imp->fpsBox->setIncrement(0.1);
+    _imp->fpsBox->setToolTip(QString::fromUtf8("<p><b>") + tr("fps:") + QString::fromUtf8("</b></p>") + tr("Viewer playback framerate, in frames per second."));
+
+    _imp->timeFormat = new ComboBox(_imp->playerButtonsContainer);
+    _imp->timeFormat->addItem(tr("TC"), QIcon(), QKeySequence(), tr("Timecode"));
+    _imp->timeFormat->addItem(tr("TF"), QIcon(), QKeySequence(), tr("Timeline Frames"));
+    _imp->timeFormat->setCurrentIndex_no_emit(1);
+    _imp->timeFormat->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("Set the time display format."), NATRON_NAMESPACE::WhiteSpaceNormal));
+    const QSize timeFormatSize(TO_DPIX(NATRON_LARGE_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
+    _imp->timeFormat->setFixedSize(timeFormatSize);
+
+    // ---------------
+    // Añadir Iconos
+    // ---------------
+    QPixmap pixInpoint;
+
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_TIMELINE_IN, &pixInpoint);
+
+    _imp->playBackInputButton->setIcon(QIcon(pixInpoint));
+
+    // ---------------
+    // Añadir al Layout
+    // ---------------
+    layout->addWidget(_imp->playBackInputSpinbox);
+    layout->addWidget(_imp->playBackInputButton);
+
+    addSpacer(layout);
+    layout->addWidget(_imp->timeFormat);
+    layout->addWidget(_imp->canEditFpsBox);
+    layout->addWidget(_imp->canEditFpsLabel);
+    layout->addWidget(_imp->fpsBox);
+    layout->addStretch();
+
+    // ---------------
+    // Conecciones
+    // ---------------
+    QObject::connect(_imp->playBackInputButton, SIGNAL(clicked()), this, SLOT(onPlaybackInButtonClicked()));
+    QObject::connect(_imp->playBackInputSpinbox, SIGNAL(valueChanged(double)), this, SLOT(onPlaybackInSpinboxValueChanged(double)));
+    QObject::connect(_imp->canEditFpsBox, SIGNAL(clicked(bool)), this, SLOT(onCanSetFPSClicked(bool)));
+    QObject::connect(_imp->canEditFpsLabel, SIGNAL(clicked(bool)), this, SLOT(onCanSetFPSLabelClicked(bool)));
+    QObject::connect(_imp->fpsBox, SIGNAL(valueChanged(double)), this, SLOT(onSpinboxFpsChanged(double)));
+    QObject::connect(_imp->timeFormat, SIGNAL(currentIndexChanged(int)), _imp->timeLineGui, SLOT(onTimeFormatChanged(int)));
+
+    return widget;
+}
+
+QWidget *ViewerTab::player_control_right_setup_ui()
+{
+    QWidget *widget = new QWidget(this);
+    widget->setObjectName("player_control_right");
+    QHBoxLayout *layout = new QHBoxLayout(widget);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(4);
+    widget->setLayout(layout);
+
+    const QSize buttonSize(TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
+    const QSize buttonIconSize(TO_DPIX(NATRON_MEDIUM_BUTTON_ICON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_ICON_SIZE));
+    const int pixmapIconSize = TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE);
+
+    QPixmap pixFreezeEnabled, pixFreezeDisabled;
+    appPTR->getIcon(NATRON_PIXMAP_FREEZE_ENABLED, &pixFreezeEnabled);
+    appPTR->getIcon(NATRON_PIXMAP_FREEZE_DISABLED, &pixFreezeDisabled);
+
+    QIcon icFreeze;
+    icFreeze.addPixmap(pixFreezeEnabled, QIcon::Normal, QIcon::On);
+    icFreeze.addPixmap(pixFreezeDisabled, QIcon::Normal, QIcon::Off);
+    _imp->turboButton = new Button(icFreeze, QString(), _imp->playerButtonsContainer);
+    _imp->turboButton->setCheckable(true);
+    _imp->turboButton->setChecked(false);
+    _imp->turboButton->setDown(false);
+    _imp->turboButton->setFixedSize(buttonSize);
+    _imp->turboButton->setIconSize(buttonIconSize);
+    _imp->turboButton->setToolTip(QString::fromUtf8("<p><b>") + tr("Turbo mode:") + QString::fromUtf8("</p></b><p>") +
+                                  tr("When checked, only the viewer is redrawn during playback, "
+                                     "for maximum efficiency.") +
+                                  QString::fromUtf8("</p>"));
+    _imp->turboButton->setFocusPolicy(Qt::NoFocus);
+
+    QPixmap tripleSyncUnlockPix, tripleSyncLockedPix;
+    appPTR->getIcon(NATRON_PIXMAP_UNLOCKED, pixmapIconSize, &tripleSyncUnlockPix);
+    appPTR->getIcon(NATRON_PIXMAP_LOCKED, pixmapIconSize, &tripleSyncLockedPix);
+
+    QIcon tripleSyncIc;
+    tripleSyncIc.addPixmap(tripleSyncUnlockPix, QIcon::Normal, QIcon::Off);
+    tripleSyncIc.addPixmap(tripleSyncLockedPix, QIcon::Normal, QIcon::On);
+    _imp->tripleSyncButton = new Button(tripleSyncIc, QString(), _imp->playerButtonsContainer);
+    _imp->tripleSyncButton->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When activated, the timeline frame-range is synchronized with the Dope Sheet and the Curve Editor."), NATRON_NAMESPACE::WhiteSpaceNormal));
+    _imp->tripleSyncButton->setCheckable(true);
+    _imp->tripleSyncButton->setChecked(false);
+    _imp->tripleSyncButton->setFixedSize(buttonSize);
+    _imp->tripleSyncButton->setIconSize(buttonIconSize);
+    QObject::connect(_imp->tripleSyncButton, SIGNAL(toggled(bool)),
+                     this, SLOT(toggleTripleSync(bool)));
+
+    _imp->playBackOutputSpinbox = new SpinBox(_imp->playerButtonsContainer);
+    _imp->playBackOutputSpinbox->setToolTip(tr("The playback out point"));
+    _imp->playBackOutputSpinbox->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+
+    _imp->playBackOutputButton = new Button(_imp->playerButtonsContainer);
+    _imp->playBackOutputButton->setFocusPolicy(Qt::NoFocus);
+    _imp->playBackOutputButton->setFixedSize(buttonSize);
+    _imp->playBackOutputButton->setIconSize(buttonIconSize);
+    setToolTipWithShortcut(kShortcutGroupPlayer, kShortcutIDActionPlayerPlaybackOut, "<p>" + tr("Set the playback out point at the current frame.").toStdString() + "</p>" + "<p><b>" + tr("Keyboard shortcut: %1").toStdString() + "</b></p>", _imp->playBackOutputButton);
+
+    // ---------------
+    // Añadir Iconos
+    // ---------------
+    QPixmap pixOutPoint;
+    appPTR->getIcon(NATRON_PIXMAP_PLAYER_TIMELINE_OUT, &pixOutPoint);
+
+    _imp->playBackOutputButton->setIcon(QIcon(pixOutPoint));
+
+    // ---------------
+    // Añadir al Layout
+    // ---------------
+    layout->addStretch();
+    layout->addWidget(_imp->turboButton);
+    layout->addWidget(_imp->tripleSyncButton);
+    addSpacer(layout);
+    layout->addWidget(_imp->playBackOutputButton);
+    layout->addWidget(_imp->playBackOutputSpinbox);
+    // ---------------
+    // Conecciones
+    // ---------------
+    QObject::connect(_imp->turboButton, SIGNAL(clicked(bool)), getGui(), SLOT(onFreezeUIButtonClicked(bool)));
+
+    QObject::connect(_imp->playBackOutputSpinbox, SIGNAL(valueChanged(double)), this, SLOT(onPlaybackOutSpinboxValueChanged(double)));
+    QObject::connect(_imp->playBackOutputButton, SIGNAL(clicked()), this, SLOT(onPlaybackOutButtonClicked()));
+
+    return widget;
 }
 
 NATRON_NAMESPACE_EXIT

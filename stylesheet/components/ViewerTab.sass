@@ -9,7 +9,7 @@
     #firstSettingsRow
         background: $b22
         border-bottom: 1px solid $b13
-        #buttons_widget, #channels_widget, #comparison_widget
+        #buttons_a_widget, #buttons_b_widget, #channels_widget, #comparison_widget
             background: $b22
         #ChannelsComboBox
             @mixin color($color, $back, $border)
@@ -35,6 +35,8 @@
     #playerButtonsContainer
         background: $b17
         border-top: 1px solid $b15
+        #player_control_center, #player_control_left, #player_control_right
+            background: $b17        
         
         QCheckBox
             @include checkbox 

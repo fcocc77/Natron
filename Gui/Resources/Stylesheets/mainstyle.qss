@@ -182,7 +182,7 @@ QAbstractSpinBox {
 #ViewerTab #firstSettingsRow {
   background: #383838;
   border-bottom: 1px solid #212121; }
-  #ViewerTab #firstSettingsRow #buttons_widget, #ViewerTab #firstSettingsRow #channels_widget, #ViewerTab #firstSettingsRow #comparison_widget {
+  #ViewerTab #firstSettingsRow #buttons_a_widget, #ViewerTab #firstSettingsRow #buttons_b_widget, #ViewerTab #firstSettingsRow #channels_widget, #ViewerTab #firstSettingsRow #comparison_widget {
     background: #383838; }
   #ViewerTab #firstSettingsRow #ChannelsComboBox[color='1'] {
     border-color: #262626; }
@@ -208,6 +208,8 @@ QAbstractSpinBox {
 #ViewerTab #playerButtonsContainer {
   background: #2b2b2b;
   border-top: 1px solid #262626; }
+  #ViewerTab #playerButtonsContainer #player_control_center, #ViewerTab #playerButtonsContainer #player_control_left, #ViewerTab #playerButtonsContainer #player_control_right {
+    background: #2b2b2b; }
   #ViewerTab #playerButtonsContainer QCheckBox::indicator {
     width: 16px;
     height: 16px;

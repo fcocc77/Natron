@@ -71,7 +71,9 @@ public:
     QWidget *comparison_setup_ui();
     QWidget *buttons_a_setup_ui();
     QWidget *buttons_b_setup_ui();
-    QWidget *player_control_setup_ui();
+    QWidget *player_control_center_setup_ui();
+    QWidget *player_control_left_setup_ui();
+    QWidget *player_control_right_setup_ui();
 
     void resizeEvent(QResizeEvent *e);
 
