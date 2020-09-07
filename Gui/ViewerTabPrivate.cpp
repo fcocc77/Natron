@@ -154,7 +154,8 @@ ViewerTabPrivate::ViewerTabPrivate(ViewerTab* publicInterface,
     , hasPenDown(false)
     , hasCaughtPenMotionWhileDragging(false)
     , channels_widget(NULL)
-    , buttons_widget(NULL)
+    , buttons_a_widget(NULL)
+    , buttons_b_widget(NULL)
     , comparison_widget(NULL)
 
 {

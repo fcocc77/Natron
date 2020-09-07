@@ -102,7 +102,8 @@ struct ViewerTabPrivate
     Label *secondInputLabel;
     ComboBox *secondInputImage;
     QWidget *channels_widget;
-    QWidget *buttons_widget;
+    QWidget *buttons_a_widget;
+    QWidget *buttons_b_widget;
     QWidget *comparison_widget;
 
     /*2nd row*/

@@ -150,8 +150,10 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     _imp->comparison_widget = comparison_setup_ui();
     _imp->firstRowLayout->addWidget(_imp->comparison_widget);
     _imp->firstRowLayout->addStretch();
-    _imp->buttons_widget = buttons_setup_ui();
-    _imp->firstRowLayout->addWidget(_imp->buttons_widget);
+    _imp->buttons_a_widget = buttons_a_setup_ui();
+    _imp->firstRowLayout->addWidget(_imp->buttons_a_widget);
+    _imp->buttons_b_widget = buttons_b_setup_ui();
+    _imp->firstRowLayout->addWidget(_imp->buttons_b_widget);
 
     const QSize buttonSize(TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
     const QSize buttonIconSize(TO_DPIX(NATRON_MEDIUM_BUTTON_ICON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_ICON_SIZE));
@@ -845,9 +847,14 @@ void ViewerTab::resizeEvent(QResizeEvent *e)
         _imp->comparison_widget->setVisible(false);
 
     if (width > 650)
-        _imp->buttons_widget->setVisible(true);
+        _imp->buttons_b_widget->setVisible(true);
     else
-        _imp->buttons_widget->setVisible(false);
+        _imp->buttons_b_widget->setVisible(false);
+
+    if (width > 450)
+        _imp->buttons_a_widget->setVisible(true);
+    else
+        _imp->buttons_a_widget->setVisible(false);
 }
 
 QWidget *ViewerTab::channels_setup_ui()
@@ -972,7 +979,7 @@ QWidget *ViewerTab::comparison_setup_ui()
     return widget;
 }
 
-QWidget *ViewerTab::buttons_setup_ui()
+QWidget *ViewerTab::buttons_a_setup_ui()
 {
     QWidget *widget = new QWidget(this);
     widget->setObjectName("buttons_widget");
@@ -987,10 +994,6 @@ QWidget *ViewerTab::buttons_setup_ui()
     QPixmap lockEnabled, lockDisabled;
     appPTR->getIcon(NATRON_PIXMAP_LOCKED, pixmapIconSize, &lockEnabled);
     appPTR->getIcon(NATRON_PIXMAP_UNLOCKED, pixmapIconSize, &lockDisabled);
-
-    QIcon lockIcon;
-    lockIcon.addPixmap(lockEnabled, QIcon::Normal, QIcon::On);
-    lockIcon.addPixmap(lockDisabled, QIcon::Normal, QIcon::Off);
 
     _imp->clipToProjectFormatButton = new Button(_imp->firstSettingsRow);
     _imp->clipToProjectFormatButton->setFocusPolicy(Qt::NoFocus);
@@ -1079,6 +1082,29 @@ QWidget *ViewerTab::buttons_setup_ui()
     }
     layout->addWidget(_imp->pauseButton);
 
+    return widget;
+}
+
+QWidget *ViewerTab::buttons_b_setup_ui()
+{
+    QWidget *widget = new QWidget(this);
+    widget->setObjectName("buttons_widget");
+    QHBoxLayout *layout = new QHBoxLayout(widget);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(4);
+    widget->setLayout(layout);
+
+    const int pixmapIconSize = TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE);
+    const QSize buttonSize(TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
+    const QSize buttonIconSize(TO_DPIX(NATRON_MEDIUM_BUTTON_ICON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_ICON_SIZE));
+    QPixmap lockEnabled, lockDisabled;
+    appPTR->getIcon(NATRON_PIXMAP_LOCKED, pixmapIconSize, &lockEnabled);
+    appPTR->getIcon(NATRON_PIXMAP_UNLOCKED, pixmapIconSize, &lockDisabled);
+
+    QIcon lockIcon;
+    lockIcon.addPixmap(lockEnabled, QIcon::Normal, QIcon::On);
+    lockIcon.addPixmap(lockDisabled, QIcon::Normal, QIcon::Off);
+
     addSpacer(layout);
 
     _imp->syncViewerButton = new Button(lockIcon, QString(), _imp->firstSettingsRow);
@@ -1148,6 +1174,17 @@ QWidget *ViewerTab::buttons_setup_ui()
     layout->addWidget(_imp->renderScaleCombo);
 
     return widget;
+}
+
+QWidget *ViewerTab::player_control_setup_ui()
+{
+    QWidget *widget = new QWidget(this);
+    widget->setObjectName("player_control");
+    QHBoxLayout *layout = new QHBoxLayout(widget);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(4);
+    widget->setLayout(layout);
+
 }
 
 NATRON_NAMESPACE_EXIT

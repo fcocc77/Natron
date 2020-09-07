@@ -69,7 +69,9 @@ public:
 
     QWidget *channels_setup_ui();
     QWidget *comparison_setup_ui();
-    QWidget *buttons_setup_ui();
+    QWidget *buttons_a_setup_ui();
+    QWidget *buttons_b_setup_ui();
+    QWidget *player_control_setup_ui();
 
     void resizeEvent(QResizeEvent *e);
 
