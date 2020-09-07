@@ -13,16 +13,16 @@
         color: mix($c1, $b25, 40%)
 @mixin checkbox()
     &::indicator
-        width: 16px
-        height: 16px
+        width: 15px
+        height: 15px
         background: $b18
-        border-radius: 2px
-        border: 1px solid $b13
+        image: url(:/Resources/Images/checkbox.png)
         &:hover
-            border-color: mix($base, $b10, 50%)
+            image: url(:/Resources/Images/checkbox_hovered.png)
         &:checked 
-            image: url(:/Resources/Images/closeTab_hovered.png)
-            border-color: $b50
+            image: url(:/Resources/Images/checkbox_checked.png)
+            &:hover
+                image: url(:/Resources/Images/checkbox_checked_hovered.png)
 @mixin combobox()     
     background: $b18
     border-radius: 2px

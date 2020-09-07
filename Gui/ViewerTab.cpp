@@ -150,8 +150,10 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     _imp->comparison_widget = comparison_setup_ui();
     _imp->firstRowLayout->addWidget(_imp->comparison_widget);
     _imp->firstRowLayout->addStretch();
+
     _imp->buttons_a_widget = buttons_a_setup_ui();
     _imp->buttons_b_widget = buttons_b_setup_ui();
+
     _imp->firstRowLayout->addWidget(_imp->buttons_a_widget);
     _imp->firstRowLayout->addWidget(_imp->buttons_b_widget);
 
@@ -366,8 +368,6 @@ ViewerTab::ViewerTab(const std::list<NodeGuiPtr> &existingNodesContext,
     _imp->playerLayout->setContentsMargins(4, 4, 4, 4);
     _imp->playerButtonsContainer->setLayout(_imp->playerLayout);
 
-    _imp->firstRowLayout->addWidget(_imp->buttons_a_widget);
-
     _imp->playBackInputButton = new Button(_imp->playerButtonsContainer);
     _imp->playBackInputButton->setFocusPolicy(Qt::NoFocus);
     _imp->playBackInputButton->setFixedSize(buttonSize);
@@ -576,6 +576,50 @@ void ViewerTab::resizeEvent(QResizeEvent *e)
         _imp->buttons_b_widget->setVisible(true);
     else
         _imp->buttons_b_widget->setVisible(false);
+
+    if (width > 900)
+    {
+        _imp->turboButton->setVisible(true);
+        _imp->tripleSyncButton->setVisible(true);
+
+        _imp->timeFormat->setVisible(true);
+        _imp->canEditFpsBox->setVisible(true);
+        _imp->canEditFpsLabel->setVisible(true);
+        _imp->fpsBox->setVisible(true);
+    }
+    else
+    {
+        _imp->turboButton->setVisible(false);
+        _imp->tripleSyncButton->setVisible(false);
+
+        _imp->timeFormat->setVisible(false);
+        _imp->canEditFpsBox->setVisible(false);
+        _imp->canEditFpsLabel->setVisible(false);
+        _imp->fpsBox->setVisible(false);
+    }
+
+    if (width > 700)
+    {
+        _imp->previousIncrement_Button->setVisible(true);
+        _imp->incrementSpinBox->setVisible(true);
+        _imp->nextIncrement_Button->setVisible(true);
+    }
+    else
+    {
+        _imp->previousIncrement_Button->setVisible(false);
+        _imp->incrementSpinBox->setVisible(false);
+        _imp->nextIncrement_Button->setVisible(false);
+    }
+    if (width > 600)
+    {
+        _imp->previousKeyFrame_Button->setVisible(true);
+        _imp->nextKeyFrame_Button->setVisible(true);
+    }
+    else
+    {
+        _imp->previousKeyFrame_Button->setVisible(false);
+        _imp->nextKeyFrame_Button->setVisible(false);
+    }
 }
 
 QWidget *ViewerTab::channels_setup_ui()
@@ -723,7 +767,6 @@ QWidget *ViewerTab::buttons_a_setup_ui()
     _imp->clipToProjectFormatButton->setCheckable(true);
     _imp->clipToProjectFormatButton->setChecked(true);
     _imp->clipToProjectFormatButton->setDown(true);
-    layout->addWidget(_imp->clipToProjectFormatButton);
 
     _imp->enableViewerRoI = new Button(_imp->firstSettingsRow);
     _imp->enableViewerRoI->setFocusPolicy(Qt::NoFocus);
@@ -732,7 +775,6 @@ QWidget *ViewerTab::buttons_a_setup_ui()
     _imp->enableViewerRoI->setCheckable(true);
     _imp->enableViewerRoI->setChecked(false);
     _imp->enableViewerRoI->setDown(false);
-    layout->addWidget(_imp->enableViewerRoI);
 
     _imp->activateRenderScale = new Button(_imp->firstSettingsRow);
     _imp->activateRenderScale->setFocusPolicy(Qt::NoFocus);
@@ -751,7 +793,6 @@ QWidget *ViewerTab::buttons_a_setup_ui()
     _imp->activateRenderScale->setCheckable(true);
     _imp->activateRenderScale->setChecked(false);
     _imp->activateRenderScale->setDown(false);
-    layout->addWidget(_imp->activateRenderScale);
 
     _imp->fullFrameProcessingButton = new Button(_imp->firstSettingsRow);
     _imp->fullFrameProcessingButton->setFocusPolicy(Qt::NoFocus);
@@ -760,7 +801,6 @@ QWidget *ViewerTab::buttons_a_setup_ui()
     _imp->fullFrameProcessingButton->setCheckable(true);
     _imp->fullFrameProcessingButton->setChecked(false);
     _imp->fullFrameProcessingButton->setDown(false);
-    layout->addWidget(_imp->fullFrameProcessingButton);
 
     _imp->refreshButton = new Button(_imp->firstSettingsRow);
     _imp->refreshButton->setFocusPolicy(Qt::NoFocus);
@@ -777,7 +817,6 @@ QWidget *ViewerTab::buttons_a_setup_ui()
                                                                           "</p>",
                                 _imp->refreshButton);
     }
-    layout->addWidget(_imp->refreshButton);
 
     _imp->pauseButton = new Button(_imp->firstSettingsRow);
     _imp->pauseButton->setFocusPolicy(Qt::NoFocus);
@@ -801,6 +840,15 @@ QWidget *ViewerTab::buttons_a_setup_ui()
                                     tr("Use %2 to pause both input A and B").toStdString() + "</b></p>",
                                 _imp->pauseButton);
     }
+
+    //------------------
+    // Añadir a Layout
+    //------------------
+    layout->addWidget(_imp->clipToProjectFormatButton);
+    layout->addWidget(_imp->enableViewerRoI);
+    layout->addWidget(_imp->activateRenderScale);
+    layout->addWidget(_imp->fullFrameProcessingButton);
+    layout->addWidget(_imp->refreshButton);
     layout->addWidget(_imp->pauseButton);
 
     return widget;
@@ -827,8 +875,6 @@ QWidget *ViewerTab::buttons_b_setup_ui()
     lockIcon.addPixmap(lockEnabled, QIcon::Normal, QIcon::On);
     lockIcon.addPixmap(lockDisabled, QIcon::Normal, QIcon::Off);
 
-    addSpacer(layout);
-
     _imp->syncViewerButton = new Button(lockIcon, QString(), _imp->firstSettingsRow);
     _imp->syncViewerButton->setCheckable(true);
     _imp->syncViewerButton->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When enabled, all viewers will be synchronized to the same portion of the image in the viewport."), NATRON_NAMESPACE::WhiteSpaceNormal));
@@ -836,15 +882,11 @@ QWidget *ViewerTab::buttons_b_setup_ui()
     _imp->syncViewerButton->setIconSize(buttonIconSize);
     _imp->syncViewerButton->setFocusPolicy(Qt::NoFocus);
     QObject::connect(_imp->syncViewerButton, SIGNAL(clicked(bool)), this, SLOT(onSyncViewersButtonPressed(bool)));
-    layout->addWidget(_imp->syncViewerButton);
 
     _imp->centerViewerButton = new Button(_imp->firstSettingsRow);
     _imp->centerViewerButton->setFocusPolicy(Qt::NoFocus);
     _imp->centerViewerButton->setFixedSize(buttonSize);
     _imp->centerViewerButton->setIconSize(buttonIconSize);
-    layout->addWidget(_imp->centerViewerButton);
-
-    addSpacer(layout);
 
     _imp->zoomCombobox = new ComboBox(_imp->firstSettingsRow);
     _imp->zoomCombobox->setToolTip(QString::fromUtf8("<p><b>") + tr("Zoom:") + QString::fromUtf8("</b></p>") + tr("The zoom applied to the image on the viewer.") + QString::fromUtf8("</p>"));
@@ -875,8 +917,6 @@ QWidget *ViewerTab::buttons_b_setup_ui()
     _imp->zoomCombobox->addItem(QString::fromUtf8("6400%"));
     _imp->zoomCombobox->setMaximumWidthFromText(QString::fromUtf8("100000%"));
 
-    layout->addWidget(_imp->zoomCombobox);
-
     _imp->renderScaleCombo = new ComboBox(_imp->firstSettingsRow);
     _imp->renderScaleCombo->setFocusPolicy(Qt::NoFocus);
     _imp->renderScaleCombo->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When proxy mode is activated, it scales down the rendered image by this factor "
@@ -893,6 +933,15 @@ QWidget *ViewerTab::buttons_b_setup_ui()
     _imp->renderScaleCombo->addAction(proxy8);
     _imp->renderScaleCombo->addAction(proxy16);
     _imp->renderScaleCombo->addAction(proxy32);
+
+    //------------------
+    // Añadir a Layout
+    //------------------
+    addSpacer(layout);
+    layout->addWidget(_imp->syncViewerButton);
+    layout->addWidget(_imp->centerViewerButton);
+    addSpacer(layout);
+    layout->addWidget(_imp->zoomCombobox);
     layout->addWidget(_imp->renderScaleCombo);
 
     return widget;
@@ -1144,6 +1193,7 @@ QWidget *ViewerTab::player_control_left_setup_ui()
     _imp->fpsBox->setToolTip(QString::fromUtf8("<p><b>") + tr("fps:") + QString::fromUtf8("</b></p>") + tr("Viewer playback framerate, in frames per second."));
 
     _imp->timeFormat = new ComboBox(_imp->playerButtonsContainer);
+    _imp->timeFormat->setObjectName("time_format");
     _imp->timeFormat->addItem(tr("TC"), QIcon(), QKeySequence(), tr("Timecode"));
     _imp->timeFormat->addItem(tr("TF"), QIcon(), QKeySequence(), tr("Timeline Frames"));
     _imp->timeFormat->setCurrentIndex_no_emit(1);

@@ -35,20 +35,23 @@
     #playerButtonsContainer
         background: $b17
         border-top: 1px solid $b15
-        #player_control_center, #player_control_left, #player_control_right
-            background: $b17        
-        
+        QWidget
+            background: $b17
+        #space
+            border-color: $b15
         QCheckBox
             @include checkbox 
         #playerButton
             background: $b22
             border: 1px solid $b14
         QPushButton, #playerButton
-            
-            
             border-radius: 2px
             &:hover
                 background: mix($base, $b20, 10%)
                 border-color: mix($base, $b20, 30%)
         QLineEdit
             background: $b20
+
+        #time_format
+            border: none
+            color: $base

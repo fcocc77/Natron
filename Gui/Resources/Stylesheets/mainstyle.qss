@@ -208,19 +208,21 @@ QAbstractSpinBox {
 #ViewerTab #playerButtonsContainer {
   background: #2b2b2b;
   border-top: 1px solid #262626; }
-  #ViewerTab #playerButtonsContainer #player_control_center, #ViewerTab #playerButtonsContainer #player_control_left, #ViewerTab #playerButtonsContainer #player_control_right {
+  #ViewerTab #playerButtonsContainer QWidget {
     background: #2b2b2b; }
+  #ViewerTab #playerButtonsContainer #space {
+    border-color: #262626; }
   #ViewerTab #playerButtonsContainer QCheckBox::indicator {
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     background: #2e2e2e;
-    border-radius: 2px;
-    border: 1px solid #212121; }
+    image: url(:/Resources/Images/checkbox.png); }
     #ViewerTab #playerButtonsContainer QCheckBox::indicator:hover {
-      border-color: #2c668c; }
+      image: url(:/Resources/Images/checkbox_hovered.png); }
     #ViewerTab #playerButtonsContainer QCheckBox::indicator:checked {
-      image: url(:/Resources/Images/closeTab_hovered.png);
-      border-color: gray; }
+      image: url(:/Resources/Images/checkbox_checked.png); }
+      #ViewerTab #playerButtonsContainer QCheckBox::indicator:checked:hover {
+        image: url(:/Resources/Images/checkbox_checked_hovered.png); }
   #ViewerTab #playerButtonsContainer #playerButton {
     background: #383838;
     border: 1px solid #242424; }
@@ -231,6 +233,9 @@ QAbstractSpinBox {
       border-color: #365970; }
   #ViewerTab #playerButtonsContainer QLineEdit {
     background: #333333; }
+  #ViewerTab #playerButtonsContainer #time_format {
+    border: none;
+    color: #3eb2ff; }
 
 QMenuBar {
   background-color: #262626;
