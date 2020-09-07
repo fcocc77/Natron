@@ -844,7 +844,7 @@ void ViewerTab::resizeEvent(QResizeEvent *e)
     else
         _imp->comparison_widget->setVisible(false);
 
-    if (width > 750)
+    if (width > 650)
         _imp->buttons_widget->setVisible(true);
     else
         _imp->buttons_widget->setVisible(false);
@@ -978,38 +978,8 @@ QWidget *ViewerTab::buttons_setup_ui()
     widget->setObjectName("buttons_widget");
     QHBoxLayout *layout = new QHBoxLayout(widget);
     layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(4);
     widget->setLayout(layout);
-
-    _imp->zoomCombobox = new ComboBox(_imp->firstSettingsRow);
-    _imp->zoomCombobox->setToolTip(QString::fromUtf8("<p><b>") + tr("Zoom:") + QString::fromUtf8("</b></p>") + tr("The zoom applied to the image on the viewer.") + QString::fromUtf8("</p>"));
-
-    // Keyboard shortcuts should be made visible to the user, not only in the shortcut editor, but also at logical places in the GUI.
-
-    ActionWithShortcut *fitAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionFitViewer, "Fit", this);
-    ActionWithShortcut *zoomInAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomIn, "+", this);
-    ActionWithShortcut *zoomOutAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomOut, "-", this);
-    ActionWithShortcut *level100Action = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomLevel100, "100%", this);
-    _imp->zoomCombobox->addAction(fitAction);
-    _imp->zoomCombobox->addAction(zoomInAction);
-    _imp->zoomCombobox->addAction(zoomOutAction);
-    _imp->zoomCombobox->addSeparator();
-    _imp->zoomCombobox->addItem(QString::fromUtf8("10%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("25%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("50%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("75%"));
-    _imp->zoomCombobox->addAction(level100Action);
-    _imp->zoomCombobox->addItem(QString::fromUtf8("125%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("150%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("200%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("400%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("800%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("1600%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("2400%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("3200%"));
-    _imp->zoomCombobox->addItem(QString::fromUtf8("6400%"));
-    _imp->zoomCombobox->setMaximumWidthFromText(QString::fromUtf8("100000%"));
-
-    layout->addWidget(_imp->zoomCombobox);
 
     const int pixmapIconSize = TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE);
     const QSize buttonSize(TO_DPIX(NATRON_MEDIUM_BUTTON_SIZE), TO_DPIY(NATRON_MEDIUM_BUTTON_SIZE));
@@ -1022,23 +992,6 @@ QWidget *ViewerTab::buttons_setup_ui()
     lockIcon.addPixmap(lockEnabled, QIcon::Normal, QIcon::On);
     lockIcon.addPixmap(lockDisabled, QIcon::Normal, QIcon::Off);
 
-    _imp->syncViewerButton = new Button(lockIcon, QString(), _imp->firstSettingsRow);
-    _imp->syncViewerButton->setCheckable(true);
-    _imp->syncViewerButton->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When enabled, all viewers will be synchronized to the same portion of the image in the viewport."), NATRON_NAMESPACE::WhiteSpaceNormal));
-    _imp->syncViewerButton->setFixedSize(buttonSize);
-    _imp->syncViewerButton->setIconSize(buttonIconSize);
-    _imp->syncViewerButton->setFocusPolicy(Qt::NoFocus);
-    QObject::connect(_imp->syncViewerButton, SIGNAL(clicked(bool)), this, SLOT(onSyncViewersButtonPressed(bool)));
-    layout->addWidget(_imp->syncViewerButton);
-
-    _imp->centerViewerButton = new Button(_imp->firstSettingsRow);
-    _imp->centerViewerButton->setFocusPolicy(Qt::NoFocus);
-    _imp->centerViewerButton->setFixedSize(buttonSize);
-    _imp->centerViewerButton->setIconSize(buttonIconSize);
-    layout->addWidget(_imp->centerViewerButton);
-
-    addSpacer(layout);
-
     _imp->clipToProjectFormatButton = new Button(_imp->firstSettingsRow);
     _imp->clipToProjectFormatButton->setFocusPolicy(Qt::NoFocus);
     _imp->clipToProjectFormatButton->setFixedSize(buttonSize);
@@ -1047,15 +1000,6 @@ QWidget *ViewerTab::buttons_setup_ui()
     _imp->clipToProjectFormatButton->setChecked(true);
     _imp->clipToProjectFormatButton->setDown(true);
     layout->addWidget(_imp->clipToProjectFormatButton);
-
-    _imp->fullFrameProcessingButton = new Button(_imp->firstSettingsRow);
-    _imp->fullFrameProcessingButton->setFocusPolicy(Qt::NoFocus);
-    _imp->fullFrameProcessingButton->setFixedSize(buttonSize);
-    _imp->fullFrameProcessingButton->setIconSize(buttonIconSize);
-    _imp->fullFrameProcessingButton->setCheckable(true);
-    _imp->fullFrameProcessingButton->setChecked(false);
-    _imp->fullFrameProcessingButton->setDown(false);
-    layout->addWidget(_imp->fullFrameProcessingButton);
 
     _imp->enableViewerRoI = new Button(_imp->firstSettingsRow);
     _imp->enableViewerRoI->setFocusPolicy(Qt::NoFocus);
@@ -1085,25 +1029,14 @@ QWidget *ViewerTab::buttons_setup_ui()
     _imp->activateRenderScale->setDown(false);
     layout->addWidget(_imp->activateRenderScale);
 
-    _imp->renderScaleCombo = new ComboBox(_imp->firstSettingsRow);
-    _imp->renderScaleCombo->setFocusPolicy(Qt::NoFocus);
-    _imp->renderScaleCombo->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When proxy mode is activated, it scales down the rendered image by this factor "
-                                                                                 "to accelerate the rendering."),
-                                                                              NATRON_NAMESPACE::WhiteSpaceNormal));
-
-    QAction *proxy2 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel2, "2", _imp->renderScaleCombo);
-    QAction *proxy4 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel4, "4", _imp->renderScaleCombo);
-    QAction *proxy8 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel8, "8", _imp->renderScaleCombo);
-    QAction *proxy16 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel16, "16", _imp->renderScaleCombo);
-    QAction *proxy32 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel32, "32", _imp->renderScaleCombo);
-    _imp->renderScaleCombo->addAction(proxy2);
-    _imp->renderScaleCombo->addAction(proxy4);
-    _imp->renderScaleCombo->addAction(proxy8);
-    _imp->renderScaleCombo->addAction(proxy16);
-    _imp->renderScaleCombo->addAction(proxy32);
-    layout->addWidget(_imp->renderScaleCombo);
-
-    addSpacer(layout);
+    _imp->fullFrameProcessingButton = new Button(_imp->firstSettingsRow);
+    _imp->fullFrameProcessingButton->setFocusPolicy(Qt::NoFocus);
+    _imp->fullFrameProcessingButton->setFixedSize(buttonSize);
+    _imp->fullFrameProcessingButton->setIconSize(buttonIconSize);
+    _imp->fullFrameProcessingButton->setCheckable(true);
+    _imp->fullFrameProcessingButton->setChecked(false);
+    _imp->fullFrameProcessingButton->setDown(false);
+    layout->addWidget(_imp->fullFrameProcessingButton);
 
     _imp->refreshButton = new Button(_imp->firstSettingsRow);
     _imp->refreshButton->setFocusPolicy(Qt::NoFocus);
@@ -1145,6 +1078,74 @@ QWidget *ViewerTab::buttons_setup_ui()
                                 _imp->pauseButton);
     }
     layout->addWidget(_imp->pauseButton);
+
+    addSpacer(layout);
+
+    _imp->syncViewerButton = new Button(lockIcon, QString(), _imp->firstSettingsRow);
+    _imp->syncViewerButton->setCheckable(true);
+    _imp->syncViewerButton->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When enabled, all viewers will be synchronized to the same portion of the image in the viewport."), NATRON_NAMESPACE::WhiteSpaceNormal));
+    _imp->syncViewerButton->setFixedSize(buttonSize);
+    _imp->syncViewerButton->setIconSize(buttonIconSize);
+    _imp->syncViewerButton->setFocusPolicy(Qt::NoFocus);
+    QObject::connect(_imp->syncViewerButton, SIGNAL(clicked(bool)), this, SLOT(onSyncViewersButtonPressed(bool)));
+    layout->addWidget(_imp->syncViewerButton);
+
+    _imp->centerViewerButton = new Button(_imp->firstSettingsRow);
+    _imp->centerViewerButton->setFocusPolicy(Qt::NoFocus);
+    _imp->centerViewerButton->setFixedSize(buttonSize);
+    _imp->centerViewerButton->setIconSize(buttonIconSize);
+    layout->addWidget(_imp->centerViewerButton);
+
+    addSpacer(layout);
+
+    _imp->zoomCombobox = new ComboBox(_imp->firstSettingsRow);
+    _imp->zoomCombobox->setToolTip(QString::fromUtf8("<p><b>") + tr("Zoom:") + QString::fromUtf8("</b></p>") + tr("The zoom applied to the image on the viewer.") + QString::fromUtf8("</p>"));
+
+    // Keyboard shortcuts should be made visible to the user, not only in the shortcut editor, but also at logical places in the GUI.
+
+    ActionWithShortcut *fitAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionFitViewer, "Fit", this);
+    ActionWithShortcut *zoomInAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomIn, "+", this);
+    ActionWithShortcut *zoomOutAction = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomOut, "-", this);
+    ActionWithShortcut *level100Action = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionZoomLevel100, "100%", this);
+    _imp->zoomCombobox->addAction(fitAction);
+    _imp->zoomCombobox->addAction(zoomInAction);
+    _imp->zoomCombobox->addAction(zoomOutAction);
+    _imp->zoomCombobox->addSeparator();
+    _imp->zoomCombobox->addItem(QString::fromUtf8("10%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("25%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("50%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("75%"));
+    _imp->zoomCombobox->addAction(level100Action);
+    _imp->zoomCombobox->addItem(QString::fromUtf8("125%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("150%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("200%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("400%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("800%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("1600%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("2400%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("3200%"));
+    _imp->zoomCombobox->addItem(QString::fromUtf8("6400%"));
+    _imp->zoomCombobox->setMaximumWidthFromText(QString::fromUtf8("100000%"));
+
+    layout->addWidget(_imp->zoomCombobox);
+
+    _imp->renderScaleCombo = new ComboBox(_imp->firstSettingsRow);
+    _imp->renderScaleCombo->setFocusPolicy(Qt::NoFocus);
+    _imp->renderScaleCombo->setToolTip(NATRON_NAMESPACE::convertFromPlainText(tr("When proxy mode is activated, it scales down the rendered image by this factor "
+                                                                                 "to accelerate the rendering."),
+                                                                              NATRON_NAMESPACE::WhiteSpaceNormal));
+
+    QAction *proxy2 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel2, "2", _imp->renderScaleCombo);
+    QAction *proxy4 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel4, "4", _imp->renderScaleCombo);
+    QAction *proxy8 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel8, "8", _imp->renderScaleCombo);
+    QAction *proxy16 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel16, "16", _imp->renderScaleCombo);
+    QAction *proxy32 = new ActionWithShortcut(kShortcutGroupViewer, kShortcutIDActionProxyLevel32, "32", _imp->renderScaleCombo);
+    _imp->renderScaleCombo->addAction(proxy2);
+    _imp->renderScaleCombo->addAction(proxy4);
+    _imp->renderScaleCombo->addAction(proxy8);
+    _imp->renderScaleCombo->addAction(proxy16);
+    _imp->renderScaleCombo->addAction(proxy32);
+    layout->addWidget(_imp->renderScaleCombo);
 
     return widget;
 }
