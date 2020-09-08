@@ -54,7 +54,7 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/GuiDefines.h"
 #include "Gui/ZoomContext.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 
 #define TICK_HEIGHT 7
 #define SLIDER_WIDTH 4

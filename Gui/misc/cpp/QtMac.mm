@@ -17,7 +17,7 @@
  * along with Natron.  If not, see <http://www.gnu.org/licenses/gpl-2.0.html>
  * ***** END LICENSE BLOCK ***** */
 
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 
 #include <QtCore/QtGlobal> // for Q_OS_*
 #ifdef Q_OS_MAC

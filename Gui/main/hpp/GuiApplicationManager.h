@@ -42,7 +42,7 @@
 #include "Engine/Variant.h"
 #include "Engine/EngineFwd.h"
 
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 #if defined(appPTR)
 #undef appPTR

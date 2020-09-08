@@ -44,10 +44,10 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Settings.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 #include "Gui/DialogButtonBox.h"
-#include "Gui/Gui.h"
-#include "Gui/Label.h"
+#include "Gui/main/hpp/Gui.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/LineEdit.h"
 #include "Gui/SequenceFileDialog.h"
 #include "Gui/GuiApplicationManager.h"

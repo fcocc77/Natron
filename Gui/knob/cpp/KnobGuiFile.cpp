@@ -47,8 +47,8 @@
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewIdx.h"
 
-#include "Gui/Button.h"
-#include "Gui/Gui.h"
+#include "Gui/components/hpp/Button.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/GuiDefines.h"

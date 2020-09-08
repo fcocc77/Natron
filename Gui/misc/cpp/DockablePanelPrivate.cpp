@@ -46,14 +46,14 @@
 #include "Engine/Node.h" // NATRON_PARAMETER_PAGE_NAME_INFO
 #include "Engine/ViewIdx.h"
 
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 #include "Gui/ClickableLabel.h"
 #include "Gui/GuiApplicationManager.h" // appPTR
 #include "Gui/GuiMacros.h"
 #include "Gui/KnobGui.h"
 #include "Gui/KnobGuiGroup.h" // for KnobGuiGroup
 #include "Gui/KnobWidgetDnD.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/TabGroup.h"
 
 

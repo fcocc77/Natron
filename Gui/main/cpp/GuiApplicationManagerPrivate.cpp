@@ -35,7 +35,7 @@ CLANG_DIAG_OFF(uninitialized)
 CLANG_DIAG_ON(deprecated)
 CLANG_DIAG_ON(uninitialized)
 
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/KnobGuiFactory.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/DocumentationManager.h"

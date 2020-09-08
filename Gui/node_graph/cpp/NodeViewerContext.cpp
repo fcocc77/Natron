@@ -45,7 +45,7 @@
 #include "Gui/ActionShortcuts.h"
 #include "Gui/ColoredFrame.h"
 #include "Gui/ClickableLabel.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/GuiDefines.h"
 #include "Gui/GuiMacros.h"

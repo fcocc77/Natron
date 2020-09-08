@@ -53,7 +53,7 @@ CLANG_DIAG_ON(uninitialized)
 #include "Gui/FileTypeMainWindow_win.h"
 #endif
 #include "Gui/RegisteredTabs.h"
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 
 #define kMainSplitterObjectName "ToolbarSplitter"

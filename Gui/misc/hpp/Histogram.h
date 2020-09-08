@@ -43,7 +43,7 @@ CLANG_DIAG_ON(deprecated)
 CLANG_DIAG_ON(uninitialized)
 
 #include "Gui/PanelWidget.h"
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 NATRON_NAMESPACE_ENTER
 

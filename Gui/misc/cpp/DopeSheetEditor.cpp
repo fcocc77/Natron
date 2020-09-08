@@ -37,7 +37,7 @@
 #include "Gui/DopeSheet.h"
 #include "Gui/DopeSheetHierarchyView.h"
 #include "Gui/DopeSheetView.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/GuiDefines.h"

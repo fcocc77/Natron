@@ -66,15 +66,15 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Gui/LineEdit.h"
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/GuiMacros.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/DockablePanel.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/KnobUndoCommand.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/NodeSettingsPanel.h"
 #include "Gui/TabWidget.h"
 
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 using std::make_pair;
 using std::cout;

@@ -41,7 +41,7 @@
 
 #include "Gui/DockablePanel.h"
 #include "Gui/DopeSheet.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/GuiDefines.h"
 #include "Gui/KnobGui.h"

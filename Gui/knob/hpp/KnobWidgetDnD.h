@@ -36,7 +36,7 @@
 
 #include <QtCore/QCoreApplication>
 
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 #define KNOB_DND_MIME_DATA_KEY "KnobLink"
 

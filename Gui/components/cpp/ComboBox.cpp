@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Gui/ComboBox.h"
+#include "Gui/components/hpp/ComboBox.h"
 
 #include <cassert>
 #include <algorithm> // min, max

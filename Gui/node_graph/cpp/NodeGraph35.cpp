@@ -46,7 +46,7 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/FileSystemModel.h"
 
 #include "Gui/ActionShortcuts.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/Menu.h"

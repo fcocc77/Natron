@@ -51,7 +51,7 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Gui/GuiDefines.h"
 #include "Gui/RegisteredTabs.h"
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 #include "Gui/LogWindow.h"
 
 

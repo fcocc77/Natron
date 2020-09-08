@@ -41,7 +41,7 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/Image.h"
 #include "Engine/Lut.h" // floatToInt
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 #include "Gui/DialogButtonBox.h"
 #include "Gui/GuiApplicationManager.h" // appPTR
 

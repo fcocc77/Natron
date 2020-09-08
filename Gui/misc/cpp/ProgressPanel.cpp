@@ -57,13 +57,13 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Settings.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/GuiDefines.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/ProgressTaskInfo.h"
 #include "Gui/GuiAppInstance.h"
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 #include "Gui/Menu.h"
 #include "Gui/LogWindow.h"
 #include "Gui/NodeGui.h"

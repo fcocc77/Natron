@@ -40,7 +40,7 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Gui/PyGuiApp.h"
 #include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 NATRON_NAMESPACE_ENTER;
 NATRON_PYTHON_NAMESPACE_ENTER;

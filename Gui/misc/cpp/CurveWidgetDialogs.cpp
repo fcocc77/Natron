@@ -47,11 +47,11 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Gui/DialogButtonBox.h"
 #include "Gui/LineEdit.h" // LineEdit
 #include "Gui/SpinBox.h" // SpinBox
-#include "Gui/Button.h" // Button
+#include "Gui/components/hpp/Button.h" // Button
 #include "Gui/CurveWidget.h" // CurveWidget
 #include "Gui/SequenceFileDialog.h" // SequenceFileDialog
 #include "Gui/GuiApplicationManager.h"
-#include "Gui/Label.h" // Label
+#include "Gui/components/hpp/Label.h" // Label
 
 NATRON_NAMESPACE_ENTER
 

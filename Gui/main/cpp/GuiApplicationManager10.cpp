@@ -60,7 +60,7 @@ CLANG_DIAG_ON(uninitialized)
 #include "Global/QtCompat.h"
 
 #include "Gui/CurveWidget.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/KnobGuiFactory.h"
 #include "Gui/SplashScreen.h"

@@ -55,7 +55,7 @@ GCC_DIAG_ON(unused - parameter)
 
 #include "Gui/BackdropGui.h"
 #include "Gui/CurveEditor.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/NodeClipBoard.h"

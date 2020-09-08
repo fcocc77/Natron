@@ -40,7 +40,7 @@
 #include "Engine/Image.h"
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/ViewerGL.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 
 using std::cout; using std::endl;
 NATRON_NAMESPACE_ENTER

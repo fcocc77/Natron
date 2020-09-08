@@ -50,7 +50,7 @@ GCC_DIAG_ON(unused-parameter)
 
 #include "Gui/NodeGuiSerialization.h"
 #include "Gui/NodeBackdropSerialization.h"
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 
 #define PYTHON_PANEL_SERIALIZATION_VERSION 1

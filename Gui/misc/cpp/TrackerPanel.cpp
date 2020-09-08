@@ -49,10 +49,10 @@
 
 #include "Gui/AnimatedCheckBox.h"
 #include "Gui/NodeSettingsPanel.h"
-#include "Gui/Button.h"
-#include "Gui/ComboBox.h"
+#include "Gui/components/hpp/Button.h"
+#include "Gui/components/hpp/ComboBox.h"
 #include "Gui/GuiApplicationManager.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/GuiDefines.h"
 #include "Gui/KnobGuiValue.h"
 #include "Gui/KnobGuiChoice.h"
@@ -62,7 +62,7 @@
 #include "Gui/ClickableLabel.h"
 #include "Gui/SpinBox.h"
 #include "Gui/GuiAppInstance.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 
 #define NUM_COLS 8
 

@@ -36,7 +36,7 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/Knob.h" // KnobI
 
 #include "Gui/ActionShortcuts.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiApplicationManager.h" // isKeybind
 #include "Gui/NodeGraph.h"
 #include "Gui/ViewerTab.h"

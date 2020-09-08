@@ -53,11 +53,11 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Gui/BackdropGui.h"
 #include "Gui/DialogButtonBox.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/KnobGui.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/LineEdit.h"
 #include "Gui/NodeClipBoard.h"
 #include "Gui/NodeGui.h"

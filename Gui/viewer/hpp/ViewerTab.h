@@ -41,7 +41,7 @@
 #include "Engine/EngineFwd.h"
 
 #include "Gui/PanelWidget.h"
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 #include <QtCore/QSize>
 

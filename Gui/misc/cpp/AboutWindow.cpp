@@ -51,9 +51,9 @@ CLANG_DIAG_ON(deprecated)
 #include "Engine/OSGLContext.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/Button.h"
-#include "Gui/Gui.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Button.h"
+#include "Gui/main/hpp/Gui.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/TableModelView.h"
 
 #define THIRD_PARTY_LICENSE_DIR_PATH ":"

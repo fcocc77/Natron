@@ -33,7 +33,7 @@
 #include <QStyle>
 
 #include "Gui/GuiApplicationManager.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/KnobGui.h"
 #include "Gui/GuiMacros.h"
 #include "Gui/KnobWidgetDnD.h"

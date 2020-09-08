@@ -43,13 +43,13 @@
 #include "Engine/Utils.h" // convertFromPlainText
 
 #include "Gui/ActionShortcuts.h"
-#include "Gui/ComboBox.h"
+#include "Gui/components/hpp/ComboBox.h"
 #include "Gui/DialogButtonBox.h"
 #include "Gui/DockablePanel.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiDefines.h"
 #include "Gui/KnobGui.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/LineEdit.h"
 #include "Gui/SpinBox.h"
 

@@ -41,9 +41,9 @@
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewIdx.h"
 
-#include "Gui/Button.h"
-#include "Gui/Gui.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Button.h"
+#include "Gui/main/hpp/Gui.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/LineEdit.h"
 #include "Gui/NodeGui.h"
 #include "Gui/TableModelView.h"

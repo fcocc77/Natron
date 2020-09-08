@@ -40,7 +40,7 @@
 #include "Gui/ActionShortcuts.h"
 #include "Gui/ChannelsComboBox.h"
 #include "Gui/ClickableLabel.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/NodeGui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/ViewerTab.h"

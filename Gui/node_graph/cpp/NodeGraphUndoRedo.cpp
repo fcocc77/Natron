@@ -47,7 +47,7 @@ CLANG_DIAG_ON(uninitialized)
 #include "Gui/NodeClipBoard.h"
 #include "Gui/NodeGui.h"
 #include "Gui/NodeGraph.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/Edge.h"
 #include "Gui/GuiApplicationManager.h"

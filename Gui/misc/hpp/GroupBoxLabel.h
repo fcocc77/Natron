@@ -28,8 +28,8 @@
 
 #include "Global/Macros.h"
 
-#include "Gui/Label.h"
-#include "Gui/GuiFwd.h"
+#include "Gui/components/hpp/Label.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 
 NATRON_NAMESPACE_ENTER

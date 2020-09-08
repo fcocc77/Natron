@@ -30,7 +30,7 @@
 #include <QApplication>
 
 #include "Gui/DockablePanel.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/KnobWidgetDnD.h"
 #include "Gui/RightClickableWidget.h"
 

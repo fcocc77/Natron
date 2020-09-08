@@ -55,11 +55,11 @@ CLANG_DIAG_ON(uninitialized)
 #include "Gui/ProgressPanel.h"
 #include "Gui/TableModelView.h"
 #include "Gui/GuiDefines.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/TabWidget.h"
 #include "Gui/PanelWidget.h"
 #include "Gui/GuiApplicationManager.h"
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 
 #define COL_PROGRESS 1
 #define COL_CONTROLS 3

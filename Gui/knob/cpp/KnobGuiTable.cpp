@@ -41,7 +41,7 @@
 #include "Engine/Project.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 #include "Gui/KnobUndoCommand.h"
 #include "Gui/NewLayerDialog.h"
 #include "Gui/TableModelView.h"

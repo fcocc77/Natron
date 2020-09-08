@@ -57,12 +57,12 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/ViewIdx.h"
 #include "Engine/WriteNode.h"
 
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 #include "Gui/CurveGui.h"
 #include "Gui/DockablePanelPrivate.h"
 #include "Gui/DockablePanelTabWidget.h"
 #include "Gui/FloatingWidget.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiApplicationManager.h"
 #include "Gui/GuiDefines.h"
 #include "Gui/GuiMacros.h" // triggerButtonIsRight...
@@ -70,7 +70,7 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Gui/KnobGuiColor.h"
 #include "Gui/KnobGuiGroup.h"
 #include "Gui/KnobUndoCommand.h" // RestoreDefaultsCommand
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/LineEdit.h"
 #include "Gui/ManageUserParamsDialog.h"
 #include "Gui/Menu.h"

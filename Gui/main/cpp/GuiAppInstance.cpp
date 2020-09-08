@@ -54,7 +54,7 @@
 #include "Global/StrUtils.h"
 
 #include "Gui/GuiApplicationManager.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/BackdropGui.h"
 #include "Gui/NodeGraph.h"
 #include "Gui/NodeGui.h"

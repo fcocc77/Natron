@@ -54,7 +54,7 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Markdown.h"
 
 #include "Gui/KnobGuiContainerI.h"
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 
 #define SLIDER_MAX_RANGE 100000

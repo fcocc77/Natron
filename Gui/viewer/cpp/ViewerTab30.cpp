@@ -44,9 +44,9 @@
 #include "Engine/OutputSchedulerThread.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 #include "Gui/ChannelsComboBox.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/InfoViewerWidget.h"
 #include "Gui/MultiInstancePanel.h"

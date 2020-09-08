@@ -27,7 +27,7 @@
 
 #include <stdexcept>
 
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 
 NATRON_NAMESPACE_ENTER
 

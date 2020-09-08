@@ -45,9 +45,9 @@
 #include "Engine/Utils.h" // convertFromPlainText
 
 #include "Gui/AddKnobDialog.h"
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 #include "Gui/DockablePanel.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/KnobGui.h"
 #include "Gui/NodeGui.h"

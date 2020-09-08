@@ -42,7 +42,7 @@
 
 #include "Gui/BackdropGui.h"
 #include "Gui/Edge.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/NodeGui.h"
 

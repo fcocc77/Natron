@@ -59,7 +59,7 @@
 #include "Gui/DopeSheetEditorUndoRedo.h"
 #include "Gui/DopeSheetHierarchyView.h"
 #include "Gui/DopeSheetView.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/KnobGui.h"
 #include "Gui/Menu.h"
 #include "Gui/NodeGui.h"

@@ -39,7 +39,7 @@
 #include "Engine/Settings.h"
 #include "Engine/Texture.h"
 
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiApplicationManager.h" // appFont
 #include "Gui/Menu.h"
 #include "Gui/ViewerTab.h"

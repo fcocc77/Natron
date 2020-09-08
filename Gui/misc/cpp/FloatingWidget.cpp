@@ -35,7 +35,7 @@
 #include <QDesktopWidget>
 #include <QScrollArea>
 #include "Engine/Project.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/Splitter.h"
 #include "Gui/TabWidget.h"

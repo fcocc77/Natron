@@ -67,7 +67,7 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 
 #include "Gui/ActionShortcuts.h" // kShortcutGroupViewer ...
 #include "Gui/CurveWidget.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/GuiApplicationManager.h" // isMouseShortcut
 #include "Gui/GuiDefines.h"

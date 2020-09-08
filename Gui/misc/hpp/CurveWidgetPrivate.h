@@ -40,7 +40,7 @@
 #include "Gui/Menu.h"
 #include "Gui/TextRenderer.h"
 #include "Gui/ZoomContext.h"
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 #include "Engine/OfxOverlayInteract.h"
 
 #include <QtCore/QSize>

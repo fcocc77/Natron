@@ -42,7 +42,7 @@ GCC_DIAG_ON(unused-parameter)
 
 #include "Engine/AppManager.h"
 
-#include "Gui/GuiFwd.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 
 #define NODE_GUI_INTRODUCES_COLOR 2

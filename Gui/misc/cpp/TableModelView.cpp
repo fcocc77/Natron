@@ -39,9 +39,9 @@
 #include <QScrollBar>
 
 #include "Gui/GuiMacros.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/AnimatedCheckBox.h"
-#include "Gui/ComboBox.h"
+#include "Gui/components/hpp/ComboBox.h"
 #include "Gui/SpinBox.h"
 
 NATRON_NAMESPACE_ENTER

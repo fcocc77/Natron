@@ -45,12 +45,12 @@
 #include "Engine/ViewerInstance.h"
 
 
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 #include "Gui/ChannelsComboBox.h"
 #include "Gui/CurveEditor.h"
 #include "Gui/CurveWidget.h"
 #include "Gui/DopeSheetEditor.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/InfoViewerWidget.h"
 #include "Gui/LineEdit.h"
 #include "Gui/GuiAppInstance.h"

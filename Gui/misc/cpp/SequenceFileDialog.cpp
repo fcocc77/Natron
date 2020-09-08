@@ -100,19 +100,19 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/Button.h"
+#include "Gui/components/hpp/Button.h"
 #include "Gui/LineEdit.h"
-#include "Gui/ComboBox.h"
+#include "Gui/components/hpp/ComboBox.h"
 #include "Gui/DialogButtonBox.h"
 #include "Gui/GuiApplicationManager.h"
-#include "Gui/Gui.h"
+#include "Gui/main/hpp/Gui.h"
 #include "Gui/GuiAppInstance.h"
 #include "Gui/NodeGui.h"
 #include "Gui/PythonPanels.h"
 #include "Gui/ViewerTab.h"
 #include "Gui/ViewerGL.h"
 #include "Gui/TabWidget.h"
-#include "Gui/Label.h"
+#include "Gui/components/hpp/Label.h"
 #include "Gui/Menu.h"
 #include "Global/QtCompat.h" // removeFileExtension
 

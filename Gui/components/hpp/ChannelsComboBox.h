@@ -28,8 +28,8 @@
 
 #include "Global/Macros.h"
 
-#include "Gui/ComboBox.h"
-#include "Gui/GuiFwd.h"
+#include "Gui/components/hpp/ComboBox.h"
+#include "Gui/main/hpp/GuiFwd.h"
 
 NATRON_NAMESPACE_ENTER
 
