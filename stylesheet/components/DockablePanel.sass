@@ -36,73 +36,75 @@ DockablePanel
             QTabWidget            
                 border: 1px solid
                 background: $b18
-                GroupBoxLabel
-                QComboBox
-                    @include qcombobox
                 QTabBar
                     @include tabbar
                     &::tab 
                         &:selected
                             background: $b19
-                QTextEdit
-                    @include textedit
-                QLabel
-                    color: $c1
-                QPushButton
-                    @include button
-                    border
-                #dimensionSwitchButton
-                    padding: 0
-                ComboBox 
-                    @include combobox
-                    background: $b25
-                    &[animation="0"] 
-                        &[_enabled="false"]
-                            background-color: mix($link_color, $b22, 3%)
-                            border-color: mix($link_color, $b22, 30%)
-                            color: $link_color
-                    &[animation="3"] 
-                        background-color: mix($expresion_color, $b22, 3%)
-                        border-color: mix($expresion_color, $b22, 30%)
-                        color: $expresion_color
-                ScaleSliderQWidget
-                    background: none
-                #treeKnob
-                    @include treewidget($b22)
-                    margin-right: 5px
-                LineEdit
-                    background: $b22
-                    @mixin read_only()
-                        &:read-only
-                            background-color: mix($link_color, $b22, 3%)
-                            border-color: mix($link_color, $b22, 30%)
-                            color: $link_color
-                    &[animation="0"] 
-                        &[altered="false"]
-                            color: $c2
-                        @include read_only
-                    &[animation="1"] 
-                        background-color: mix($key_color_2, $b22, 5%)
-                        border-color: mix($key_color_2, $b22, 40%)
-                        color: $key_color_2
-                        @include read_only
-                    &[animation="2"] 
-                        background-color: mix($key_color, $b22, 10%)
-                        border-color: mix($key_color, $b22, 80%)
-                        color: mix($key_color, white, 60%)
-                        @include read_only
-                    &[animation="3"] 
-                        background-color: mix($expresion_color, $b22, 3%)
-                        border-color: mix($expresion_color, $b22, 30%)
-                        color: $expresion_color
-                ClickableLabel
-                    font-size: 10px
-                    &[dirty="false"]
-                        color: mix($c1, $c0, 50%)   
-                QTreeView
-                    @include treewidget($b22)
-                    QHeaderView
-                        &::section 
-                            background-color: $b25
-                EditScriptDialog
-                    @include EditScriptDialog
+                #SettingsPanel
+                    GroupBoxLabel
+                        // background: red
+                    QComboBox
+                        @include qcombobox
+                    QTextEdit
+                        @include textedit
+                    QLabel
+                        color: $c1
+                    QPushButton
+                        @include button
+                        border
+                    #dimensionSwitchButton
+                        padding: 0
+                    ComboBox 
+                        @include combobox
+                        background: $b25
+                        &[animation="0"] 
+                            &[_enabled="false"]
+                                background-color: mix($link_color, $b22, 3%)
+                                border-color: mix($link_color, $b22, 30%)
+                                color: $link_color
+                        &[animation="3"] 
+                            background-color: mix($expresion_color, $b22, 3%)
+                            border-color: mix($expresion_color, $b22, 30%)
+                            color: $expresion_color
+                    ScaleSliderQWidget
+                        background: none
+                    #treeKnob
+                        @include treewidget($b22)
+                        margin-right: 5px
+                    LineEdit
+                        background: $b22
+                        @mixin read_only()
+                            &:read-only
+                                background-color: mix($link_color, $b22, 3%)
+                                border-color: mix($link_color, $b22, 30%)
+                                color: $link_color
+                        &[animation="0"] 
+                            &[altered="false"]
+                                color: $c2
+                            @include read_only
+                        &[animation="1"] 
+                            background-color: mix($key_color_2, $b22, 5%)
+                            border-color: mix($key_color_2, $b22, 40%)
+                            color: $key_color_2
+                            @include read_only
+                        &[animation="2"] 
+                            background-color: mix($key_color, $b22, 10%)
+                            border-color: mix($key_color, $b22, 80%)
+                            color: mix($key_color, white, 60%)
+                            @include read_only
+                        &[animation="3"] 
+                            background-color: mix($expresion_color, $b22, 3%)
+                            border-color: mix($expresion_color, $b22, 30%)
+                            color: $expresion_color
+                    ClickableLabel
+                        font-size: 10px
+                        &[dirty="false"]
+                            color: mix($c1, $c0, 50%)   
+                    QTreeView
+                        @include treewidget($b22)
+                        QHeaderView
+                            &::section 
+                                background-color: $b25
+                    EditScriptDialog
+                        @include EditScriptDialog

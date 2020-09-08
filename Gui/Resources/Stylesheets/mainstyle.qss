@@ -439,28 +439,6 @@ DockablePanel #horizContainer {
     DockablePanel #horizContainer #rightContainer QTabWidget {
       border: 1px solid;
       background: #2e2e2e; }
-      DockablePanel #horizContainer #rightContainer QTabWidget QComboBox {
-        background-color: #404040;
-        border: 1px solid #262626;
-        padding: 3px;
-        border-radius: 3px; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QComboBox::down-arrow {
-          image: url(:/Resources/Images/down_arrow.png); }
-        DockablePanel #horizContainer #rightContainer QTabWidget QComboBox:focus {
-          border-color: #383838; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QComboBox::drop-down {
-          width: 20px;
-          background-color: transparent; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QComboBox:hover {
-          border-color: #3b759c; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QComboBox:item {
-          font-size: 13px; }
-          DockablePanel #horizContainer #rightContainer QTabWidget QComboBox:item:selected {
-            background-color: #333333;
-            color: #3eb2ff;
-            padding-left: 0px; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QComboBox::indicator {
-          background-color: red; }
       DockablePanel #horizContainer #rightContainer QTabWidget QTabBar {
         background: none; }
         DockablePanel #horizContainer #rightContainer QTabWidget QTabBar::tab {
@@ -483,171 +461,193 @@ DockablePanel #horizContainer {
             image: url(:/Resources/Images/closeTab_hovered.png); }
         DockablePanel #horizContainer #rightContainer QTabWidget QTabBar::tab:selected {
           background: #303030; }
-      DockablePanel #horizContainer #rightContainer QTabWidget QTextEdit {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QComboBox {
+        background-color: #404040;
+        border: 1px solid #262626;
+        padding: 3px;
+        border-radius: 3px; }
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QComboBox::down-arrow {
+          image: url(:/Resources/Images/down_arrow.png); }
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QComboBox:focus {
+          border-color: #383838; }
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QComboBox::drop-down {
+          width: 20px;
+          background-color: transparent; }
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QComboBox:hover {
+          border-color: #3b759c; }
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QComboBox:item {
+          font-size: 13px; }
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QComboBox:item:selected {
+            background-color: #333333;
+            color: #3eb2ff;
+            padding-left: 0px; }
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QComboBox::indicator {
+          background-color: red; }
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTextEdit {
         background: #383838;
         border-radius: 3px;
         border: 1px solid #262626;
         padding: 3px;
         selection-color: #262626;
         margin-bottom: 10px; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QTextEdit:focus {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTextEdit:focus {
           border-color: #3eb2ff; }
-      DockablePanel #horizContainer #rightContainer QTabWidget QLabel {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QLabel {
         color: #cccccc; }
-      DockablePanel #horizContainer #rightContainer QTabWidget QPushButton {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QPushButton {
         background: #404040;
         color: #cccccc;
         padding: 4px 10px 4px 10px;
         border-radius: 3px;
         border: 1px solid #404040; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QPushButton:hover {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QPushButton:hover {
           border-color: #3f799f; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QPushButton:pressed {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QPushButton:pressed {
           background: #404549;
           color: #3eb2ff; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QPushButton:disabled {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QPushButton:disabled {
           color: #787878; }
-      DockablePanel #horizContainer #rightContainer QTabWidget #dimensionSwitchButton {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #dimensionSwitchButton {
         padding: 0; }
-      DockablePanel #horizContainer #rightContainer QTabWidget ComboBox {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel ComboBox {
         background: #2e2e2e;
         border-radius: 2px;
         border: 1px solid #262626;
         color: #cccccc;
         background: #404040; }
-        DockablePanel #horizContainer #rightContainer QTabWidget ComboBox:hover {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel ComboBox:hover {
           border-color: #346382;
           padding: 0;
           margin: 0;
           background: #333333; }
-        DockablePanel #horizContainer #rightContainer QTabWidget ComboBox[animation="0"][_enabled="false"] {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel ComboBox[animation="0"][_enabled="false"] {
           background-color: #3b3b3b;
           border-color: #515151;
           color: #8b8b8b; }
-        DockablePanel #horizContainer #rightContainer QTabWidget ComboBox[animation="3"] {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel ComboBox[animation="3"] {
           background-color: #3e3d38;
           border-color: #74673b;
           color: #ffd342; }
-      DockablePanel #horizContainer #rightContainer QTabWidget ScaleSliderQWidget {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel ScaleSliderQWidget {
         background: none; }
-      DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob {
         background: #383838;
         alternate-background-color: #3e3e3e;
         border: 1px solid #262626;
         border-radius: 2px;
         margin-right: 5px; }
-        DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::item {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::item {
           height: 20px; }
-          DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::item:selected {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::item:selected {
             background: #39444c;
             color: #e6e6e6; }
-            DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::item:selected:alternate {
+            DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::item:selected:alternate {
               background: #3f4a51; }
-        DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::branch {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::branch {
           background: #383838; }
-          DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::branch:alternate {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::branch:alternate {
             background: #3e3e3e; }
-          DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::branch:selected {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::branch:selected {
             background: #39444c; }
-            DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::branch:selected:alternate {
+            DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::branch:selected:alternate {
               background: #3f4a51; }
-          DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::branch:has-children:selected {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::branch:has-children:selected {
             background: #39444c; }
-            DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::branch:has-children:selected:alternate {
+            DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::branch:has-children:selected:alternate {
               background: #3f4a51; }
-          DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::branch:has-children:open {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::branch:has-children:open {
             image: url(:/Resources/Images/down_arrow.png); }
-          DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob::branch:has-children:closed {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob::branch:has-children:closed {
             image: url(:/Resources/Images/right_arrow.png); }
-        DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob QHeaderView::section {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob QHeaderView::section {
           background-color: #404040;
           padding: 5px 10px 5px 10px;
           border: 0px solid none;
           border-bottom: 1px solid #2e2e2e;
           margin-left: 1px; }
-        DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob QHeaderView::down-arrow {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob QHeaderView::down-arrow {
           image: url(:/Resources/Images/down_arrow.png); }
-        DockablePanel #horizContainer #rightContainer QTabWidget #treeKnob QHeaderView::up-arrow {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel #treeKnob QHeaderView::up-arrow {
           image: url(:/Resources/Images/up_arrow.png); }
-      DockablePanel #horizContainer #rightContainer QTabWidget LineEdit {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel LineEdit {
         background: #383838; }
-        DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="0"][altered="false"] {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel LineEdit[animation="0"][altered="false"] {
           color: #e6e6e6; }
-        DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="0"]:read-only {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel LineEdit[animation="0"]:read-only {
           background-color: #3b3b3b;
           border-color: #515151;
           color: #8b8b8b; }
-        DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="1"] {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel LineEdit[animation="1"] {
           background-color: #3d4042;
           border-color: #5d7488;
           color: #95cfff; }
-          DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="1"]:read-only {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel LineEdit[animation="1"]:read-only {
             background-color: #3b3b3b;
             border-color: #515151;
             color: #8b8b8b; }
-        DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="2"] {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel LineEdit[animation="2"] {
           background-color: #32404c;
           border-color: #0b7bd7;
           color: #66baff; }
-          DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="2"]:read-only {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel LineEdit[animation="2"]:read-only {
             background-color: #3b3b3b;
             border-color: #515151;
             color: #8b8b8b; }
-        DockablePanel #horizContainer #rightContainer QTabWidget LineEdit[animation="3"] {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel LineEdit[animation="3"] {
           background-color: #3e3d38;
           border-color: #74673b;
           color: #ffd342; }
-      DockablePanel #horizContainer #rightContainer QTabWidget ClickableLabel {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel ClickableLabel {
         font-size: 10px; }
-        DockablePanel #horizContainer #rightContainer QTabWidget ClickableLabel[dirty="false"] {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel ClickableLabel[dirty="false"] {
           color: #b3b3b3; }
-      DockablePanel #horizContainer #rightContainer QTabWidget QTreeView {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView {
         background: #383838;
         alternate-background-color: #3e3e3e;
         border: 1px solid #262626;
         border-radius: 2px; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::item {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::item {
           height: 20px; }
-          DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::item:selected {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::item:selected {
             background: #39444c;
             color: #e6e6e6; }
-            DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::item:selected:alternate {
+            DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::item:selected:alternate {
               background: #3f4a51; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::branch {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::branch {
           background: #383838; }
-          DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::branch:alternate {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::branch:alternate {
             background: #3e3e3e; }
-          DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::branch:selected {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::branch:selected {
             background: #39444c; }
-            DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::branch:selected:alternate {
+            DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::branch:selected:alternate {
               background: #3f4a51; }
-          DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::branch:has-children:selected {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::branch:has-children:selected {
             background: #39444c; }
-            DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::branch:has-children:selected:alternate {
+            DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::branch:has-children:selected:alternate {
               background: #3f4a51; }
-          DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::branch:has-children:open {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::branch:has-children:open {
             image: url(:/Resources/Images/down_arrow.png); }
-          DockablePanel #horizContainer #rightContainer QTabWidget QTreeView::branch:has-children:closed {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView::branch:has-children:closed {
             image: url(:/Resources/Images/right_arrow.png); }
-        DockablePanel #horizContainer #rightContainer QTabWidget QTreeView QHeaderView::section {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView QHeaderView::section {
           background-color: #404040;
           padding: 5px 10px 5px 10px;
           border: 0px solid none;
           border-bottom: 1px solid #2e2e2e;
           margin-left: 1px; }
-        DockablePanel #horizContainer #rightContainer QTabWidget QTreeView QHeaderView::down-arrow {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView QHeaderView::down-arrow {
           image: url(:/Resources/Images/down_arrow.png); }
-        DockablePanel #horizContainer #rightContainer QTabWidget QTreeView QHeaderView::up-arrow {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView QHeaderView::up-arrow {
           image: url(:/Resources/Images/up_arrow.png); }
-        DockablePanel #horizContainer #rightContainer QTabWidget QTreeView QHeaderView::section {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel QTreeView QHeaderView::section {
           background-color: #404040; }
-      DockablePanel #horizContainer #rightContainer QTabWidget EditScriptDialog {
+      DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel EditScriptDialog {
         background: #2e2e2e; }
-        DockablePanel #horizContainer #rightContainer QTabWidget EditScriptDialog QLabel {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel EditScriptDialog QLabel {
           background: none;
           margin-bottom: 10px;
           color: #999999; }
-        DockablePanel #horizContainer #rightContainer QTabWidget EditScriptDialog InputScriptTextEdit {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel EditScriptDialog InputScriptTextEdit {
           font-size: 15px;
           color: #cccccc;
           background-color: #404040;
@@ -655,9 +655,9 @@ DockablePanel #horizContainer {
           selection-background-color: #3f6279;
           border: 1px solid transparent;
           margin: 0; }
-          DockablePanel #horizContainer #rightContainer QTabWidget EditScriptDialog InputScriptTextEdit:focus {
+          DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel EditScriptDialog InputScriptTextEdit:focus {
             border-color: #3f799f; }
-        DockablePanel #horizContainer #rightContainer QTabWidget EditScriptDialog OutputScriptTextEdit {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel EditScriptDialog OutputScriptTextEdit {
           padding-left: 7px;
           background: #262626;
           font-size: 13px;
@@ -667,7 +667,7 @@ DockablePanel #horizContainer {
           margin: 0;
           padding: 0;
           border: 1px solid #303b43; }
-        DockablePanel #horizContainer #rightContainer QTabWidget EditScriptDialog #midButtonsContainer {
+        DockablePanel #horizContainer #rightContainer QTabWidget #SettingsPanel EditScriptDialog #midButtonsContainer {
           padding: 30px;
           background: #2e2e2e; }
 
