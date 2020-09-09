@@ -32,7 +32,7 @@
 #endif
 #endif
 
-#include <GuiApplicationManager.h>
+#include "Gui/main/includes/GuiApplicationManager.h"
 
 #include <cstdio>  // perror
 #include <cstdlib> // exit

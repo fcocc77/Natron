@@ -39,7 +39,7 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Global/GlobalDefines.h"
 
-#include "Gui/KnobGuiTable.h"
+#include <KnobGuiTable.h>
 #include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER

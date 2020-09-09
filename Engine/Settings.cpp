@@ -58,7 +58,7 @@
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include <GuiDefines.h>
+#include "Gui/main/includes/GuiDefines.h"
 
 #include <SequenceParsing.h> // for removePath
 
