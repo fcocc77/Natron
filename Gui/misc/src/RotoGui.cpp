@@ -82,7 +82,7 @@ CLANG_DIAG_ON(uninitialized)
 #include <NodeSettingsPanel.h>
 #include <RotoUndoCommand.h>
 #include <SpinBox.h>
-#include <Utils.h>
+#include "Utils.h"
 #include <ViewerGL.h>
 #include <ViewerTab.h>
 

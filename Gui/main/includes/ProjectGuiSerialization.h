@@ -49,7 +49,7 @@ GCC_DIAG_ON(unused-parameter)
 #include "Engine/RectD.h"
 
 #include <NodeGuiSerialization.h>
-#include "Gui/NodeBackdropSerialization.h"
+#include <NodeBackdropSerialization.h>
 #include <GuiFwd.h>
 
 

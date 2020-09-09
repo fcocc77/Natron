@@ -80,7 +80,7 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include <CurveGui.h>
 #include <CustomParamInteract.h>
 #include <DockablePanel.h>
-#include "Gui/EditExpressionDialog.h"
+#include <EditExpressionDialog.h>
 #include <Gui.h>
 #include <GuiAppInstance.h>
 #include <GuiApplicationManager.h>
