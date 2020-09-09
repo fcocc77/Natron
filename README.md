@@ -1,2 +1,2 @@
-Natron VFX :
-Solo para Centos 7
+Nitrogen VFX :
+Es un fork de Natron Solo para Centos 7
