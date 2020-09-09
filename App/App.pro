@@ -13,6 +13,8 @@ QT += gui core opengl network
 
 include(../global.pri)
 
+INCLUDEPATH += ../Gui/main/includes
+
 Resources.path = $$OUT_PWD
 INSTALLS += Resources
 
