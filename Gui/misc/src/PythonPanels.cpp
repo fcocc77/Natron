@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "PythonPanels.h"
+#include <PythonPanels.h>
 
 #include <stdexcept>
 #include <sstream> // stringstream
@@ -39,12 +39,12 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/PyNode.h"
 #include "Engine/ViewIdx.h"
 
-#include "Gui/DialogButtonBox.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/TabWidget.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/PyGuiApp.h"
+#include <DialogButtonBox.h>
+#include <Gui.h>
+#include <TabWidget.h>
+#include <GuiAppInstance.h>
+#include <DockablePanel.h>
+#include <PyGuiApp.h>
 
 NATRON_NAMESPACE_ENTER
 NATRON_PYTHON_NAMESPACE_ENTER

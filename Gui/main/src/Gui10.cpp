@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Gui.h"
-#include "GuiPrivate.h"
+#include <Gui.h>
+#include <GuiPrivate.h>
 
 #include <cassert>
 #include <fstream>
@@ -41,21 +41,21 @@
 #include "Engine/NodeSerialization.h"
 #include "Engine/RotoLayer.h"
 
-#include "Gui/CurveEditor.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/FloatingWidget.h"
-#include "Gui/Histogram.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/ProjectGui.h"
-#include "Gui/ProjectGuiSerialization.h" // PaneLayout
-#include "Gui/PropertiesBinWrapper.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/Splitter.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ViewerTab.h"
+#include <CurveEditor.h>
+#include <DockablePanel.h>
+#include <DopeSheetEditor.h>
+#include <FloatingWidget.h>
+#include <Histogram.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <ProjectGui.h>
+#include <ProjectGuiSerialization.h> // PaneLayout
+#include <PropertiesBinWrapper.h>
+#include <SequenceFileDialog.h>
+#include <Splitter.h>
+#include <TabWidget.h>
+#include <ViewerTab.h>
 
 #include "Global/QtCompat.h" // removeFileExtension
 

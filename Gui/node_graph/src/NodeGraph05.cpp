@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraph.h"
-#include "NodeGraphPrivate.h"
+#include <NodeGraph.h>
+#include <NodeGraphPrivate.h>
 
 #include <cstdlib>
 #include <set>
@@ -40,11 +40,11 @@
 #include "Engine/RotoContext.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/BackdropGui.h"
-#include "Gui/Edge.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/NodeGui.h"
+#include <BackdropGui.h>
+#include <Edge.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <NodeGui.h>
 
 NATRON_NAMESPACE_ENTER
 //using std::cout; using std::endl;

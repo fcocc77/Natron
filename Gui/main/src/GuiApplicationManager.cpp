@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "GuiApplicationManager.h"
-#include "GuiApplicationManagerPrivate.h"
+#include <GuiApplicationManager.h>
+#include <GuiApplicationManagerPrivate.h>
 
 #include <stdexcept>
 
@@ -47,14 +47,14 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Settings.h"
 #include "Engine/EffectInstance.h" // PLUGINID_OFX_*
 #include "Engine/PluginActionShortcut.h"
-#include "Gui/QtEnumConvert.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/KnobGuiFactory.h"
-#include "Gui/SplashScreen.h"
-#include "Gui/PreviewThread.h"
-#include "Gui/DocumentationManager.h"
+#include <QtEnumConvert.h>
+#include <GuiAppInstance.h>
+#include <Gui.h>
+#include <GuiDefines.h>
+#include <KnobGuiFactory.h>
+#include <SplashScreen.h>
+#include <PreviewThread.h>
+#include <DocumentationManager.h>
 
 //All fixed sizes were calculated for a 96 dpi screen
 #ifndef Q_OS_MAC

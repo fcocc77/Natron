@@ -44,7 +44,7 @@ CLANG_DIAG_OFF(uninitialized)
 CLANG_DIAG_ON(deprecated)
 CLANG_DIAG_ON(uninitialized)
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 
 #define DROP_DOWN_ICON_SIZE 6

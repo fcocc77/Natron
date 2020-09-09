@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ViewerTab.h"
-#include "ViewerTabPrivate.h"
+#include <ViewerTab.h>
+#include <ViewerTabPrivate.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -45,21 +45,21 @@
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/ChannelsComboBox.h"
-#include "Gui/ClickableLabel.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/InfoViewerWidget.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/NodeGui.h"
-#include "Gui/ScaleSliderQWidget.h"
-#include "Gui/SpinBox.h"
-#include "Gui/TimeLineGui.h"
-#include "Gui/ViewerGL.h"
+#include <ActionShortcuts.h>
+#include <Button.h>
+#include <ChannelsComboBox.h>
+#include <ClickableLabel.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <InfoViewerWidget.h>
+#include <Label.h>
+#include <NodeGui.h>
+#include <ScaleSliderQWidget.h>
+#include <SpinBox.h>
+#include <TimeLineGui.h>
+#include <ViewerGL.h>
 
 #include "utils/util.hpp"
 

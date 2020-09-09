@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "DialogButtonBox.h"
+#include <DialogButtonBox.h>
 
 #include <QApplication>
 #include <QPushButton>

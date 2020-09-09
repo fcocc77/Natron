@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ProjectGuiSerialization.h"
+#include <ProjectGuiSerialization.h>
 
 #include <stdexcept>
 
@@ -42,21 +42,21 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Project.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/DockablePanel.h"
-#include "Gui/FloatingWidget.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/Histogram.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/ProjectGui.h"
-#include "Gui/PythonPanels.h"
-#include "Gui/ScriptEditor.h"
-#include "Gui/Splitter.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <DockablePanel.h>
+#include <FloatingWidget.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <Histogram.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <ProjectGui.h>
+#include <PythonPanels.h>
+#include <ScriptEditor.h>
+#include <Splitter.h>
+#include <TabWidget.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 
 NATRON_NAMESPACE_ENTER
 

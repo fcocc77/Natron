@@ -32,8 +32,8 @@
 #include <boost/scoped_ptr.hpp>
 #endif
 
-#include "Gui/main/hpp/GuiFwd.h"
-#include "Gui/KnobGui.h"
+#include <GuiFwd.h>
+#include <KnobGui.h>
 
 NATRON_NAMESPACE_ENTER
 

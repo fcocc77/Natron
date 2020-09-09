@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "EditExpressionDialog.h"
+#include <EditExpressionDialog.h>
 
 #include <cassert>
 #include <climits>
@@ -67,28 +67,28 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/Variant.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveGui.h"
-#include "Gui/CustomParamInteract.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/KnobGuiGroup.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/LineEdit.h"
-#include "Gui/Menu.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeCreationDialog.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/ScriptTextEdit.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/SpinBox.h"
-#include "Gui/TabWidget.h"
-#include "Gui/TimeLineGui.h"
-#include "Gui/ViewerTab.h"
+#include <ComboBox.h>
+#include <CurveEditor.h>
+#include <CurveGui.h>
+#include <CustomParamInteract.h>
+#include <DockablePanel.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <KnobGuiGroup.h>
+#include <Label.h>
+#include <LineEdit.h>
+#include <Menu.h>
+#include <Menu.h>
+#include <NodeCreationDialog.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <ScriptTextEdit.h>
+#include <SequenceFileDialog.h>
+#include <SpinBox.h>
+#include <TabWidget.h>
+#include <TimeLineGui.h>
+#include <ViewerTab.h>
 
 NATRON_NAMESPACE_ENTER
 

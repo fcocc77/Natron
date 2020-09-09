@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ManageUserParamsDialog.h"
+#include <ManageUserParamsDialog.h>
 
 #include <stdexcept>
 
@@ -44,15 +44,15 @@
 #include "Engine/NodeGroup.h" // NodePtr
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/AddKnobDialog.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/KnobGui.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/PickKnobDialog.h"
+#include <AddKnobDialog.h>
+#include <Button.h>
+#include <DockablePanel.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <KnobGui.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <PickKnobDialog.h>
 
 NATRON_NAMESPACE_ENTER
 

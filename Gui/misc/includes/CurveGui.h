@@ -42,8 +42,8 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/Curve.h" // Curve
 
-#include "Gui/CurveGui.h" // Curves
-#include "Gui/main/hpp/GuiFwd.h"
+#include <CurveGui.h> // Curves
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

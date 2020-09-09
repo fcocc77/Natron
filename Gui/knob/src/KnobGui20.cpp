@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "KnobGui.h"
+#include <KnobGui.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -37,10 +37,10 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/ViewIdx.h"
 
-#include "Gui/KnobGuiPrivate.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/KnobUndoCommand.h" // SetExpressionCommand...
+#include <KnobGuiPrivate.h>
+#include <Gui.h>
+#include <GuiApplicationManager.h>
+#include <KnobUndoCommand.h> // SetExpressionCommand...
 
 
 NATRON_NAMESPACE_ENTER

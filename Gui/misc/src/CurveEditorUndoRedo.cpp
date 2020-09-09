@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "CurveEditorUndoRedo.h"
+#include <CurveEditorUndoRedo.h>
 
 #include <cmath>
 #include <stdexcept>
@@ -32,10 +32,10 @@
 
 #include "Global/GlobalDefines.h"
 
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveGui.h"
-#include "Gui/KnobGui.h"
-#include "Gui/CurveWidget.h"
+#include <CurveEditor.h>
+#include <CurveGui.h>
+#include <KnobGui.h>
+#include <CurveWidget.h>
 
 #include "Engine/Bezier.h"
 #include "Engine/Knob.h"

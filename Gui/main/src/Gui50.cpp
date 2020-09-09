@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Gui.h"
+#include <Gui.h>
 
 #include <cassert>
 #include <algorithm> // min, max
@@ -76,33 +76,33 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/TimeLine.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveWidget.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/ExportGroupTemplateDialog.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h" // appPTR
-#include "Gui/GuiPrivate.h"
-#include "Gui/KnobWidgetDnD.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/LogWindow.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/ProgressPanel.h"
-#include "Gui/RightClickableWidget.h"
-#include "Gui/ScriptEditor.h"
-#include "Gui/SpinBox.h"
-#include "Gui/TabWidget.h"
-#include "Gui/PreferencesPanel.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/PropertiesBinWrapper.h"
-#include "Gui/Histogram.h"
+#include <ActionShortcuts.h>
+#include <CurveEditor.h>
+#include <CurveWidget.h>
+#include <ComboBox.h>
+#include <DockablePanel.h>
+#include <DopeSheetEditor.h>
+#include <ExportGroupTemplateDialog.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h> // appPTR
+#include <GuiPrivate.h>
+#include <KnobWidgetDnD.h>
+#include <GuiMacros.h>
+#include <LogWindow.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <ProgressPanel.h>
+#include <RightClickableWidget.h>
+#include <ScriptEditor.h>
+#include <SpinBox.h>
+#include <TabWidget.h>
+#include <PreferencesPanel.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
+#include <SequenceFileDialog.h>
+#include <PropertiesBinWrapper.h>
+#include <Histogram.h>
 
 NATRON_NAMESPACE_ENTER
 

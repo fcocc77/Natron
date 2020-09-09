@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ChannelsComboBox.h"
+#include <ChannelsComboBox.h>
 
 #include <cassert>
 #include <stdexcept>

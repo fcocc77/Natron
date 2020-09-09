@@ -43,8 +43,8 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Knob.h"
 #include "Engine/ViewIdx.h"
 
-#include "Gui/PanelWidget.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <PanelWidget.h>
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER;
 NATRON_PYTHON_NAMESPACE_ENTER;

@@ -28,8 +28,8 @@
 
 #include "Global/Macros.h"
 
-#include "Gui/PanelWidget.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <PanelWidget.h>
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

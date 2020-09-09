@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "BackdropGui.h"
+#include <BackdropGui.h>
 
 #include <algorithm> // min, max
 #include <stdexcept>
@@ -41,9 +41,9 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Backdrop.h"
 #include "Engine/Settings.h"
 
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/KnobGuiString.h"
-#include "Gui/NodeGraphTextItem.h"
+#include <GuiApplicationManager.h>
+#include <KnobGuiString.h>
+#include <NodeGraphTextItem.h>
 
 
 #define NATRON_BACKDROP_DEFAULT_WIDTH 80

@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Histogram.h"
+#include <Histogram.h>
 
 #include <algorithm> // min, max
 #include <stdexcept>
@@ -49,22 +49,22 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/Texture.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/ClickableLabel.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/CurveWidget.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/Shaders.h"
-#include "Gui/TextRenderer.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
-#include "Gui/ZoomContext.h"
-#include "Gui/ticks.h"
+#include <ActionShortcuts.h>
+#include <ClickableLabel.h>
+#include <ComboBox.h>
+#include <CurveWidget.h>
+#include <Gui.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <Menu.h>
+#include <NodeGraph.h>
+#include <Shaders.h>
+#include <TextRenderer.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
+#include <ZoomContext.h>
+#include <ticks.h>
 
 NATRON_NAMESPACE_ENTER
 

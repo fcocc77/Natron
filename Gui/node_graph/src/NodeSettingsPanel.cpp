@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeSettingsPanel.h"
+#include <NodeSettingsPanel.h>
 
 #include <vector>
 #include <list>
@@ -47,16 +47,16 @@
 #include "Engine/RotoLayer.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h" // appPTR
-#include "Gui/GuiDefines.h"
-#include "Gui/Menu.h"
-#include "Gui/MultiInstancePanel.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/TrackerPanel.h"
-#include "Gui/RotoPanel.h"
+#include <Button.h>
+#include <Gui.h>
+#include <GuiApplicationManager.h> // appPTR
+#include <GuiDefines.h>
+#include <Menu.h>
+#include <MultiInstancePanel.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <TrackerPanel.h>
+#include <RotoPanel.h>
 
 
 using std::make_pair;

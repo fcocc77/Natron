@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "SplashScreen.h"
+#include <SplashScreen.h>
 
 #include <ctime>
 #include <stdexcept>

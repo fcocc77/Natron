@@ -38,9 +38,9 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/PyGlobalFunctions.h"
 
-#include "Gui/PyGuiApp.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <PyGuiApp.h>
+#include <GuiApplicationManager.h>
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER;
 NATRON_PYTHON_NAMESPACE_ENTER;

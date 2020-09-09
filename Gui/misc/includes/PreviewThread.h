@@ -38,7 +38,7 @@
 
 #include "Engine/GenericSchedulerThread.h"
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

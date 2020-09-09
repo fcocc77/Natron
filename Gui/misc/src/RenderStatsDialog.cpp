@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "RenderStatsDialog.h"
+#include <RenderStatsDialog.h>
 
 #include <bitset>
 #include <stdexcept>
@@ -41,12 +41,12 @@
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewIdx.h"
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/LineEdit.h"
-#include "Gui/NodeGui.h"
-#include "Gui/TableModelView.h"
+#include <Button.h>
+#include <Gui.h>
+#include <Label.h>
+#include <LineEdit.h>
+#include <NodeGui.h>
+#include <TableModelView.h>
 
 
 #define COL_NAME 0

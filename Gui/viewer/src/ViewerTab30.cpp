@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ViewerTab.h"
-#include "ViewerTabPrivate.h"
+#include <ViewerTab.h>
+#include <ViewerTabPrivate.h>
 
 #include <cassert>
 #include <cmath>
@@ -44,18 +44,18 @@
 #include "Engine/OutputSchedulerThread.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/ChannelsComboBox.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/InfoViewerWidget.h"
-#include "Gui/MultiInstancePanel.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeViewerContext.h"
-#include "Gui/ScaleSliderQWidget.h"
-#include "Gui/SpinBox.h"
-#include "Gui/TimeLineGui.h"
-#include "Gui/ViewerGL.h"
+#include <Button.h>
+#include <ChannelsComboBox.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <InfoViewerWidget.h>
+#include <MultiInstancePanel.h>
+#include <NodeGui.h>
+#include <NodeViewerContext.h>
+#include <ScaleSliderQWidget.h>
+#include <SpinBox.h>
+#include <TimeLineGui.h>
+#include <ViewerGL.h>
 
 
 #ifndef M_LN2

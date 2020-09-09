@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "KnobGuiTable.h"
+#include <KnobGuiTable.h>
 
 #include <sstream> // stringstream
 
@@ -41,10 +41,10 @@
 #include "Engine/Project.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/KnobUndoCommand.h"
-#include "Gui/NewLayerDialog.h"
-#include "Gui/TableModelView.h"
+#include <Button.h>
+#include <KnobUndoCommand.h>
+#include <NewLayerDialog.h>
+#include <TableModelView.h>
 
 NATRON_NAMESPACE_ENTER
 

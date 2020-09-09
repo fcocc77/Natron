@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "PanelWidget.h"
+#include <PanelWidget.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -32,8 +32,8 @@
 #include <QApplication>
 #include <QKeyEvent>
 
-#include "Gui/TabWidget.h"
-#include "Gui/main/hpp/Gui.h"
+#include <TabWidget.h>
+#include <Gui.h>
 
 NATRON_NAMESPACE_ENTER
 

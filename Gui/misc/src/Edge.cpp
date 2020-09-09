@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Edge.h"
+#include <Edge.h>
 
 #include <algorithm> // min, max
 #include <cmath>
@@ -34,10 +34,10 @@
 #include <QApplication>
 #include <QGraphicsScene>
 
-#include "Gui/NodeGui.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGraphTextItem.h"
-#include "Gui/GuiApplicationManager.h"
+#include <NodeGui.h>
+#include <NodeGraph.h>
+#include <NodeGraphTextItem.h>
+#include <GuiApplicationManager.h>
 #include "Engine/Node.h"
 #include "Engine/Image.h"
 #include "Engine/Settings.h"

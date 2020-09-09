@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "InfoViewerWidget.h"
+#include <InfoViewerWidget.h>
 
 #include <cstdlib>
 #include <stdexcept>
@@ -38,9 +38,9 @@
 #include "Engine/ViewerInstance.h"
 #include "Engine/Lut.h"
 #include "Engine/Image.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/components/hpp/Label.h"
+#include <GuiApplicationManager.h>
+#include <ViewerGL.h>
+#include <Label.h>
 
 using std::cout; using std::endl;
 NATRON_NAMESPACE_ENTER

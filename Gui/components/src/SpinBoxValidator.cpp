@@ -23,15 +23,15 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "SpinBoxValidator.h"
+#include <SpinBoxValidator.h>
 
 #include <stdexcept>
 
 #include "Engine/KnobTypes.h"
-#include "Gui/KnobUndoCommand.h"
-#include "Gui/KnobGuiValue.h"
-#include "Gui/KnobGuiColor.h"
-#include "Gui/SpinBox.h"
+#include <KnobUndoCommand.h>
+#include <KnobGuiValue.h>
+#include <KnobGuiColor.h>
+#include <SpinBox.h>
 
 NATRON_NAMESPACE_ENTER
 

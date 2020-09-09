@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "CurveWidgetPrivate.h"
+#include <CurveWidgetPrivate.h>
 
 #include <cmath> // floor
 #include <algorithm> // min, max
@@ -40,16 +40,16 @@
 #include "Engine/Image.h" // Image::clamp
 #include "Engine/Utils.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveWidget.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/KnobGui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/Menu.h"
-#include "Gui/ticks.h"
+#include <ActionShortcuts.h>
+#include <CurveEditor.h>
+#include <CurveWidget.h>
+#include <DopeSheetEditor.h>
+#include <Gui.h>
+#include <KnobGui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <Menu.h>
+#include <ticks.h>
 
 #define CLICK_DISTANCE_FROM_CURVE_ACCEPTANCE 5 //maximum distance from a curve that accepts a mouse click
 // (in widget pixels)

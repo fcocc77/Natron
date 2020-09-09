@@ -32,7 +32,7 @@
 #include <map>
 #include <string>
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

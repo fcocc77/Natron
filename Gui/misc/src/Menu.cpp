@@ -23,11 +23,11 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Menu.h"
+#include <Menu.h>
 
 #include <stdexcept>
 
-#include "Gui/GuiApplicationManager.h"
+#include <GuiApplicationManager.h>
 CLANG_DIAG_OFF(deprecated)
 CLANG_DIAG_OFF(uninitialized)
 #include <QToolTip>

@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Gui.h"
+#include <Gui.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -46,22 +46,22 @@
 #include "Engine/TimeLine.h"
 #include "Engine/CreateNodeArgs.h"
 
-#include "Gui/AboutWindow.h"
-#include "Gui/AutoHideToolBar.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveWidget.h"
-#include "Gui/FloatingWidget.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiPrivate.h"
-#include "Gui/Histogram.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/ProgressPanel.h"
-#include "Gui/ProjectGui.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/Splitter.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ViewerTab.h"
+#include <AboutWindow.h>
+#include <AutoHideToolBar.h>
+#include <DockablePanel.h>
+#include <CurveEditor.h>
+#include <CurveWidget.h>
+#include <FloatingWidget.h>
+#include <GuiAppInstance.h>
+#include <GuiPrivate.h>
+#include <Histogram.h>
+#include <NodeGraph.h>
+#include <ProgressPanel.h>
+#include <ProjectGui.h>
+#include <GuiApplicationManager.h>
+#include <Splitter.h>
+#include <TabWidget.h>
+#include <ViewerTab.h>
 
 #include "utils/util.hpp"
 

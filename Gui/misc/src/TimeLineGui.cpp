@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "TimeLineGui.h"
+#include <TimeLineGui.h>
 
 #include <cmath>
 #include <set>
@@ -49,17 +49,17 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/TimeLine.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveWidget.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/TextRenderer.h"
-#include "Gui/ViewerTab.h"
-#include "Gui/ticks.h"
+#include <CurveEditor.h>
+#include <CurveWidget.h>
+#include <DopeSheetEditor.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <TextRenderer.h>
+#include <ViewerTab.h>
+#include <ticks.h>
 
 NATRON_NAMESPACE_ENTER
 

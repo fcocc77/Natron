@@ -36,7 +36,7 @@
 #include <boost/enable_shared_from_this.hpp>
 #endif
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 
 NATRON_NAMESPACE_ENTER

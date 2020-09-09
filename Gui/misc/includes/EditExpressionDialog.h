@@ -38,7 +38,7 @@
 #include <QtCore/QString>
 
 #include "Gui/EditScriptDialog.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

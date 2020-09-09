@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "PyGuiApp.h"
+#include <PyGuiApp.h>
 
 #include <stdexcept>
 
@@ -43,14 +43,14 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/PythonPanels.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <Gui.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <PythonPanels.h>
+#include <SequenceFileDialog.h>
+#include <TabWidget.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 
 NATRON_NAMESPACE_ENTER
 NATRON_PYTHON_NAMESPACE_ENTER

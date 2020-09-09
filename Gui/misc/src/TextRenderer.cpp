@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "TextRenderer.h"
+#include <TextRenderer.h>
 
 #include <stdexcept>
 

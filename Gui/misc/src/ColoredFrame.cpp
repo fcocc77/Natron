@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ColoredFrame.h"
+#include <ColoredFrame.h>
 
 NATRON_NAMESPACE_ENTER
 

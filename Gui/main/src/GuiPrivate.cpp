@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "GuiPrivate.h"
+#include <GuiPrivate.h>
 
 #include <cassert>
 #include <fstream>
@@ -92,40 +92,40 @@ GCC_DIAG_ON(unused-parameter)
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/AboutWindow.h"
-#include "Gui/ActionShortcuts.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveWidget.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/FloatingWidget.h"
-#include "Gui/QtEnumConvert.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/Histogram.h"
-#include "Gui/Menu.h"
-#include "Gui/MessageBox.h"
-#include "Gui/MultiInstancePanel.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/PreferencesPanel.h"
-#include "Gui/ProjectGui.h"
-#include "Gui/ProjectGuiSerialization.h"
-#include "Gui/PropertiesBinWrapper.h"
-#include "Gui/ProgressPanel.h"
-#include "Gui/PythonPanels.h"
-#include "Gui/RightClickableWidget.h"
-#include "Gui/ScriptEditor.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/SpinBox.h"
-#include "Gui/Splitter.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ToolButton.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <AboutWindow.h>
+#include <ActionShortcuts.h>
+#include <Button.h>
+#include <CurveEditor.h>
+#include <CurveWidget.h>
+#include <DockablePanel.h>
+#include <DopeSheetEditor.h>
+#include <FloatingWidget.h>
+#include <QtEnumConvert.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <Histogram.h>
+#include <Menu.h>
+#include <MessageBox.h>
+#include <MultiInstancePanel.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <PreferencesPanel.h>
+#include <ProjectGui.h>
+#include <ProjectGuiSerialization.h>
+#include <PropertiesBinWrapper.h>
+#include <ProgressPanel.h>
+#include <PythonPanels.h>
+#include <RightClickableWidget.h>
+#include <ScriptEditor.h>
+#include <SequenceFileDialog.h>
+#include <SpinBox.h>
+#include <Splitter.h>
+#include <TabWidget.h>
+#include <ToolButton.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 
 
 NATRON_NAMESPACE_ENTER

@@ -33,8 +33,8 @@
 #include "Engine/ViewIdx.h"
 #include "Engine/EngineFwd.h"
 
-#include "Gui/GuiAppInstance.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiAppInstance.h>
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER;
 NATRON_PYTHON_NAMESPACE_ENTER;

@@ -17,9 +17,9 @@ GCC_DIAG_UNUSED_LOCAL_TYPEDEFS_OFF
 CLANG_DIAG_OFF(header-guard)
 #include <pysidemetafunction.h> // has wrong header guards in pyside 1.2.2
 #include <set>
-#include "natrongui_python.h"
+#include <natrongui_python.h>
 
-#include "pymodaldialog_wrapper.h"
+#include <pymodaldialog_wrapper.h>
 
 // Extra includes
 NATRON_NAMESPACE_USING NATRON_PYTHON_NAMESPACE_USING

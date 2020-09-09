@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraph.h"
-#include "NodeGraphPrivate.h"
+#include <NodeGraph.h>
+#include <NodeGraphPrivate.h>
 
 #include <sstream> // stringstream
 #include <stdexcept>
@@ -53,14 +53,14 @@ GCC_DIAG_ON(unused - parameter)
 #include "Engine/Project.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/BackdropGui.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/NodeClipBoard.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeGuiSerialization.h"
+#include <BackdropGui.h>
+#include <CurveEditor.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <NodeClipBoard.h>
+#include <NodeGui.h>
+#include <NodeGuiSerialization.h>
 
 #include "Global/QtCompat.h"
 

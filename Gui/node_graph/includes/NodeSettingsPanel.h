@@ -48,8 +48,8 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/DockablePanelI.h"
 
-#include "Gui/DockablePanel.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <DockablePanel.h>
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

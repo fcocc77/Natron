@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeViewerContext.h"
+#include <NodeViewerContext.h>
 
 #include <QMouseEvent>
 #include <QStyle>
@@ -42,20 +42,20 @@
 #include "Engine/Node.h"
 #include "Engine/Plugin.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/ColoredFrame.h"
-#include "Gui/ClickableLabel.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/KnobGui.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/QtEnumConvert.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
-#include "Gui/ViewerToolButton.h"
+#include <ActionShortcuts.h>
+#include <ColoredFrame.h>
+#include <ClickableLabel.h>
+#include <Gui.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <KnobGui.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <QtEnumConvert.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
+#include <ViewerToolButton.h>
 
 NATRON_NAMESPACE_ENTER
 

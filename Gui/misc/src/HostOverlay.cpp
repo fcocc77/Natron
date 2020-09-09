@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "HostOverlay.h"
+#include <HostOverlay.h>
 
 #include <list>
 #include <cmath>
@@ -31,10 +31,10 @@
 
 #include <boost/weak_ptr.hpp>
 
-#include "Gui/NodeGui.h"
-#include "Gui/TextRenderer.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiAppInstance.h"
+#include <NodeGui.h>
+#include <TextRenderer.h>
+#include <GuiApplicationManager.h>
+#include <GuiAppInstance.h>
 
 #include "Engine/Curve.h"
 #include "Engine/EffectInstance.h"

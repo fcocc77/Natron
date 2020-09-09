@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Splitter.h"
+#include <Splitter.h>
 
 #include <cassert>
 #include <stdexcept>

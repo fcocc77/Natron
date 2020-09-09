@@ -35,12 +35,12 @@
 
 #include "Global/GLIncludes.h" //!<must be included before QGlWidget because of gl.h and glew.h
 
-#include "Gui/CurveEditorUndoRedo.h" // MoveTangentCommand
-#include "Gui/CurveGui.h"
-#include "Gui/Menu.h"
-#include "Gui/TextRenderer.h"
-#include "Gui/ZoomContext.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <CurveEditorUndoRedo.h> // MoveTangentCommand
+#include <CurveGui.h>
+#include <Menu.h>
+#include <TextRenderer.h>
+#include <ZoomContext.h>
+#include <GuiFwd.h>
 #include "Engine/OfxOverlayInteract.h"
 
 #include <QtCore/QSize>

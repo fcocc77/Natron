@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "LogWindow.h"
+#include <LogWindow.h>
 
 #include <cmath>
 #include <stdexcept>
@@ -41,9 +41,9 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/Image.h"
 #include "Engine/Lut.h" // floatToInt
-#include "Gui/components/hpp/Button.h"
-#include "Gui/DialogButtonBox.h"
-#include "Gui/GuiApplicationManager.h" // appPTR
+#include <Button.h>
+#include <DialogButtonBox.h>
+#include <GuiApplicationManager.h> // appPTR
 
 NATRON_NAMESPACE_ENTER
 

@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraph.h"
-#include "NodeGraphPrivate.h"
+#include <NodeGraph.h>
+#include <NodeGraphPrivate.h>
 
 #include <stdexcept>
 
@@ -44,13 +44,13 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/Node.h"
 #include "Engine/Settings.h"
 
-#include "Gui/BackdropGui.h"
-#include "Gui/Edge.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/NodeGui.h"
+#include <BackdropGui.h>
+#include <Edge.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiMacros.h>
+#include <GuiApplicationManager.h>
+#include <NodeGui.h>
 
 #include "Global/QtCompat.h"
 

@@ -32,7 +32,7 @@
 #include <boost/scoped_ptr.hpp>
 #endif
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 
 NATRON_NAMESPACE_ENTER

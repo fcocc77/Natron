@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraph.h"
-#include "NodeGraphPrivate.h"
+#include <NodeGraph.h>
+#include <NodeGraphPrivate.h>
 
 #include <stdexcept>
 
@@ -44,19 +44,19 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/TimeLine.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/Edge.h"
-#include "Gui/FloatingWidget.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h" // isKeyBind
-#include "Gui/GuiMacros.h"
-#include "Gui/NodeCreationDialog.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <ActionShortcuts.h>
+#include <Edge.h>
+#include <FloatingWidget.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h> // isKeyBind
+#include <GuiMacros.h>
+#include <NodeCreationDialog.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <TabWidget.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 
 #include "Global/QtCompat.h"
 

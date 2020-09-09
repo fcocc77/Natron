@@ -63,9 +63,9 @@ CLANG_DIAG_ON(uninitialized)
 #include "Global/QtCompat.h"
 
 #include "Engine/FileSystemModel.h"
-#include "Gui/LineEdit.h"
+#include <LineEdit.h>
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

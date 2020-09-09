@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "DocumentationManager.h"
+#include <DocumentationManager.h>
 
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
@@ -39,7 +39,7 @@ GCC_ONLY_DIAG_ON(class-memaccess)
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
 
-#include "Gui/GuiApplicationManager.h" // appPTR
+#include <GuiApplicationManager.h> // appPTR
 #include "Engine/AppInstance.h"
 #include "Engine/CreateNodeArgs.h"
 #include "Engine/Node.h"

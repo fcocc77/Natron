@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "AddKnobDialog.h"
+#include <AddKnobDialog.h>
 
 #include <cfloat> // floor
 #include <stdexcept>
@@ -42,16 +42,16 @@
 #include "Engine/NodeGroup.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/DialogButtonBox.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/KnobGui.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/LineEdit.h"
-#include "Gui/SpinBox.h"
+#include <ActionShortcuts.h>
+#include <ComboBox.h>
+#include <DialogButtonBox.h>
+#include <DockablePanel.h>
+#include <Gui.h>
+#include <GuiDefines.h>
+#include <KnobGui.h>
+#include <Label.h>
+#include <LineEdit.h>
+#include <SpinBox.h>
 
 
 NATRON_NAMESPACE_ENTER

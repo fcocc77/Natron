@@ -23,16 +23,16 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "PropertiesBinWrapper.h"
+#include <PropertiesBinWrapper.h>
 
 #include <stdexcept>
 
 #include <QApplication>
 
-#include "Gui/DockablePanel.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/KnobWidgetDnD.h"
-#include "Gui/RightClickableWidget.h"
+#include <DockablePanel.h>
+#include <Gui.h>
+#include <KnobWidgetDnD.h>
+#include <RightClickableWidget.h>
 
 NATRON_NAMESPACE_ENTER
 

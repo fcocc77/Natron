@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraph.h"
-#include "NodeGraphPrivate.h"
+#include <NodeGraph.h>
+#include <NodeGraphPrivate.h>
 
 #include <cmath> // ceil
 #include <list>
@@ -33,8 +33,8 @@
 
 #include "Engine/Settings.h"
 
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/NodeGui.h"
+#include <GuiApplicationManager.h>
+#include <NodeGui.h>
 
 #include "Global/QtCompat.h"
 

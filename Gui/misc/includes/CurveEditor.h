@@ -43,10 +43,10 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/EngineFwd.h"
 
-#include "Gui/PanelWidget.h"
-#include "Gui/CurveSelection.h"
-#include "Gui/CurveEditorUndoRedo.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <PanelWidget.h>
+#include <CurveSelection.h>
+#include <CurveEditorUndoRedo.h>
+#include <GuiFwd.h>
 
 
 NATRON_NAMESPACE_ENTER

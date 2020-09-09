@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "LineEdit.h"
+#include <LineEdit.h>
 
 #include <stdexcept>
 
@@ -46,8 +46,8 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Global/QtCompat.h"
 
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
 
 NATRON_NAMESPACE_ENTER
 

@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "CustomParamInteract.h"
+#include <CustomParamInteract.h>
 
 #include <stdexcept>
 
@@ -33,9 +33,9 @@
 #include <QMouseEvent>
 #include <QtCore/QByteArray>
 
-#include "Gui/KnobGui.h"
-#include "Gui/QtEnumConvert.h"
-#include "Gui/GuiApplicationManager.h"
+#include <KnobGui.h>
+#include <QtEnumConvert.h>
+#include <GuiApplicationManager.h>
 
 #include "Engine/OfxOverlayInteract.h"
 #include "Engine/Knob.h"

@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Gui.h"
+#include <Gui.h>
 
 #include <cassert>
 #include <algorithm> // min, max
@@ -47,17 +47,17 @@
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewIdx.h"
 
-#include "Gui/CurveEditor.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h" // appPTR
-#include "Gui/GuiPrivate.h"
-#include "Gui/Menu.h"
-#include "Gui/MessageBox.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/PreferencesPanel.h"
-#include "Gui/QtEnumConvert.h"
-#include "Gui/ResizableMessageBox.h"
-#include "Gui/TabWidget.h"
+#include <CurveEditor.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h> // appPTR
+#include <GuiPrivate.h>
+#include <Menu.h>
+#include <MessageBox.h>
+#include <NodeGraph.h>
+#include <PreferencesPanel.h>
+#include <QtEnumConvert.h>
+#include <ResizableMessageBox.h>
+#include <TabWidget.h>
 
 
 NATRON_NAMESPACE_ENTER

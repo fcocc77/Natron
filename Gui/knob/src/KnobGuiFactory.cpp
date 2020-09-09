@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "KnobGuiFactory.h"
+#include <KnobGuiFactory.h>
 
 #include <stdexcept>
 
@@ -38,19 +38,18 @@
 #include "Engine/KnobTypes.h"
 #include "Engine/KnobFile.h"
 
-#include "Gui/KnobGui.h"
-#include "Gui/KnobGuiFile.h"
-#include "Gui/KnobGuiValue.h"
-#include "Gui/KnobGuiBool.h"
-#include "Gui/KnobGuiButton.h"
-#include "Gui/KnobGuiChoice.h"
-#include "Gui/KnobGuiSeparator.h"
-#include "Gui/KnobGuiGroup.h"
-#include "Gui/KnobGuiColor.h"
-#include "Gui/KnobGuiString.h"
-#include "Gui/KnobGuiBool.h"
-#include "Gui/KnobGuiParametric.h"
-#include "Gui/DockablePanel.h"
+#include <KnobGui.h>
+#include <KnobGuiFile.h>
+#include <KnobGuiValue.h>
+#include <KnobGuiBool.h>
+#include <KnobGuiButton.h>
+#include <KnobGuiChoice.h>
+#include <KnobGuiSeparator.h>
+#include <KnobGuiGroup.h>
+#include <KnobGuiColor.h>
+#include <KnobGuiString.h>
+#include <KnobGuiParametric.h>
+#include <DockablePanel.h>
 
 NATRON_NAMESPACE_ENTER
 using std::make_pair;

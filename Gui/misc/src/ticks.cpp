@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ticks.h"
+#include <ticks.h>
 
 #include "Engine/Utils.h"
 

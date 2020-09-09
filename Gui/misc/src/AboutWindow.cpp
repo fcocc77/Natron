@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "AboutWindow.h"
+#include <AboutWindow.h>
 
 #include <stdexcept>
 
@@ -51,10 +51,10 @@ CLANG_DIAG_ON(deprecated)
 #include "Engine/OSGLContext.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/TableModelView.h"
+#include <Button.h>
+#include <Gui.h>
+#include <Label.h>
+#include <TableModelView.h>
 
 #define THIRD_PARTY_LICENSE_DIR_PATH ":"
 

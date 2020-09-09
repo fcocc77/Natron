@@ -51,8 +51,8 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/NodeGraphI.h"
 #include "Engine/EngineFwd.h"
 
-#include "Gui/PanelWidget.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <PanelWidget.h>
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

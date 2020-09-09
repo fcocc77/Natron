@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Shaders.h"
+#include <Shaders.h>
 
 #include <stdexcept>
 

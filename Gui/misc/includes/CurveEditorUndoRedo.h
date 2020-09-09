@@ -46,7 +46,7 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Curve.h"
 #include "Engine/Transform.h"
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

@@ -38,7 +38,7 @@
 #include "Engine/AppInstance.h"
 #include "Engine/ViewIdx.h"
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 class QDrag;
 

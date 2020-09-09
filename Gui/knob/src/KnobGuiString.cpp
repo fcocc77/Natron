@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "KnobGuiString.h"
+#include <KnobGuiString.h>
 
 #include <cfloat>
 #include <algorithm> // min, max
@@ -59,24 +59,24 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/TimeLine.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/ClickableLabel.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/CurveGui.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/GroupBoxLabel.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/KnobUndoCommand.h"
-#include "Gui/KnobWidgetDnD.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/NewLayerDialog.h"
-#include "Gui/ProjectGui.h"
-#include "Gui/ScaleSliderQWidget.h"
-#include "Gui/SpinBox.h"
-#include "Gui/TabGroup.h"
+#include <Button.h>
+#include <ClickableLabel.h>
+#include <ComboBox.h>
+#include <CurveGui.h>
+#include <DockablePanel.h>
+#include <GroupBoxLabel.h>
+#include <Gui.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <KnobUndoCommand.h>
+#include <KnobWidgetDnD.h>
+#include <Label.h>
+#include <NewLayerDialog.h>
+#include <ProjectGui.h>
+#include <ScaleSliderQWidget.h>
+#include <SpinBox.h>
+#include <TabGroup.h>
 
 #include <ofxNatron.h>
 

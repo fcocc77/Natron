@@ -46,11 +46,11 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/ImagePlaneDesc.h"
 #include "Engine/EngineFwd.h"
 
-#include "Gui/CurveSelection.h"
-#include "Gui/KnobGuiValue.h"
-#include "Gui/AnimatedCheckBox.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <CurveSelection.h>
+#include <KnobGuiValue.h>
+#include <AnimatedCheckBox.h>
+#include <Label.h>
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

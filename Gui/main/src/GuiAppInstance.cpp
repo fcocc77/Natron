@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "GuiAppInstance.h"
+#include <GuiAppInstance.h>
 
 #include <stdexcept>
 #include <sstream> // stringstream
@@ -53,18 +53,18 @@
 #include "Global/QtCompat.h"
 #include "Global/StrUtils.h"
 
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/BackdropGui.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/KnobGuiFile.h"
-#include "Gui/MultiInstancePanel.h"
-#include "Gui/ProgressPanel.h"
-#include "Gui/ViewerTab.h"
-#include "Gui/SplashScreen.h"
-#include "Gui/ScriptEditor.h"
-#include "Gui/ViewerGL.h"
+#include <GuiApplicationManager.h>
+#include <Gui.h>
+#include <BackdropGui.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <KnobGuiFile.h>
+#include <MultiInstancePanel.h>
+#include <ProgressPanel.h>
+#include <ViewerTab.h>
+#include <SplashScreen.h>
+#include <ScriptEditor.h>
+#include <ViewerGL.h>
 
 NATRON_NAMESPACE_ENTER
 

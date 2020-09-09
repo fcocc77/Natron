@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "FloatingWidget.h"
+#include <FloatingWidget.h>
 
 #include <cassert>
 #include <algorithm> // min, max
@@ -35,10 +35,10 @@
 #include <QDesktopWidget>
 #include <QScrollArea>
 #include "Engine/Project.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/Splitter.h"
-#include "Gui/TabWidget.h"
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <Splitter.h>
+#include <TabWidget.h>
 
 NATRON_NAMESPACE_ENTER
 

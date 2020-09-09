@@ -38,7 +38,7 @@
 // See https://gitlab.com/qtdevnet-wiki-mvc/qtdevnet-registereditorfiletype/tree/master
 // and https://wiki.qt.io/Assigning_a_file_type_to_an_Application_on_Windows
 
-#include "FileTypeMainWindow_win.h"
+#include <FileTypeMainWindow_win.h>
 
 #ifdef __NATRON_WIN32__
 

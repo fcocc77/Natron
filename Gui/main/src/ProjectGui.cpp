@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ProjectGui.h"
+#include <ProjectGui.h>
 
 #include <fstream>
 #include <stdexcept>
@@ -50,30 +50,30 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/BackdropGui.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/DialogButtonBox.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/Histogram.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/LineEdit.h"
-#include "Gui/MultiInstancePanel.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/ProjectGuiSerialization.h"
-#include "Gui/PythonPanels.h"
-#include "Gui/RegisteredTabs.h"
-#include "Gui/ScriptEditor.h"
-#include "Gui/SpinBox.h"
-#include "Gui/Splitter.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <BackdropGui.h>
+#include <Button.h>
+#include <ComboBox.h>
+#include <CurveEditor.h>
+#include <DialogButtonBox.h>
+#include <DockablePanel.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <Histogram.h>
+#include <Label.h>
+#include <LineEdit.h>
+#include <MultiInstancePanel.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <ProjectGuiSerialization.h>
+#include <PythonPanels.h>
+#include <RegisteredTabs.h>
+#include <ScriptEditor.h>
+#include <SpinBox.h>
+#include <Splitter.h>
+#include <TabWidget.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 
 //Remove when serialization is gone from this file
 #include "Engine/RectISerialization.h"

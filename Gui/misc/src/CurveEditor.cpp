@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "CurveEditor.h"
+#include <CurveEditor.h>
 
 #include <utility>
 #include <stdexcept>
@@ -59,22 +59,22 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/TimeLine.h"
 #include "Engine/ViewIdx.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/CurveGui.h"
-#include "Gui/NodeGui.h"
-#include "Gui/KnobGui.h"
-#include "Gui/LineEdit.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/KnobUndoCommand.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/TabWidget.h"
+#include <ActionShortcuts.h>
+#include <CurveGui.h>
+#include <NodeGui.h>
+#include <KnobGui.h>
+#include <LineEdit.h>
+#include <GuiApplicationManager.h>
+#include <GuiMacros.h>
+#include <Gui.h>
+#include <DockablePanel.h>
+#include <GuiAppInstance.h>
+#include <KnobUndoCommand.h>
+#include <Label.h>
+#include <NodeSettingsPanel.h>
+#include <TabWidget.h>
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 using std::make_pair;
 using std::cout;

@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGuiSerialization.h"
+#include <NodeGuiSerialization.h>
 
 #include <stdexcept>
 
@@ -33,7 +33,7 @@ CLANG_DIAG_OFF(uninitialized)
 CLANG_DIAG_ON(deprecated)
 CLANG_DIAG_ON(uninitialized)
 
-#include "Gui/NodeGui.h"
+#include <NodeGui.h>
 
 #include "Engine/Node.h"
 #include "Engine/NodeGroup.h"

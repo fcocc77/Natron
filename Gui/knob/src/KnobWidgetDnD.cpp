@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "KnobWidgetDnD.h"
+#include <KnobWidgetDnD.h>
 
 #include <sstream> // stringstream
 
@@ -48,12 +48,12 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Image.h"
 #include "Engine/Settings.h"
 
-#include "Gui/KnobGui.h"
-#include "Gui/KnobUndoCommand.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiMacros.h"
+#include <KnobGui.h>
+#include <KnobUndoCommand.h>
+#include <GuiAppInstance.h>
+#include <Gui.h>
+#include <GuiApplicationManager.h>
+#include <GuiMacros.h>
 
 
 NATRON_NAMESPACE_ENTER

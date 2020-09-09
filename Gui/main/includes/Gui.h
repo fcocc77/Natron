@@ -48,12 +48,12 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/ViewIdx.h"
 #include "Engine/EngineFwd.h"
 
-#include "Gui/SerializableWindow.h"
+#include <SerializableWindow.h>
 #ifdef __NATRON_WIN32__
-#include "Gui/FileTypeMainWindow_win.h"
+#include <FileTypeMainWindow_win.h>
 #endif
-#include "Gui/RegisteredTabs.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <RegisteredTabs.h>
+#include <GuiFwd.h>
 
 
 #define kMainSplitterObjectName "ToolbarSplitter"

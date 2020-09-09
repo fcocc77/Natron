@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ResizableMessageBox.h"
+#include <ResizableMessageBox.h>
 
 #include <stdexcept>
 

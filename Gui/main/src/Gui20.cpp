@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Gui.h"
+#include <Gui.h>
 
 #include <cassert>
 #include <sstream> // stringstream
@@ -51,22 +51,22 @@
 #include "Engine/Settings.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/CurveEditor.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h" // appPTR
-#include "Gui/GuiPrivate.h"
-#include "Gui/Histogram.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/ProjectGui.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/Splitter.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ToolButton.h"
-#include "Gui/ScriptEditor.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <CurveEditor.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h> // appPTR
+#include <GuiPrivate.h>
+#include <Histogram.h>
+#include <Menu.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <ProjectGui.h>
+#include <SequenceFileDialog.h>
+#include <Splitter.h>
+#include <TabWidget.h>
+#include <ToolButton.h>
+#include <ScriptEditor.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 #include "utils/util.hpp"
 
 #include "Global/QtCompat.h" // removeFileExtension

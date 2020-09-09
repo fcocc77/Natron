@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraph.h"
-#include "NodeGraphPrivate.h"
+#include <NodeGraph.h>
+#include <NodeGraphPrivate.h>
 
 #include <cmath> // abs
 #include <stdexcept>
@@ -46,17 +46,17 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/NodeGroup.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/CurveWidget.h"
-#include "Gui/Edge.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/Histogram.h"
-#include "Gui/NodeGui.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <CurveWidget.h>
+#include <Edge.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <Histogram.h>
+#include <NodeGui.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 
 #include "Global/QtCompat.h"
 

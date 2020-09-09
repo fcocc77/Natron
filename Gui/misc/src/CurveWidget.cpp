@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "CurveWidget.h"
+#include <CurveWidget.h>
 
 #include <cmath> // floor
 #include <stdexcept>
@@ -47,20 +47,20 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/Settings.h"
 #include "Engine/KnobTypes.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveWidgetDialogs.h"
-#include "Gui/CurveWidgetPrivate.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
+#include <ActionShortcuts.h>
+#include <CurveEditor.h>
+#include <CurveWidgetDialogs.h>
+#include <CurveWidgetPrivate.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
 
-#include "Gui/KnobGui.h"
-#include "Gui/PythonPanels.h" // PyModelDialog
-#include "Gui/TabWidget.h"
-#include "Gui/ViewerGL.h"
+#include <KnobGui.h>
+#include <PythonPanels.h> // PyModelDialog
+#include <TabWidget.h>
+#include <ViewerGL.h>
 
 NATRON_NAMESPACE_ENTER
 

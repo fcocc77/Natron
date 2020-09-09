@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "DopeSheetEditor.h"
+#include <DopeSheetEditor.h>
 
 #include <stdexcept>
 
@@ -33,16 +33,16 @@
 #include <QSplitter>
 #include <QKeyEvent>
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/DopeSheet.h"
-#include "Gui/DopeSheetHierarchyView.h"
-#include "Gui/DopeSheetView.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/NodeGui.h"
-#include "Gui/GuiMacros.h"
+#include <ActionShortcuts.h>
+#include <DopeSheet.h>
+#include <DopeSheetHierarchyView.h>
+#include <DopeSheetView.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <NodeGui.h>
+#include <GuiMacros.h>
 #include "Engine/TimeLine.h"
 
 NATRON_NAMESPACE_ENTER

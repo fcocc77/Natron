@@ -23,10 +23,10 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "KnobGuiPrivate.h"
+#include <KnobGuiPrivate.h>
 #include <stdexcept>
 
-#include "Gui/NodeViewerContext.h"
+#include <NodeViewerContext.h>
 
 NATRON_NAMESPACE_ENTER
 

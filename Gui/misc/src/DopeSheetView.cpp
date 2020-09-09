@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "DopeSheetView.h"
+#include <DopeSheetView.h>
 
 #include <algorithm> // min, max
 #include <limits>
@@ -47,30 +47,30 @@
 
 #include "Global/Enums.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveWidget.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/DopeSheet.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/DopeSheetEditorUndoRedo.h"
-#include "Gui/DopeSheetHierarchyView.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/Histogram.h"
-#include "Gui/KnobGui.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/TextRenderer.h"
-#include "Gui/ticks.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
-#include "Gui/ZoomContext.h"
-#include "Gui/TabWidget.h"
+#include <ActionShortcuts.h>
+#include <CurveEditor.h>
+#include <CurveWidget.h>
+#include <DockablePanel.h>
+#include <DopeSheet.h>
+#include <DopeSheetEditor.h>
+#include <DopeSheetEditorUndoRedo.h>
+#include <DopeSheetHierarchyView.h>
+#include <Gui.h>
+#include <GuiApplicationManager.h>
+#include <GuiAppInstance.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <Histogram.h>
+#include <KnobGui.h>
+#include <Menu.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <TextRenderer.h>
+#include <ticks.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
+#include <ZoomContext.h>
+#include <TabWidget.h>
 
 #define NATRON_DOPESHEET_MIN_RANGE_FIT 10
 

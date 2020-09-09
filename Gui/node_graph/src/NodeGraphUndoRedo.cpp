@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraphUndoRedo.h"
+#include <NodeGraphUndoRedo.h>
 
 #include <algorithm> // min, max
 #include <stdexcept>
@@ -44,14 +44,14 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/TimeLine.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/NodeClipBoard.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/Edge.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/MultiInstancePanel.h"
+#include <NodeClipBoard.h>
+#include <NodeGui.h>
+#include <NodeGraph.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <Edge.h>
+#include <GuiApplicationManager.h>
+#include <MultiInstancePanel.h>
 
 #define MINIMUM_VERTICAL_SPACE_BETWEEN_NODES 10
 

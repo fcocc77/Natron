@@ -39,8 +39,8 @@ CLANG_DIAG_ON(deprecated)
 
 #include "Engine/ViewIdx.h"
 
-#include "Gui/main/hpp/GuiFwd.h"
-#include "Gui/KnobGuiContainerI.h"
+#include <GuiFwd.h>
+#include <KnobGuiContainerI.h>
 
 NATRON_NAMESPACE_ENTER
 

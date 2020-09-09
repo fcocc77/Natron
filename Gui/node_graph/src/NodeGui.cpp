@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGui.h"
+#include <NodeGui.h>
 
 #include <cassert>
 #include <algorithm> // min, max
@@ -69,39 +69,39 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/BackdropGui.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/HostOverlay.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/Edge.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/KnobGui.h"
-#include "Gui/KnobGuiString.h"
-#include "Gui/QtEnumConvert.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/LineEdit.h"
-#include "Gui/MultiInstancePanel.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeClipBoard.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGraphUndoRedo.h"
-#include "Gui/NodeGuiSerialization.h"
-#include "Gui/NodeGraphTextItem.h"
-#include "Gui/NodeGraphRectItem.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/PreviewThread.h"
-#include "Gui/PythonPanels.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/SpinBox.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <ActionShortcuts.h>
+#include <BackdropGui.h>
+#include <Button.h>
+#include <CurveEditor.h>
+#include <HostOverlay.h>
+#include <DockablePanel.h>
+#include <DopeSheetEditor.h>
+#include <Edge.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <KnobGui.h>
+#include <KnobGuiString.h>
+#include <QtEnumConvert.h>
+#include <Label.h>
+#include <LineEdit.h>
+#include <MultiInstancePanel.h>
+#include <Menu.h>
+#include <NodeClipBoard.h>
+#include <NodeGraph.h>
+#include <NodeGraphUndoRedo.h>
+#include <NodeGuiSerialization.h>
+#include <NodeGraphTextItem.h>
+#include <NodeGraphRectItem.h>
+#include <NodeSettingsPanel.h>
+#include <PreviewThread.h>
+#include <PythonPanels.h>
+#include <SequenceFileDialog.h>
+#include <SequenceFileDialog.h>
+#include <SpinBox.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 
 #define NATRON_STATE_INDICATOR_OFFSET 5
 

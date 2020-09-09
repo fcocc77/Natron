@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "SerializableWindow.h"
+#include <SerializableWindow.h>
 
 #include <stdexcept>
 

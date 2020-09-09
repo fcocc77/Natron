@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraph.h"
-#include "NodeGraphPrivate.h"
+#include <NodeGraph.h>
+#include <NodeGraphPrivate.h>
 
 #include <map>
 #include <vector>
@@ -51,18 +51,18 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/BackdropGui.h"
-#include "Gui/DialogButtonBox.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/KnobGui.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/LineEdit.h"
-#include "Gui/NodeClipBoard.h"
-#include "Gui/NodeGui.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ViewerTab.h"
+#include <BackdropGui.h>
+#include <DialogButtonBox.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <KnobGui.h>
+#include <Label.h>
+#include <LineEdit.h>
+#include <NodeClipBoard.h>
+#include <NodeGui.h>
+#include <TabWidget.h>
+#include <ViewerTab.h>
 
 #include "Global/QtCompat.h"
 

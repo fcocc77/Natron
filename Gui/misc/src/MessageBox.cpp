@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "MessageBox.h"
+#include <MessageBox.h>
 
 #include <stdexcept>
 
@@ -42,10 +42,10 @@ CLANG_DIAG_OFF(uninitialized)
 CLANG_DIAG_ON(deprecated)
 CLANG_DIAG_ON(uninitialized)
 
-#include "Gui/DialogButtonBox.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/QtEnumConvert.h"
+#include <DialogButtonBox.h>
+#include <GuiApplicationManager.h>
+#include <Label.h>
+#include <QtEnumConvert.h>
 
 NATRON_NAMESPACE_ENTER
 

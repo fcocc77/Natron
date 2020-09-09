@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ClickableLabel.h"
+#include <ClickableLabel.h>
 
 #include <stdexcept>
 
@@ -32,11 +32,11 @@
 #include <QMouseEvent>
 #include <QStyle>
 
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/KnobGui.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/KnobWidgetDnD.h"
+#include <GuiApplicationManager.h>
+#include <Label.h>
+#include <KnobGui.h>
+#include <GuiMacros.h>
+#include <KnobWidgetDnD.h>
 
 NATRON_NAMESPACE_ENTER
 

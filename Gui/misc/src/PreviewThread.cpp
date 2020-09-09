@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "PreviewThread.h"
+#include <PreviewThread.h>
 
 #include <list>
 #include <vector>
@@ -33,8 +33,8 @@
 #include <QtCore/QWaitCondition>
 #include <QtCore/QMutex>
 
-#include "Gui/GuiDefines.h"
-#include "Gui/NodeGui.h"
+#include <GuiDefines.h>
+#include <NodeGui.h>
 
 #include "Engine/Node.h"
 

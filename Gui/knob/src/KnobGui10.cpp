@@ -24,7 +24,7 @@
 // ***** END PYTHON BLOCK *****
 
 
-#include "KnobGui.h"
+#include <KnobGui.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -36,8 +36,8 @@
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewIdx.h"
 
-#include "Gui/KnobGuiPrivate.h"
-#include "Gui/KnobUndoCommand.h" // SetExpressionCommand...
+#include <KnobGuiPrivate.h>
+#include <KnobUndoCommand.h> // SetExpressionCommand...
 
 NATRON_NAMESPACE_ENTER
 

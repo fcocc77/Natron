@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "DotGui.h"
+#include <DotGui.h>
 
 #include <cassert>
 #include <algorithm> // min, max
@@ -59,32 +59,32 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Settings.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/BackdropGui.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/HostOverlay.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/Edge.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/KnobGui.h"
-#include "Gui/KnobGuiString.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/LineEdit.h"
-#include "Gui/MultiInstancePanel.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGraphUndoRedo.h"
-#include "Gui/NodeGuiSerialization.h"
-#include "Gui/NodeGraphTextItem.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/SpinBox.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <BackdropGui.h>
+#include <Button.h>
+#include <CurveEditor.h>
+#include <HostOverlay.h>
+#include <DockablePanel.h>
+#include <DopeSheetEditor.h>
+#include <Edge.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <KnobGui.h>
+#include <KnobGuiString.h>
+#include <Label.h>
+#include <LineEdit.h>
+#include <MultiInstancePanel.h>
+#include <NodeGraph.h>
+#include <NodeGraphUndoRedo.h>
+#include <NodeGuiSerialization.h>
+#include <NodeGraphTextItem.h>
+#include <NodeSettingsPanel.h>
+#include <SequenceFileDialog.h>
+#include <SequenceFileDialog.h>
+#include <SpinBox.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 
 #define NATRON_STATE_INDICATOR_OFFSET 5
 

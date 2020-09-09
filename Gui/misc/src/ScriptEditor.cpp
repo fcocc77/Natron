@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ScriptEditor.h"
+#include <ScriptEditor.h>
 
 #include <stdexcept>
 
@@ -46,14 +46,14 @@
 #include "Engine/Settings.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/ScriptTextEdit.h"
-#include "Gui/ActionShortcuts.h"
+#include <GuiApplicationManager.h>
+#include <Gui.h>
+#include <Button.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <SequenceFileDialog.h>
+#include <ScriptTextEdit.h>
+#include <ActionShortcuts.h>
 
 
 NATRON_NAMESPACE_ENTER

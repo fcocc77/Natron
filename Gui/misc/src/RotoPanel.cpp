@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "RotoPanel.h"
+#include <RotoPanel.h>
 
 #include <stdexcept>
 #include <sstream> // stringstream
@@ -63,18 +63,18 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewIdx.h"
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/ClickableLabel.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/SpinBox.h"
+#include <Button.h>
+#include <ClickableLabel.h>
+#include <ComboBox.h>
+#include <DockablePanel.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <Menu.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <SpinBox.h>
 
 #define COL_LABEL 0
 #define COL_ACTIVATED 1

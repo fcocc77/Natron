@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "DockablePanelTabWidget.h"
+#include <DockablePanelTabWidget.h>
 
 #include <stdexcept>
 
@@ -35,11 +35,11 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 
 #include "Engine/Knob.h" // KnobI
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h" // isKeybind
-#include "Gui/NodeGraph.h"
-#include "Gui/ViewerTab.h"
+#include <ActionShortcuts.h>
+#include <Gui.h>
+#include <GuiApplicationManager.h> // isKeybind
+#include <NodeGraph.h>
+#include <ViewerTab.h>
 
 NATRON_NAMESPACE_ENTER
 

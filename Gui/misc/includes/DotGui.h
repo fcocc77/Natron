@@ -42,8 +42,8 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Global/GlobalDefines.h"
 
-#include "Gui/NodeGui.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <NodeGui.h>
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

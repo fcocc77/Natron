@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ScriptTextEdit.h"
+#include <ScriptTextEdit.h>
 
 #include <stdexcept>
 
@@ -43,10 +43,10 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Settings.h"
 #include "Engine/EffectInstance.h"
 
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/KnobWidgetDnD.h" // KNOB_DND_MIME_DATA_KEY
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <KnobWidgetDnD.h> // KNOB_DND_MIME_DATA_KEY
 
 NATRON_NAMESPACE_ENTER
 

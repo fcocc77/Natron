@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Gui/components/hpp/ComboBox.h"
+#include <ComboBox.h>
 
 #include <cassert>
 #include <algorithm> // min, max
@@ -48,12 +48,12 @@ CLANG_DIAG_ON(deprecated - register)
 #include "Engine/Lut.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/ClickableLabel.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/KnobWidgetDnD.h"
-#include "Gui/Menu.h"
+#include <ClickableLabel.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <KnobWidgetDnD.h>
+#include <Menu.h>
 
 NATRON_NAMESPACE_ENTER
 

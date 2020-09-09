@@ -23,13 +23,13 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Button.h"
+#include <Button.h>
 
 #include <stdexcept>
 
 #include <QApplication>
 
-#include "Gui/GuiApplicationManager.h"
+#include <GuiApplicationManager.h>
 
 NATRON_NAMESPACE_ENTER
 

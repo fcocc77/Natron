@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ProgressPanel.h"
+#include <ProgressPanel.h>
 
 #include <map>
 
@@ -57,17 +57,17 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Settings.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/ProgressTaskInfo.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/Menu.h"
-#include "Gui/LogWindow.h"
-#include "Gui/NodeGui.h"
-#include "Gui/TableModelView.h"
+#include <Gui.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <Label.h>
+#include <ProgressTaskInfo.h>
+#include <GuiAppInstance.h>
+#include <Button.h>
+#include <Menu.h>
+#include <LogWindow.h>
+#include <NodeGui.h>
+#include <TableModelView.h>
 
 
 #define COL_TIME_REMAINING 4

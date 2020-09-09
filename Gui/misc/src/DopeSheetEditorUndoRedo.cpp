@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "DopeSheetEditorUndoRedo.h"
+#include <DopeSheetEditorUndoRedo.h>
 
 #include <stdexcept>
 
@@ -41,12 +41,12 @@
 
 #include "Global/GlobalDefines.h"
 
-#include "Gui/DockablePanel.h"
-#include "Gui/KnobGui.h"
-#include "Gui/NodeGui.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/DopeSheet.h"
-#include "Gui/DopeSheetView.h"
+#include <DockablePanel.h>
+#include <KnobGui.h>
+#include <NodeGui.h>
+#include <DopeSheetEditor.h>
+#include <DopeSheet.h>
+#include <DopeSheetView.h>
 
 NATRON_NAMESPACE_ENTER
 

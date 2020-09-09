@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "DockablePanel.h"
+#include <DockablePanel.h>
 
 #include <stdexcept>
 
@@ -57,37 +57,37 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/ViewIdx.h"
 #include "Engine/WriteNode.h"
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/CurveGui.h"
-#include "Gui/DockablePanelPrivate.h"
-#include "Gui/DockablePanelTabWidget.h"
-#include "Gui/FloatingWidget.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h" // triggerButtonIsRight...
-#include "Gui/KnobGui.h"
-#include "Gui/KnobGuiColor.h"
-#include "Gui/KnobGuiGroup.h"
-#include "Gui/KnobUndoCommand.h" // RestoreDefaultsCommand
-#include "Gui/components/hpp/Label.h"
-#include "Gui/LineEdit.h"
-#include "Gui/ManageUserParamsDialog.h"
-#include "Gui/Menu.h"
-#include "Gui/MultiInstancePanel.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGraphUndoRedo.h" // RenameNodeUndoRedoCommand
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/RightClickableWidget.h"
-#include "Gui/PropertiesBinWrapper.h"
-#include "Gui/RotoPanel.h"
-#include "Gui/TabGroup.h"
-#include "Gui/TabWidget.h"
-#include "Gui/TrackerPanel.h"
-#include "Gui/VerticalColorBar.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <Button.h>
+#include <CurveGui.h>
+#include <DockablePanelPrivate.h>
+#include <DockablePanelTabWidget.h>
+#include <FloatingWidget.h>
+#include <Gui.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h> // triggerButtonIsRight...
+#include <KnobGui.h>
+#include <KnobGuiColor.h>
+#include <KnobGuiGroup.h>
+#include <KnobUndoCommand.h> // RestoreDefaultsCommand
+#include <Label.h>
+#include <LineEdit.h>
+#include <ManageUserParamsDialog.h>
+#include <Menu.h>
+#include <MultiInstancePanel.h>
+#include <NodeGraph.h>
+#include <NodeGraphUndoRedo.h> // RenameNodeUndoRedoCommand
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <RightClickableWidget.h>
+#include <PropertiesBinWrapper.h>
+#include <RotoPanel.h>
+#include <TabGroup.h>
+#include <TabWidget.h>
+#include <TrackerPanel.h>
+#include <VerticalColorBar.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 
 #include "utils/util.hpp"
 

@@ -49,10 +49,10 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Global/Enums.h"
 
-#include "Gui/GuiDefines.h"
-#include "Gui/RegisteredTabs.h"
-#include "Gui/main/hpp/GuiFwd.h"
-#include "Gui/LogWindow.h"
+#include <GuiDefines.h>
+#include <RegisteredTabs.h>
+#include <GuiFwd.h>
+#include <LogWindow.h>
 
 
 #define kPropertiesBinName "properties"

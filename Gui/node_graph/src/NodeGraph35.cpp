@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraph.h"
-#include "NodeGraphPrivate.h"
+#include <NodeGraph.h>
+#include <NodeGraphPrivate.h>
 
 #include <cmath>
 #include <stdexcept>
@@ -45,14 +45,14 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Settings.h"
 #include "Engine/FileSystemModel.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeGui.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/ToolButton.h"
+#include <ActionShortcuts.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <Menu.h>
+#include <NodeGui.h>
+#include <SequenceFileDialog.h>
+#include <ToolButton.h>
 
 #include "Global/QtCompat.h"
 

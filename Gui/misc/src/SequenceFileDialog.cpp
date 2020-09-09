@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "SequenceFileDialog.h"
+#include <SequenceFileDialog.h>
 
 #include <QtCore/QtGlobal> // for Q_OS_*
 #if defined(Q_OS_UNIX)
@@ -88,7 +88,7 @@ CLANG_DIAG_ON(uninitialized)
 #include "Global/QtCompat.h"
 #include "Global/StrUtils.h"
 
-#include "Gui/GuiDefines.h"
+#include <GuiDefines.h>
 
 #include "Engine/CreateNodeArgs.h"
 #include "Engine/KnobFile.h"
@@ -100,20 +100,20 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/LineEdit.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/DialogButtonBox.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/NodeGui.h"
-#include "Gui/PythonPanels.h"
-#include "Gui/ViewerTab.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/TabWidget.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/Menu.h"
+#include <Button.h>
+#include <LineEdit.h>
+#include <ComboBox.h>
+#include <DialogButtonBox.h>
+#include <GuiApplicationManager.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <NodeGui.h>
+#include <PythonPanels.h>
+#include <ViewerTab.h>
+#include <ViewerGL.h>
+#include <TabWidget.h>
+#include <Label.h>
+#include <Menu.h>
 #include "Global/QtCompat.h" // removeFileExtension
 
 #define FILE_DIALOG_DISABLE_ICONS

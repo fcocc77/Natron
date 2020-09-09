@@ -52,12 +52,12 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/EffectInstance.h"
 #include "Engine/ViewIdx.h"
 
-#include "Gui/KnobGui.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveWidget.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <KnobGui.h>
+#include <Gui.h>
+#include <CurveEditor.h>
+#include <CurveWidget.h>
+#include <GuiAppInstance.h>
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

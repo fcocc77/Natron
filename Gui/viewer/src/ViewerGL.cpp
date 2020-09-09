@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ViewerGL.h"
-#include "ViewerGLPrivate.h"
+#include <ViewerGL.h>
+#include <ViewerGLPrivate.h>
 
 #include <cassert>
 #include <algorithm> // min, max
@@ -65,23 +65,23 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/ActionShortcuts.h" // kShortcutGroupViewer ...
-#include "Gui/CurveWidget.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h" // isMouseShortcut
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h" // buttonDownIsLeft...
-#include "Gui/Histogram.h"
-#include "Gui/InfoViewerWidget.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/KnobGuiParametric.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/Shaders.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ViewerTab.h"
+#include <ActionShortcuts.h> // kShortcutGroupViewer ...
+#include <CurveWidget.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h> // isMouseShortcut
+#include <GuiDefines.h>
+#include <GuiMacros.h> // buttonDownIsLeft...
+#include <Histogram.h>
+#include <InfoViewerWidget.h>
+#include <Menu.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <KnobGuiParametric.h>
+#include <NodeSettingsPanel.h>
+#include <Shaders.h>
+#include <TabWidget.h>
+#include <ViewerTab.h>
 
 
 #define USER_ROI_BORDER_TICK_SIZE 15.f

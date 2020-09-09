@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "RightClickableWidget.h"
+#include <RightClickableWidget.h>
 
 #include <stdexcept>
 
@@ -36,11 +36,11 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_OFF
 GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include <QToolButton>
 
-#include "Gui/CurveWidget.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/Histogram.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/ViewerGL.h"
+#include <CurveWidget.h>
+#include <GuiMacros.h>
+#include <Histogram.h>
+#include <NodeGraph.h>
+#include <ViewerGL.h>
 
 NATRON_NAMESPACE_ENTER
 

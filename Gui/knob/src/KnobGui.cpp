@@ -24,7 +24,7 @@
 // ***** END PYTHON BLOCK *****
 
 
-#include "KnobGui.h"
+#include <KnobGui.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -37,10 +37,10 @@
 #include "Engine/EffectInstance.h"
 #include "Engine/ViewIdx.h"
 
-#include "Gui/KnobGuiPrivate.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/ClickableLabel.h"
+#include <KnobGuiPrivate.h>
+#include <GuiDefines.h>
+#include <GuiApplicationManager.h>
+#include <ClickableLabel.h>
 
 
 NATRON_NAMESPACE_ENTER

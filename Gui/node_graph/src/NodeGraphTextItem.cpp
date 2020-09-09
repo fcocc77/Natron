@@ -33,8 +33,8 @@
 
 #include "Engine/Settings.h"
 
-#include "Gui/NodeGraph.h"
-#include "Gui/GuiApplicationManager.h"
+#include <NodeGraph.h>
+#include <GuiApplicationManager.h>
 
 #define NODEGRAPH_TEXT_ITEM_MIN_HEIGHT_PX 4
 #define NODEGRAPH_SIMPLE_TEXT_ITEM_MIN_HEIGHT_PX 6

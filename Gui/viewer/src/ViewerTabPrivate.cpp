@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ViewerTabPrivate.h"
+#include <ViewerTabPrivate.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -37,13 +37,13 @@
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/ChannelsComboBox.h"
-#include "Gui/ClickableLabel.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/NodeGui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/ViewerTab.h"
+#include <ActionShortcuts.h>
+#include <ChannelsComboBox.h>
+#include <ClickableLabel.h>
+#include <Gui.h>
+#include <NodeGui.h>
+#include <GuiAppInstance.h>
+#include <ViewerTab.h>
 
 
 NATRON_NAMESPACE_ENTER

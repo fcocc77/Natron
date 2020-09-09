@@ -13,9 +13,9 @@ GCC_DIAG_UNUSED_LOCAL_TYPEDEFS_OFF
 #include <pyside.h>
 #include <typeresolver.h>
 #include <typeinfo>
-#include "natrongui_python.h"
+#include <natrongui_python.h>
 
-#include "pytabwidget_wrapper.h"
+#include <pytabwidget_wrapper.h>
 
 // Extra includes
 NATRON_NAMESPACE_USING NATRON_PYTHON_NAMESPACE_USING

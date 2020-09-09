@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "KnobGuiContainerHelper.h"
+#include <KnobGuiContainerHelper.h>
 
 CLANG_DIAG_OFF(deprecated)
 CLANG_DIAG_OFF(uninitialized)
@@ -40,11 +40,11 @@ CLANG_DIAG_ON(deprecated)
 CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/KnobTypes.h"
-#include "Gui/KnobGui.h"
-#include "Gui/ClickableLabel.h"
-#include "Gui/KnobGuiGroup.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/TabGroup.h"
+#include <KnobGui.h>
+#include <ClickableLabel.h>
+#include <KnobGuiGroup.h>
+#include <GuiApplicationManager.h>
+#include <TabGroup.h>
 
 #define NATRON_FORM_LAYOUT_LINES_SPACING 0
 #define NATRON_SETTINGS_VERTICAL_SPACING_PIXELS 3

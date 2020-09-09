@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ViewerTab.h"
-#include "ViewerTabPrivate.h"
+#include <ViewerTab.h>
+#include <ViewerTabPrivate.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -46,14 +46,14 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h" // isKeybind
-#include "Gui/GuiAppInstance.h"
-#include "Gui/NodeGui.h"
-#include "Gui/QtEnumConvert.h"
-#include "Gui/SpinBox.h"
-#include "Gui/TimeLineGui.h"
-#include "Gui/ViewerGL.h"
+#include <Gui.h>
+#include <GuiApplicationManager.h> // isKeybind
+#include <GuiAppInstance.h>
+#include <NodeGui.h>
+#include <QtEnumConvert.h>
+#include <SpinBox.h>
+#include <TimeLineGui.h>
+#include <ViewerGL.h>
 
 
 NATRON_NAMESPACE_ENTER

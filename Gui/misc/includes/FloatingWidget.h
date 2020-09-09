@@ -39,8 +39,8 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/ScriptObject.h"
 #include "Engine/EngineFwd.h"
 
-#include "Gui/SerializableWindow.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <SerializableWindow.h>
+#include <GuiFwd.h>
 
 
 #define kMainSplitterObjectName "ToolbarSplitter"

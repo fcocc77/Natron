@@ -33,8 +33,8 @@
 #include <boost/weak_ptr.hpp>
 #endif
 
-#include "Gui/LineEdit.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <LineEdit.h>
+#include <GuiFwd.h>
 
 
 NATRON_NAMESPACE_ENTER

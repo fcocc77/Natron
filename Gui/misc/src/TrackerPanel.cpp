@@ -25,7 +25,7 @@
 // ***** END PYTHON BLOCK *****
 
 
-#include "TrackerPanel.h"
+#include <TrackerPanel.h>
 
 #include <QApplication>
 #include <QHBoxLayout>
@@ -47,22 +47,22 @@
 #include "Engine/TrackerUndoCommand.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/AnimatedCheckBox.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/KnobGuiValue.h"
-#include "Gui/KnobGuiChoice.h"
-#include "Gui/TableModelView.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/ClickableLabel.h"
-#include "Gui/SpinBox.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/main/hpp/Gui.h"
+#include <AnimatedCheckBox.h>
+#include <NodeSettingsPanel.h>
+#include <Button.h>
+#include <ComboBox.h>
+#include <GuiApplicationManager.h>
+#include <Label.h>
+#include <GuiDefines.h>
+#include <KnobGuiValue.h>
+#include <KnobGuiChoice.h>
+#include <TableModelView.h>
+#include <NodeGui.h>
+#include <NodeGraph.h>
+#include <ClickableLabel.h>
+#include <SpinBox.h>
+#include <GuiAppInstance.h>
+#include <Gui.h>
 
 #define NUM_COLS 8
 

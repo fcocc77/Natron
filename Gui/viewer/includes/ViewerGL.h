@@ -47,7 +47,7 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/ViewIdx.h"
 #include "Engine/EngineFwd.h"
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 
 NATRON_NAMESPACE_ENTER

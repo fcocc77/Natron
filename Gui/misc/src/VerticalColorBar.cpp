@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "VerticalColorBar.h"
+#include <VerticalColorBar.h>
 
 #include <stdexcept>
 

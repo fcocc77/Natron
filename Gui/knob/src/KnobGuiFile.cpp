@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "KnobGuiFile.h"
+#include <KnobGuiFile.h>
 
 #include <stdexcept>
 
@@ -47,16 +47,16 @@
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewIdx.h"
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/KnobUndoCommand.h"
-#include "Gui/LineEdit.h"
-#include "Gui/Menu.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/TableModelView.h"
+#include <Button.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <KnobUndoCommand.h>
+#include <LineEdit.h>
+#include <Menu.h>
+#include <SequenceFileDialog.h>
+#include <TableModelView.h>
 
 #include <SequenceParsing.h>
 

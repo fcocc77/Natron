@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeCreationDialog.h"
+#include <NodeCreationDialog.h>
 
 #include <stdexcept>
 
@@ -46,8 +46,8 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/AppManager.h"
 #include "Engine/Plugin.h"
-#include "Gui/LineEdit.h"
-#include "Gui/GuiApplicationManager.h"
+#include <LineEdit.h>
+#include <GuiApplicationManager.h>
 
 /*
    If defined, the list will contain matches ordered by increasing match length of the regexp

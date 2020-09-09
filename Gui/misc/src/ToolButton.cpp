@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ToolButton.h"
+#include <ToolButton.h>
 
 #include <algorithm>
 #include <stdexcept>
@@ -34,8 +34,8 @@ CLANG_DIAG_OFF(deprecated)
 CLANG_DIAG_ON(deprecated)
 
 #include <boost/weak_ptr.hpp>
-#include "Gui/GuiAppInstance.h"
-#include "Gui/main/hpp/Gui.h"
+#include <GuiAppInstance.h>
+#include <Gui.h>
 #include "Engine/CreateNodeArgs.h"
 #include "Engine/Project.h"
 

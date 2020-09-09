@@ -48,9 +48,9 @@ GCC_DIAG_ON(unused-parameter)
 
 #include "Engine/RectD.h"
 
-#include "Gui/NodeGuiSerialization.h"
+#include <NodeGuiSerialization.h>
 #include "Gui/NodeBackdropSerialization.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 
 #define PYTHON_PANEL_SERIALIZATION_VERSION 1

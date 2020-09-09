@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "MultiInstancePanel.h"
+#include <MultiInstancePanel.h>
 
 #include <stdexcept>
 #include <sstream> // stringstream
@@ -77,21 +77,21 @@ GCC_DIAG_UNUSED_LOCAL_TYPEDEFS_ON
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewIdx.h"
 
-#include "Gui/AnimatedCheckBox.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/SpinBox.h"
-#include "Gui/TableModelView.h"
+#include <AnimatedCheckBox.h>
+#include <Button.h>
+#include <ComboBox.h>
+#include <DockablePanel.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <Label.h>
+#include <Menu.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <SpinBox.h>
+#include <TableModelView.h>
 
 #define kTrackCenterName "center"
 #define kTrackInvertName "invert"

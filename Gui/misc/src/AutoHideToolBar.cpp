@@ -23,11 +23,11 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "AutoHideToolBar.h"
+#include <AutoHideToolBar.h>
 
 #include <stdexcept>
 
-#include "Gui/main/hpp/Gui.h"
+#include <Gui.h>
 
 NATRON_NAMESPACE_ENTER
 

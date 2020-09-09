@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "TableModelView.h"
+#include <TableModelView.h>
 
 #include <set>
 #include <algorithm> // min, max
@@ -38,11 +38,11 @@
 #include <QStyle>
 #include <QScrollBar>
 
-#include "Gui/GuiMacros.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/AnimatedCheckBox.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/SpinBox.h"
+#include <GuiMacros.h>
+#include <Label.h>
+#include <AnimatedCheckBox.h>
+#include <ComboBox.h>
+#include <SpinBox.h>
 
 NATRON_NAMESPACE_ENTER
 

@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeBackdropSerialization.h"
+#include <NodeBackdropSerialization.h>
 
 #include <stdexcept>
 

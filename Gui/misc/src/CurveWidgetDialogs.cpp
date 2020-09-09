@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "CurveWidgetDialogs.h"
+#include <CurveWidgetDialogs.h>
 
 #include <cmath> // std::abs
 #include <stdexcept>
@@ -44,14 +44,14 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/Knob.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/DialogButtonBox.h"
-#include "Gui/LineEdit.h" // LineEdit
-#include "Gui/SpinBox.h" // SpinBox
-#include "Gui/components/hpp/Button.h" // Button
-#include "Gui/CurveWidget.h" // CurveWidget
-#include "Gui/SequenceFileDialog.h" // SequenceFileDialog
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/components/hpp/Label.h" // Label
+#include <DialogButtonBox.h>
+#include <LineEdit.h> // LineEdit
+#include <SpinBox.h> // SpinBox
+#include <Button.h> // Button
+#include <CurveWidget.h> // CurveWidget
+#include <SequenceFileDialog.h> // SequenceFileDialog
+#include <GuiApplicationManager.h>
+#include <Label.h> // Label
 
 NATRON_NAMESPACE_ENTER
 

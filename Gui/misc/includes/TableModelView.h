@@ -48,8 +48,8 @@ GCC_ONLY_DIAG_ON(class-memaccess)
 CLANG_DIAG_ON(deprecated)
 CLANG_DIAG_ON(uninitialized)
 
-#include "Gui/main/hpp/GuiFwd.h"
-#include "Gui/LineEdit.h"
+#include <GuiFwd.h>
+#include <LineEdit.h>
 
 
 NATRON_NAMESPACE_ENTER

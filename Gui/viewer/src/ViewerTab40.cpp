@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ViewerTab.h"
-#include "ViewerTabPrivate.h"
+#include <ViewerTab.h>
+#include <ViewerTabPrivate.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -45,22 +45,22 @@
 #include "Engine/ViewerInstance.h"
 
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/ChannelsComboBox.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/CurveWidget.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/InfoViewerWidget.h"
-#include "Gui/LineEdit.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/RenderStatsDialog.h"
-#include "Gui/ScaleSliderQWidget.h"
-#include "Gui/SpinBox.h"
-#include "Gui/TabWidget.h"
-#include "Gui/TimeLineGui.h"
-#include "Gui/ViewerGL.h"
+#include <Button.h>
+#include <ChannelsComboBox.h>
+#include <CurveEditor.h>
+#include <CurveWidget.h>
+#include <DopeSheetEditor.h>
+#include <Gui.h>
+#include <InfoViewerWidget.h>
+#include <LineEdit.h>
+#include <GuiAppInstance.h>
+#include <NodeGraph.h>
+#include <RenderStatsDialog.h>
+#include <ScaleSliderQWidget.h>
+#include <SpinBox.h>
+#include <TabWidget.h>
+#include <TimeLineGui.h>
+#include <ViewerGL.h>
 
 
 NATRON_NAMESPACE_ENTER

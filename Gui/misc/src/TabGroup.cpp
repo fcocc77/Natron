@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "TabGroup.h"
+#include <TabGroup.h>
 #include <map>
 #include <stdexcept>
 

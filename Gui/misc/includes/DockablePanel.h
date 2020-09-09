@@ -49,8 +49,8 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/DockablePanelI.h"
 #include "Engine/Markdown.h"
 
-#include "Gui/main/hpp/GuiFwd.h"
-#include "Gui/KnobGuiContainerHelper.h"
+#include <GuiFwd.h>
+#include <KnobGuiContainerHelper.h>
 
 NATRON_NAMESPACE_ENTER
 

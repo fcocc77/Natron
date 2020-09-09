@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ExportGroupTemplateDialog.h"
+#include <ExportGroupTemplateDialog.h>
 
 #include <cassert>
 #include <algorithm> // min, max
@@ -44,15 +44,15 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Settings.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/DialogButtonBox.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/LineEdit.h"
-#include "Gui/SequenceFileDialog.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/SpinBox.h"
-#include "Gui/GuiDefines.h"
+#include <Button.h>
+#include <DialogButtonBox.h>
+#include <Gui.h>
+#include <Label.h>
+#include <LineEdit.h>
+#include <SequenceFileDialog.h>
+#include <GuiApplicationManager.h>
+#include <SpinBox.h>
+#include <GuiDefines.h>
 
 NATRON_NAMESPACE_ENTER
 

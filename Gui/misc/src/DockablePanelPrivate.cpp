@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "DockablePanelPrivate.h"
+#include <DockablePanelPrivate.h>
 
 #include <vector>
 #include <utility>
@@ -46,15 +46,15 @@
 #include "Engine/Node.h" // NATRON_PARAMETER_PAGE_NAME_INFO
 #include "Engine/ViewIdx.h"
 
-#include "Gui/components/hpp/Button.h"
-#include "Gui/ClickableLabel.h"
-#include "Gui/GuiApplicationManager.h" // appPTR
-#include "Gui/GuiMacros.h"
-#include "Gui/KnobGui.h"
-#include "Gui/KnobGuiGroup.h" // for KnobGuiGroup
-#include "Gui/KnobWidgetDnD.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/TabGroup.h"
+#include <Button.h>
+#include <ClickableLabel.h>
+#include <GuiApplicationManager.h> // appPTR
+#include <GuiMacros.h>
+#include <KnobGui.h>
+#include <KnobGuiGroup.h> // for KnobGuiGroup
+#include <KnobWidgetDnD.h>
+#include <Label.h>
+#include <TabGroup.h>
 
 
 using std::make_pair;

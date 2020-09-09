@@ -34,10 +34,10 @@
 #include <boost/shared_ptr.hpp>
 #endif
 
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 #include "Engine/NodeSerialization.h"
-#include "Gui/NodeGuiSerialization.h"
+#include <NodeGuiSerialization.h>
 
 NATRON_NAMESPACE_ENTER
 

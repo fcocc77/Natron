@@ -37,10 +37,10 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/Image.h"
 
-#include "Gui/TextRenderer.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ZoomContext.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <TextRenderer.h>
+#include <ViewerGL.h>
+#include <ZoomContext.h>
+#include <GuiFwd.h>
 
 
 #define WIPE_MIX_HANDLE_LENGTH 50.

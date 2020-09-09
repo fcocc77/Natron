@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "CurveGui.h"
+#include <CurveGui.h>
 
 #include <cmath>
 #include <algorithm> // min, max
@@ -41,9 +41,9 @@
 #include "Engine/Utils.h"
 #include "Engine/ViewIdx.h"
 
-#include "Gui/CurveWidget.h"
-#include "Gui/CurveWidgetPrivate.h"
-#include "Gui/KnobGui.h"
+#include <CurveWidget.h>
+#include <CurveWidgetPrivate.h>
+#include <KnobGui.h>
 
 NATRON_NAMESPACE_ENTER
 

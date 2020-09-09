@@ -49,12 +49,12 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/Image.h"
 #include "Engine/KnobTypes.h"
 
-#include "Gui/GuiMacros.h"
-#include "Gui/ticks.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/ZoomContext.h"
-#include "Gui/main/hpp/Gui.h"
+#include <GuiMacros.h>
+#include <ticks.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <ZoomContext.h>
+#include <Gui.h>
 
 #define TICK_HEIGHT 7
 #define SLIDER_WIDTH 4

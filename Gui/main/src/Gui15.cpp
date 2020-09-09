@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Gui.h"
-#include "GuiPrivate.h"
+#include <Gui.h>
+#include <GuiPrivate.h>
 
 #include <cassert>
 #include <fstream>
@@ -42,11 +42,11 @@
 #include "Engine/Settings.h"
 #include "Engine/ViewIdx.h"
 
-#include "Gui/DockablePanel.h"
-#include "Gui/Menu.h"
-#include "Gui/ProjectGui.h"
-#include "Gui/ProjectGuiSerialization.h" // PaneLayout, GuiLayoutSerialization
-#include "Gui/SequenceFileDialog.h"
+#include <DockablePanel.h>
+#include <Menu.h>
+#include <ProjectGui.h>
+#include <ProjectGuiSerialization.h> // PaneLayout, GuiLayoutSerialization
+#include <SequenceFileDialog.h>
 
 
 NATRON_NAMESPACE_ENTER

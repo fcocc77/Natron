@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "KnobUndoCommand.h"
+#include <KnobUndoCommand.h>
 
 #include <stdexcept>
 #include <sstream> // stringstream
@@ -47,7 +47,7 @@ GCC_DIAG_ON(unused-parameter)
 #include "Engine/KnobSerialization.h"
 #include "Engine/ViewIdx.h"
 
-#include "Gui/GuiApplicationManager.h"
+#include <GuiApplicationManager.h>
 
 
 NATRON_NAMESPACE_ENTER

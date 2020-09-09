@@ -43,9 +43,9 @@ CLANG_DIAG_OFF(uninitialized)
 CLANG_DIAG_ON(deprecated)
 CLANG_DIAG_ON(uninitialized)
 
-#include "Gui/CurveEditorUndoRedo.h" // KeyPtr
-#include "Gui/CurveGui.h" // CurveGui
-#include "Gui/main/hpp/GuiFwd.h"
+#include <CurveEditorUndoRedo.h> // KeyPtr
+#include <CurveGui.h> // CurveGui
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

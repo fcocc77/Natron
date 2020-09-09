@@ -9,10 +9,10 @@
 //"gl.h included before glew.h error" on Qt5.3
 //#include <QtGui>
 
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
 
 #endif // __cplusplus
 

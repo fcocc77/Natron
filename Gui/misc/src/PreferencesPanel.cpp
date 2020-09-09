@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "PreferencesPanel.h"
+#include <PreferencesPanel.h>
 
 #include <map>
 #include <stdexcept>
@@ -51,18 +51,18 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Settings.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/AnimatedCheckBox.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/DialogButtonBox.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/LineEdit.h"
-#include "Gui/components/hpp/Label.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/Splitter.h"
-#include "Gui/TableModelView.h"
+#include <ActionShortcuts.h>
+#include <GuiDefines.h>
+#include <AnimatedCheckBox.h>
+#include <DockablePanel.h>
+#include <Button.h>
+#include <DialogButtonBox.h>
+#include <Gui.h>
+#include <LineEdit.h>
+#include <Label.h>
+#include <GuiApplicationManager.h>
+#include <Splitter.h>
+#include <TableModelView.h>
 
 #define COL_PLUGIN_LABEL 0
 #define COL_PLUGINID COL_PLUGIN_LABEL + 1

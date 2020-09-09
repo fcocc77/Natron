@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ViewerGLPrivate.h"
+#include <ViewerGLPrivate.h>
 
 #include <cassert>
 #include <algorithm> // min, max
@@ -39,10 +39,10 @@
 #include "Engine/Settings.h"
 #include "Engine/Texture.h"
 
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiApplicationManager.h" // appFont
-#include "Gui/Menu.h"
-#include "Gui/ViewerTab.h"
+#include <Gui.h>
+#include <GuiApplicationManager.h> // appFont
+#include <Menu.h>
+#include <ViewerTab.h>
 
 #ifndef M_PI
 #define M_PI        3.14159265358979323846264338327950288   /* pi             */

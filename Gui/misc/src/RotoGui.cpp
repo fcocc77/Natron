@@ -22,7 +22,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "RotoGui.h"
+#include <RotoGui.h>
 
 #include <algorithm> // min, max
 #include <stdexcept>
@@ -65,26 +65,26 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/DockablePanel.h"
-#include "Gui/QtEnumConvert.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/KnobGuiColor.h" // ColorPickerLabel
-#include "Gui/Menu.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
-#include "Gui/RotoUndoCommand.h"
-#include "Gui/SpinBox.h"
-#include "Gui/Utils.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
+#include <ActionShortcuts.h>
+#include <Button.h>
+#include <ComboBox.h>
+#include <DockablePanel.h>
+#include <QtEnumConvert.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <KnobGuiColor.h> // ColorPickerLabel
+#include <Menu.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
+#include <RotoUndoCommand.h>
+#include <SpinBox.h>
+#include <Utils.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
 
 
 #define kControlPointMidSize 3

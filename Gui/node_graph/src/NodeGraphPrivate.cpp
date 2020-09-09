@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraphPrivate.h"
-#include "NodeGraph.h"
+#include <NodeGraphPrivate.h>
+#include <NodeGraph.h>
 
 #include <stdexcept>
 
@@ -34,14 +34,14 @@
 #include "Engine/Project.h"
 #include "Engine/RotoLayer.h"
 
-#include "Gui/Edge.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h" // appPTR
-#include "Gui/NodeClipBoard.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGuiSerialization.h"
+#include <Edge.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h> // appPTR
+#include <NodeClipBoard.h>
+#include <NodeGui.h>
+#include <NodeGraph.h>
+#include <NodeGuiSerialization.h>
 
 NATRON_NAMESPACE_ENTER
 

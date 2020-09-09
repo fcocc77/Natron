@@ -43,9 +43,9 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/ViewIdx.h"
 #include "Engine/EngineFwd.h"
 
-#include "Gui/components/hpp/ComboBox.h"
-#include "Gui/main/hpp/GuiFwd.h"
-#include "Gui/NodeViewerContext.h"
+#include <ComboBox.h>
+#include <GuiFwd.h>
+#include <NodeViewerContext.h>
 
 #define NATRON_TRANSFORM_AFFECTS_OVERLAYS
 

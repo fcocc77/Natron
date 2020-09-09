@@ -10,7 +10,7 @@ GCC_DIAG_UNUSED_LOCAL_TYPEDEFS_OFF
 #include <shiboken.h> // produces many warnings
 #include <algorithm>
 #include <pyside.h>
-#include "natrongui_python.h"
+#include <natrongui_python.h>
 
 
 

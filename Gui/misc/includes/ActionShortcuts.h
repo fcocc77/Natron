@@ -46,7 +46,7 @@ CLANG_DIAG_ON(deprecated)
 CLANG_DIAG_ON(uninitialized)
 
 #include "Engine/PluginActionShortcut.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <GuiFwd.h>
 
 #define kShortcutGroupGlobal "Global"
 #define kShortcutGroupNodegraph "NodeGraph"

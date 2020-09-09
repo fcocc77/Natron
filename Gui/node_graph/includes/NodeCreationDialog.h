@@ -39,8 +39,8 @@ CLANG_DIAG_OFF(uninitialized)
 CLANG_DIAG_ON(deprecated)
 CLANG_DIAG_ON(uninitialized)
 
-#include "Gui/LineEdit.h"
-#include "Gui/main/hpp/GuiFwd.h"
+#include <LineEdit.h>
+#include <GuiFwd.h>
 
 NATRON_NAMESPACE_ENTER
 

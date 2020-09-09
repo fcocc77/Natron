@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ProgressTaskInfo.h"
+#include <ProgressTaskInfo.h>
 
 #if !defined(Q_MOC_RUN) && !defined(SBK_RUN)
 #include <boost/scoped_ptr.hpp>
@@ -51,15 +51,15 @@ CLANG_DIAG_ON(uninitialized)
 #include "Engine/Timer.h"
 #include "Engine/Utils.h" // convertFromPlainText
 
-#include "Gui/NodeGui.h"
-#include "Gui/ProgressPanel.h"
-#include "Gui/TableModelView.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/TabWidget.h"
-#include "Gui/PanelWidget.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/components/hpp/Button.h"
+#include <NodeGui.h>
+#include <ProgressPanel.h>
+#include <TableModelView.h>
+#include <GuiDefines.h>
+#include <Gui.h>
+#include <TabWidget.h>
+#include <PanelWidget.h>
+#include <GuiApplicationManager.h>
+#include <Button.h>
 
 #define COL_PROGRESS 1
 #define COL_CONTROLS 3

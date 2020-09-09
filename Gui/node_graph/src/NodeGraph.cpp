@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "NodeGraph.h"
-#include "NodeGraphPrivate.h"
+#include <NodeGraph.h>
+#include <NodeGraphPrivate.h>
 
 #include <cstdlib>
 #include <set>
@@ -44,15 +44,15 @@
 #include "Engine/Settings.h"
 #include "Engine/TimeLine.h"
 
-#include "Gui/BackdropGui.h"
-#include "Gui/DotGui.h"
-#include "Gui/Edge.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeGraphTextItem.h"
+#include <BackdropGui.h>
+#include <DotGui.h>
+#include <Edge.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <Menu.h>
+#include <NodeGui.h>
+#include <NodeGraphTextItem.h>
 
 #include "Global/QtCompat.h"
 

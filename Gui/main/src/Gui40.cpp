@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Gui.h"
+#include <Gui.h>
 
 #include <cassert>
 #include <algorithm> // min, max
@@ -55,22 +55,22 @@
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/AboutWindow.h"
-#include "Gui/ActionShortcuts.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h" // appPTR
-#include "Gui/GuiPrivate.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/ProjectGui.h"
-#include "Gui/RenderStatsDialog.h"
-#include "Gui/ProgressPanel.h"
-#include "Gui/Splitter.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ScriptEditor.h"
-#include "Gui/ViewerGL.h"
-#include "Gui/ViewerTab.h"
-#include "Gui/NodeSettingsPanel.h"
+#include <AboutWindow.h>
+#include <ActionShortcuts.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h> // appPTR
+#include <GuiPrivate.h>
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <ProjectGui.h>
+#include <RenderStatsDialog.h>
+#include <ProgressPanel.h>
+#include <Splitter.h>
+#include <TabWidget.h>
+#include <ScriptEditor.h>
+#include <ViewerGL.h>
+#include <ViewerTab.h>
+#include <NodeSettingsPanel.h>
 
 
 NATRON_NAMESPACE_ENTER

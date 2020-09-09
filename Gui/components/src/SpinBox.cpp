@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "SpinBox.h"
+#include <SpinBox.h>
 
 #include <cfloat>
 #include <cmath>
@@ -49,11 +49,11 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/KnobTypes.h"
 #include "Engine/Utils.h"
 
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/KnobGui.h"
-#include "Gui/KnobWidgetDnD.h"
-#include "Gui/SpinBoxValidator.h"
+#include <GuiApplicationManager.h>
+#include <GuiMacros.h>
+#include <KnobGui.h>
+#include <KnobWidgetDnD.h>
+#include <SpinBoxValidator.h>
 
 #define SPINBOX_MAX_WIDTH 50
 #define SPINBOX_MIN_WIDTH 35

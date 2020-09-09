@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "DopeSheetHierarchyView.h"
+#include <DopeSheetHierarchyView.h>
 
 #include <stdexcept>
 
@@ -39,14 +39,14 @@
 #include "Engine/Settings.h"
 #include "Engine/ViewIdx.h"
 
-#include "Gui/DockablePanel.h"
-#include "Gui/DopeSheet.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/KnobGui.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeSettingsPanel.h"
+#include <DockablePanel.h>
+#include <DopeSheet.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiDefines.h>
+#include <KnobGui.h>
+#include <NodeGui.h>
+#include <NodeSettingsPanel.h>
 
 NATRON_NAMESPACE_ENTER
 

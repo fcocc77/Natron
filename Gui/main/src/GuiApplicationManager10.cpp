@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "GuiApplicationManager.h"
-#include "GuiApplicationManagerPrivate.h"
+#include <GuiApplicationManager.h>
+#include <GuiApplicationManagerPrivate.h>
 
 #include <stdexcept> // runtime_error
 
@@ -59,11 +59,11 @@ CLANG_DIAG_ON(uninitialized)
 
 #include "Global/QtCompat.h"
 
-#include "Gui/CurveWidget.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/KnobGuiFactory.h"
-#include "Gui/SplashScreen.h"
+#include <CurveWidget.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <KnobGuiFactory.h>
+#include <SplashScreen.h>
 
 // removed in qt5, just revert the commit (1b58d9acc493111390b31f0bffd6b2a76baca91b)
 Q_INIT_RESOURCE_EXTERN(GuiResources);

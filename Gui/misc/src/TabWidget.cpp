@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "TabWidget.h"
+#include <TabWidget.h>
 
 #include <stdexcept>
 #include <sstream> // stringstream
@@ -57,26 +57,26 @@ CLANG_DIAG_ON(deprecated)
 #include "Engine/Utils.h" // convertFromPlainText
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/FloatingWidget.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h"
-#include "Gui/GuiDefines.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/Histogram.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/PropertiesBinWrapper.h"
-#include "Gui/PythonPanels.h"
-#include "Gui/RegisteredTabs.h"
-#include "Gui/ProgressPanel.h"
-#include "Gui/ScriptEditor.h"
-#include "Gui/Splitter.h"
-#include "Gui/ViewerTab.h"
+#include <ActionShortcuts.h>
+#include <Button.h>
+#include <CurveEditor.h>
+#include <DopeSheetEditor.h>
+#include <FloatingWidget.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h>
+#include <GuiDefines.h>
+#include <GuiMacros.h>
+#include <Histogram.h>
+#include <Menu.h>
+#include <NodeGraph.h>
+#include <PropertiesBinWrapper.h>
+#include <PythonPanels.h>
+#include <RegisteredTabs.h>
+#include <ProgressPanel.h>
+#include <ScriptEditor.h>
+#include <Splitter.h>
+#include <ViewerTab.h>
 
 #define LEFT_HAND_CORNER_BUTTON_TT "Manage the layouts for this pane"
 

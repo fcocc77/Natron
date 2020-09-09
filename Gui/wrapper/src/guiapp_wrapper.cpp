@@ -15,7 +15,7 @@ GCC_DIAG_UNUSED_LOCAL_TYPEDEFS_OFF
 #include <typeinfo>
 #include "natrongui_python.h"
 
-#include "guiapp_wrapper.h"
+#include <guiapp_wrapper.h>
 
 // Extra includes
 NATRON_NAMESPACE_USING NATRON_PYTHON_NAMESPACE_USING

@@ -23,8 +23,8 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "ViewerTab.h"
-#include "ViewerTabPrivate.h"
+#include <ViewerTab.h>
+#include <ViewerTabPrivate.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -45,21 +45,21 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 #include "Engine/ViewIdx.h"
 #include "Engine/ViewerInstance.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/GuiMacros.h"
-#include "Gui/components/hpp/Button.h"
-#include "Gui/ChannelsComboBox.h"
-#include "Gui/main/hpp/Gui.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h" // appPTR
-#include "Gui/NodeGraph.h"
-#include "Gui/NodeGui.h"
-#include "Gui/NodeViewerContext.h"
-#include "Gui/RenderStatsDialog.h"
-#include "Gui/SpinBox.h"
-#include "Gui/TimeLineGui.h"
-#include "Gui/TabWidget.h"
-#include "Gui/ViewerGL.h"
+#include <ActionShortcuts.h>
+#include <GuiMacros.h>
+#include <Button.h>
+#include <ChannelsComboBox.h>
+#include <Gui.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h> // appPTR
+#include <NodeGraph.h>
+#include <NodeGui.h>
+#include <NodeViewerContext.h>
+#include <RenderStatsDialog.h>
+#include <SpinBox.h>
+#include <TimeLineGui.h>
+#include <TabWidget.h>
+#include <ViewerGL.h>
 
 
 NATRON_NAMESPACE_ENTER

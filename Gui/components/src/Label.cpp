@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Label.h"
+#include <Label.h>
 
 #include <stdexcept>
 

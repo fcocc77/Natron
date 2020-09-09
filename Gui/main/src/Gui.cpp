@@ -23,7 +23,7 @@
 #include <Python.h>
 // ***** END PYTHON BLOCK *****
 
-#include "Gui.h"
+#include <Gui.h>
 
 #include <cassert>
 #include <stdexcept>
@@ -47,18 +47,18 @@ GCC_DIAG_UNUSED_PRIVATE_FIELD_ON
 
 #include "Global/StrUtils.h"
 
-#include "Gui/ActionShortcuts.h"
-#include "Gui/CurveEditor.h"
-#include "Gui/DopeSheetEditor.h"
-#include "Gui/GuiAppInstance.h"
-#include "Gui/GuiApplicationManager.h" // appPTR
-#include "Gui/GuiPrivate.h"
-#include "Gui/Menu.h"
-#include "Gui/NodeGraph.h"
-#include "Gui/ProjectGui.h"
-#include "Gui/ToolButton.h"
-#include "Gui/RenderStatsDialog.h"
-#include "Gui/ViewerTab.h"
+#include <ActionShortcuts.h>
+#include <CurveEditor.h>
+#include <DopeSheetEditor.h>
+#include <GuiAppInstance.h>
+#include <GuiApplicationManager.h> // appPTR
+#include <GuiPrivate.h>
+#include <Menu.h>
+#include <NodeGraph.h>
+#include <ProjectGui.h>
+#include <ToolButton.h>
+#include <RenderStatsDialog.h>
+#include <ViewerTab.h>
 
 NATRON_NAMESPACE_ENTER
 
