@@ -1,4 +1,4 @@
-TARGET = Natron
+TARGET = Nitrogen
 VERSION = 3.0.0
 
 TEMPLATE = app

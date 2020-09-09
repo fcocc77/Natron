@@ -10,8 +10,8 @@ source /opt/rh/devtoolset-8/enable
 
 cd $natron_src
 
-pkill -9 Natron
-rm App/Natron
+pkill -9 Nitrogen
+rm App/Nitrogen
 rm /opt/Natron2/bin/Natron
 
 # Compilar sass stylesheet
@@ -25,6 +25,6 @@ make -j $thread
 
 # copia Natron compilado a la carpeta de la instalacion de Natron
 
-cp ./App/Natron /opt/Natron2/bin/Natron
+cp ./App/Nitrogen /opt/Natron2/bin/Natron
 /opt/Natron2/bin/Natron
 # -------------------
