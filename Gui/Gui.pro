@@ -113,21 +113,20 @@ HEADERS += \
 RESOURCES += \
     GuiResources.qrc
 
-# for i in `find Resources -type f |sort |uniq`; do fgrep -q "$i" GuiResources.qrc || echo "$i"; done |fgrep -v .git |fgrep -v .DS_Store
 OTHER_FILES += \
-    resources/Fonts/Apache_License.txt \
-    resources/Images/MotionTypeRTS.png \
-    resources/Images/Other/natron_picto_tools.svg \
-    resources/Images/Other/natron_picto_viewer.svg \
-    resources/Images/motionTypeAffine.png \
-    resources/Images/motionTypeRT.png \
-    resources/Images/motionTypeS.png \
-    resources/Images/motionTypeT.png \
-    resources/Images/natronIcon.icns \
-    resources/Images/natronIcon.svg \
-    resources/Images/natronIcon256_windows.ico \
-    resources/Images/patternSize.png \
-    resources/Images/prevUserKey.png \
-    resources/Images/searchSize.png \
-    resources/Images/splashscreen.svg
+    Resources/Fonts/Apache_License.txt \
+    Resources/Images/MotionTypeRTS.png \
+    Resources/Images/Other/natron_picto_tools.svg \
+    Resources/Images/Other/natron_picto_viewer.svg \
+    Resources/Images/motionTypeAffine.png \
+    Resources/Images/motionTypeRT.png \
+    Resources/Images/motionTypeS.png \
+    Resources/Images/motionTypeT.png \
+    Resources/Images/natronIcon.icns \
+    Resources/Images/natronIcon.svg \
+    Resources/Images/natronIcon256_windows.ico \
+    Resources/Images/patternSize.png \
+    Resources/Images/prevUserKey.png \
+    Resources/Images/searchSize.png \
+    Resources/Images/splashscreen.svg
 
