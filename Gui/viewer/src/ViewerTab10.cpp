@@ -945,27 +945,6 @@ ViewerTab::onViewerChannelsChanged(int i)
     setDisplayChannels(i, false);
 }
 
-bool
-ViewerTab::eventFilter(QObject *target,
-                       QEvent* e)
-{
-    if (e->type() == QEvent::MouseButtonPress) {
-        Gui* gui = getGui();
-        if (gui) {
-            GuiAppInstancePtr app = gui->getApp();
-            if (app) {
-                NodeGuiIPtr nodegui_i = _imp->viewerNode->getNode()->getNodeGui();
-                assert(nodegui_i);
-                NodeGuiPtr nodegui = boost::dynamic_pointer_cast<NodeGui>(nodegui_i);
-                if (nodegui) {
-                    gui->selectNode(nodegui);
-                }
-            }
-        }
-    }
-
-    return QWidget::eventFilter(target, e);
-}
 
 void
 ViewerTab::disconnectViewer()

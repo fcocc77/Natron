@@ -1766,13 +1766,6 @@ ViewerGL::mousePressEvent(QMouseEvent* e)
     Qt::KeyboardModifiers modifiers = e->modifiers();
     Qt::MouseButton button = e->button();
 
-    if ( buttonDownIsLeft(e) ) {
-        NodeGuiIPtr gui_i = _imp->viewerTab->getInternalNode()->getNode()->getNodeGui();
-        assert(gui_i);
-        NodeGuiPtr gui = boost::dynamic_pointer_cast<NodeGui>(gui_i);
-        _imp->viewerTab->getGui()->selectNode(gui);
-    }
-
     _imp->oldClick = e->pos();
     _imp->lastMousePosition = e->pos();
     QPointF zoomPos;
@@ -2791,7 +2784,7 @@ ViewerGL::wheelEvent(QWheelEvent* e)
 
     NodeGuiIPtr nodeGui_i = _imp->viewerTab->getInternalNode()->getNode()->getNodeGui();
     NodeGuiPtr nodeGui = boost::dynamic_pointer_cast<NodeGui>(nodeGui_i);
-    gui->selectNode(nodeGui);
+    // gui->selectNode(nodeGui);
 
     const double zoomFactor_min = 0.01;
     const double zoomFactor_max = 1024.;
