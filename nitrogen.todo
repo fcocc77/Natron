@@ -42,5 +42,6 @@ Gui:
         ☐ el cuadro inferior de busqueda, al mover el cuandro interior, cambia de tamaño, deberia mantener un tamaño fijo.
     TabWidget:
         ☐ al precionar el tab se mueve de inmediato el panel para cambiar la posicion, hacer que despues de 1 segundo precionando el click, ahi recien se pueda mover el panel
+        ☐ shortcut para cambiar los tab, con Alt-1, Alt-2, etc
     ToolButtons:
         ☐ en la parte inferior poner, botones con opciones de layout ej: scripting, comp, animation, etc
