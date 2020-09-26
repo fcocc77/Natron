@@ -2,11 +2,11 @@
 Version=1.0
 Type=Application
 Terminal=false
-Name=Natron
+Name=Nitrogen
 MimeType=application/x-natron
-Exec=Natron %U
+Exec=/opt/Natron2/Nitrogen
 GenericName=Compositing software
 Comment=Node-graph based compositing software
-Icon=natronIcon256_linux
+Icon=/opt/Natron2/Resources/Images/nitrogen.png
 Categories=Graphics;2DGraphics;RasterGraphics;
 
