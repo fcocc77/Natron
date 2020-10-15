@@ -8,4 +8,4 @@ if [ -d "$dir/Resources/etc/fonts" ]; then
     export FONTCONFIG_PATH="$dir/Resources/etc/fonts"
 fi
 
-./bin/Nitrogen
+./bin/Nitrogen "$@"
